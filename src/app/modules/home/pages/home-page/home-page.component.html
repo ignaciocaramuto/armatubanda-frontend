@@ -1,18 +1,13 @@
 <div class="home-body">
     <div class="content">
-        <div>
+        <form>
             <p>Encontrá tu banda ideal</p>
             <div class="search-bar">
                 <div class="dropdowns">
-                    <!-- <p-dropdown
-                        class="multiselect"
-                        [options]="singleOptions"
-                        [(ngModel)]="selectedOption"
-                        (onChange)="changeMultiSelectOptions()"
-                        optionValue="id"
-                        optionLabel="nombre"
-                        placeholder="Selecciona uno">
-                    </p-dropdown> -->
+                    <select formControlName="musicGenre">
+                        <option [value]="null" disabled>Selecciona uno</option>
+                        <option value="test">test</option>
+                    </select>
                     <!-- <p-divider layout="vertical">
                     </p-divider>
                     <p-multiSelect
@@ -24,8 +19,8 @@
                         placeholder="Selecciona uno o varios">
                     </p-multiSelect> -->
                 </div>
-                <button type="button">Buscar</button>
+                <button type="submit">Buscar</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
