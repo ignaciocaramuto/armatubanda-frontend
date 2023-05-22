@@ -57,3 +57,21 @@ button {
 button:hover {
     transform: scale(1.05,1.05);
 }
+
+::ng-deep {
+    .p-dropdown, .p-multiselect {
+        width: 100%;
+        border: 0;
+        border-color: none;
+    }
+    .p-dropdown:not(.p-disabled).p-focus, .p-multiselect:not(.p-disabled).p-focus {
+        box-shadow: 0 0 0 0 $white;
+    }
+}
+
+@media (max-width: 828px) {
+    .content {
+        justify-content: center !important;
+        margin-left: 0 !important;
+    }
+}
