@@ -1,0 +1,53 @@
+@import 'themes';
+
+.container {
+    height: calc(100% - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register {
+    width: 400px;
+    height: 400px;
+    box-shadow: $box-shadow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+}
+
+h2, a {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+p {
+    margin: 0;
+    text-align: center;
+}
+
+a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+button {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 1em;
+    color: $white;
+    background-color: $main-color;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+::ng-deep {
+    .p-inputtext {
+        width: 100%;
+        padding: .375rem .75rem;
+        margin-bottom: 1em;
+    }
+}
