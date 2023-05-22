@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ListRoutingModule } from './list-routing.module';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 
 
@@ -9,7 +11,8 @@ import { ListPageComponent } from './pages/list-page/list-page.component';
     ListPageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ListRoutingModule
   ]
 })
 export class ListModule { }
