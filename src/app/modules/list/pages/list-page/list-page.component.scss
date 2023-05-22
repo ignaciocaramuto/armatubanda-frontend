@@ -1,6 +1,5 @@
 .container {
     display: flex;
-    margin-top: 75px;
 }
 
 .list {
@@ -11,4 +10,5 @@
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     justify-items: center;
     overflow-y: auto;
+    margin-top: 70px;
 }
