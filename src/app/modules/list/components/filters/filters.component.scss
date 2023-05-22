@@ -1,0 +1,36 @@
+.filter {
+    width: 20rem;
+    height: 40em;
+    box-shadow: var(--box-shadow);
+    background-color: var(--white);
+    position: sticky;
+    top: 75px;
+    .filter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        p {
+            margin-top: 2em;
+        }
+        .filter-inputs {
+            width: 230px;
+            margin-bottom: 1em;
+        }
+        .buttons {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 1em;
+            .buscar {
+                background-color: var(--main-color);
+                border-color: var(--main-color);
+            }
+            .limpiar {
+                background-color: #49547A;
+                border-color: #49547A;
+            }
+        }
+    }
+}

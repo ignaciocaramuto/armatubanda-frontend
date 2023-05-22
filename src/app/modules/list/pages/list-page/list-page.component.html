@@ -1,1 +1,16 @@
-<p>list-page works!</p>
+<div class="container">
+    <app-filters></app-filters>
+    <div *ngIf="users" class="list">
+        <div *ngFor="let user of users">
+            <app-card
+                [id]="user.id"
+                [description]="user.descripcion"
+                [name]="user.nombre"
+                [image]="user.img"
+                [rate]="user.rate"
+                [opinions]="user.opiniones"
+                [rol]="user.rol">
+            </app-card>
+        </div>
+    </div>
+</div>
