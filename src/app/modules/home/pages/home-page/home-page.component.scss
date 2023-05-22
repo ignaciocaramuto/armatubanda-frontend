@@ -32,7 +32,7 @@
             .dropdowns {
                 width: 100%;
                 display: flex;
-                justify-content: center;
+                justify-content: space-around;
                 .multiselect {
                     width: 50%;
                 }
@@ -67,11 +67,22 @@ button:hover {
     .p-dropdown:not(.p-disabled).p-focus, .p-multiselect:not(.p-disabled).p-focus {
         box-shadow: 0 0 0 0 $white;
     }
+    .p-dropdown .p-dropdown-trigger, .p-multiselect .p-multiselect-trigger {
+        display: none;
+    }
 }
 
 @media (max-width: 828px) {
     .content {
         justify-content: center !important;
         margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 500px) {
+    ::ng-deep {
+        .p-dropdown, .p-multiselect {
+            width: 140px;
+        }
     }
 }
