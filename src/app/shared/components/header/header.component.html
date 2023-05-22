@@ -1,4 +1,7 @@
-<div class="header">
+<div [ngClass]="{
+    'home-header': route.url === '/',
+    'header': route.url !== '/'
+}">
     <div class="logo">Logo</div>
     <div class="links">
         <a href="">Ayuda</a>
