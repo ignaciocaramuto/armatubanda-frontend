@@ -21,12 +21,12 @@ img {
     display: flex;
     align-items: center;
     margin-left: 0.5em;
-    color: var(--black);
+    color: $black;
     p {
         font-weight: 400;
         font-size: 12px;
         margin: 0;
-        color: var(--text-light-grey);
+        color: $text-light-grey;
         align-self: center;
         margin-left: 0.3em;
         margin-right: 0.5em;
@@ -35,15 +35,18 @@ img {
 }
 
 i {
-    color: var(--main-color);
+    color: $main-color;
     margin-top: 0.1em;
     margin-right: 0.3em;
 }
 
-.description {
+p {
+    color: #54595F;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    font-size: 14px;
     margin-left: 0.5em;
-    margin-top: 0.5em;
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--text-grey);
 }
