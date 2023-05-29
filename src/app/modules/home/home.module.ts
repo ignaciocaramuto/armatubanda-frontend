@@ -7,6 +7,7 @@ import { SharedModule } from './../../shared/shared.module';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     HomeRoutingModule,
     DropdownModule,
     MultiSelectModule,
+    DividerModule,
     SharedModule
   ]
 })
