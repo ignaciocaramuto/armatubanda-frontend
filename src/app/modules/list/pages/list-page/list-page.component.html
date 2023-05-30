@@ -1,16 +1,15 @@
-<app-header></app-header>
 <div class="container">
     <app-filters></app-filters>
     <div *ngIf="users" class="list">
         <div *ngFor="let user of users">
             <app-card
                 [id]="user.id"
-                [description]="user.descripcion"
-                [name]="user.nombre"
-                [image]="user.img"
+                [description]="user.description"
+                [name]="user.firstname"
+                [image]="user.image"
                 [rate]="user.rate"
-                [opinions]="user.opiniones"
-                [rol]="user.rol">
+                [opinions]="user.opinions"
+                [rol]="user.role">
             </app-card>
         </div>
     </div>

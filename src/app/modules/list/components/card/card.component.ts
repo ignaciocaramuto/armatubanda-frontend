@@ -22,7 +22,7 @@ export class CardComponent {
   }
 
   openProfile(): void {
-    this.router.navigate(['/perfil', this.id]);
+    this.router.navigate(['/list/profile', this.id]);
   }
 
 }

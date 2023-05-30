@@ -6,6 +6,7 @@ import { ListPageComponent } from './pages/list-page/list-page.component';
 import { CardComponent } from './components/card/card.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 
 
@@ -13,7 +14,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [
     ListPageComponent,
     CardComponent,
-    FiltersComponent
+    FiltersComponent,
+    ProfilePageComponent
   ],
   imports: [
     CommonModule,

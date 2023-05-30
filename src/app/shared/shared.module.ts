@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonComponent } from './components/button/button.component';
 
 // Primeng
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,7 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    ButtonComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +19,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule
   ],
   exports: [
-    HeaderComponent,
+    ButtonComponent,
     FormsModule,
     ReactiveFormsModule,
     InputTextModule

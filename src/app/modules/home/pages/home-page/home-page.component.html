@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="home-body">
     <div class="content">
         <form [formGroup]="formGroup">
@@ -20,7 +19,7 @@
                         placeholder="Selecciona uno o varios">
                     </p-multiSelect>
                 </div>
-                <button type="submit">Buscar</button>
+                <app-button [type]="'submit'" [label]="'Buscar'"></app-button>
             </div>
         </form>
     </div>

@@ -1,0 +1,18 @@
+@import 'themes';
+
+button {
+    background-color: $main-color;
+    border-color: $main-color;
+    margin-right: 0.5em;
+    border-radius: 15px;
+    transition: all 0.4s;
+    padding: 1em;
+    color: $white;
+    border: 0px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: scale(1.05,1.05);
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from 'src/app/core/models/user';
 import { ListService } from '../../services/list.service';
 
 @Component({
@@ -8,12 +9,12 @@ import { ListService } from '../../services/list.service';
 })
 export class ListPageComponent {
 
-  users: any[] = [];
+  users: User[] = [];
 
   constructor(private listService: ListService) { }
 
   ngOnInit(): void {
-    this.listService.getAllUsers().subscribe((data: any[]) => {
+    this.listService.getAllUsers().subscribe((data: User[]) => {
       this.users = data;
     });
   }
