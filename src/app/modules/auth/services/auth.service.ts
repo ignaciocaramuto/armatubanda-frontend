@@ -77,7 +77,7 @@ export class AuthService {
 
     return this.http.get<AuthUser>(url)
       .pipe(
-        tap(user => this._currentUser.set(user)),
+        tap(user => {this._currentUser.set(user);this._authStatus.set(AuthStatus.authenticated);}),
         map(user => !!user),
         catchError(err => of(false))
       );

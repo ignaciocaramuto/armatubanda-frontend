@@ -4,11 +4,14 @@ import { HomePageComponent } from './modules/home/pages/home-page/home-page.comp
 
 import { canActivateGuard,canMatchGuard } from './modules/auth/guards/auth.guard';
 import { canActivateGuardPublic,canMatchGuardPublic } from './modules/auth/guards/public.guard';
+import { canActivateGuardTrue, canMatchGuardTrue } from './modules/auth/guards/check-auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+    canActivate: [canActivateGuardTrue],
+    canMatch:[canMatchGuardTrue]
   },
   {
     path: 'auth',
