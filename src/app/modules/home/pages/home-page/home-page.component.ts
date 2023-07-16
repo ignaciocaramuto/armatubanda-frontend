@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,6 +11,8 @@ export class HomePageComponent implements OnInit {
 
   formGroup!: FormGroup;
 
+  private authService = inject(AuthService);
+
   musicGenres: any[] = [];
   instruments: any[] = [];
 
@@ -19,6 +22,9 @@ export class HomePageComponent implements OnInit {
   disableMultiselect = true;
 
   ngOnInit(): void {
+
+    this.authService.checkAuthentication();
+
     this.formGroup = new FormGroup({
       musicGenres: new FormControl<string | null>(null),
       instruments: new FormControl<string | null>(null)
