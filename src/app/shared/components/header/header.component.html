@@ -4,8 +4,8 @@
 }">
     <div class="logo"><a routerLink="/">Logo</a></div>
     <div class="links">
-        <a href="/auth/login" (click)="logout()" *ngIf="status() == 'authenticated'">Logout</a>
-        <a href="/auth/register"*ngIf="status() != 'authenticated'">Registrarse</a>
-        <a href="/auth/login" *ngIf="status() != 'authenticated'">Conectarse</a>
+        <a routerLink="/auth/login" (click)="logout()" *ngIf="status() == 'authenticated'">Logout</a>
+        <a routerLink="/auth/register"*ngIf="status() != 'authenticated'">Registrarse</a>
+        <a routerLink="/auth/login" *ngIf="status() != 'authenticated'">Conectarse</a>
     </div>
 </div>
