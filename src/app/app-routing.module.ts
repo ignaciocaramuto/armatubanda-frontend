@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import(`./modules/list/list.module`).then(m => m.ListModule),
     canActivate: [canActivateGuard],
     canMatch:[canMatchGuard]
+  },
+  {
+    path:'new-profile',
+    loadChildren: () => import(`./modules/profile-creation/profile-creation.module`).then(m => m.ProfileCreationModule),
   }
 ];
 

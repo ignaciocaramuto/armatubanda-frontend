@@ -1,0 +1,10 @@
+<div class="container">
+  <form autocomplete="off" [formGroup]="creationProfileForm" (ngSubmit)="onSubmit()">
+      <div class="basicInfo">
+          <h2>Creacion perfil</h2>
+          <input type="text" pInputText formControlName="firstName" placeholder="Nombre" aria-label="Nombre">
+          <input type="text" pInputText formControlName="lastName" placeholder="Apellido" aria-label="Apellido">
+          <button type="submit">Siguiente</button>
+      </div>
+  </form>
+</div>
