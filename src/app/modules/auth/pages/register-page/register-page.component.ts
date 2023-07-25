@@ -18,9 +18,9 @@ export class RegisterPageComponent {
   private validatorsService = inject(ValidatorsService);
 
   public registerForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email ]],
-    password: ['', [ Validators.required, Validators.minLength(6)]],
-    repeatPassword:['',[Validators.required,Validators.minLength(6)]]
+    email: ['martin@gmail.com', [Validators.required, Validators.email ]],
+    password: ['asdasd123', [ Validators.required, Validators.minLength(6)]],
+    repeatPassword:['asdasd123',[Validators.required,Validators.minLength(6)]]
   },
   {
     validators: [

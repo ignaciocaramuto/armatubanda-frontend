@@ -5,6 +5,7 @@ import { HomePageComponent } from './modules/home/pages/home-page/home-page.comp
 import { canActivateGuard,canMatchGuard } from './modules/auth/guards/auth.guard';
 import { canActivateGuardPublic,canMatchGuardPublic } from './modules/auth/guards/public.guard';
 import { canActivateGuardTrue, canMatchGuardTrue } from './modules/auth/guards/check-auth.guard';
+import {canActivateGuardProfile,canMatchGuardProfile} from './modules/profile-creation/guards/profile-set.guard';
 
 const routes: Routes = [
   {
@@ -22,12 +23,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import(`./modules/list/list.module`).then(m => m.ListModule),
-    canActivate: [canActivateGuard],
-    canMatch:[canMatchGuard]
+    canActivate: [canActivateGuard,canActivateGuardProfile],
+    canMatch:[canMatchGuard,canMatchGuardProfile]
   },
   {
     path:'new-profile',
     loadChildren: () => import(`./modules/profile-creation/profile-creation.module`).then(m => m.ProfileCreationModule),
+    canActivate: [canActivateGuard],
+    canMatch:[canMatchGuard]
   }
 ];
 

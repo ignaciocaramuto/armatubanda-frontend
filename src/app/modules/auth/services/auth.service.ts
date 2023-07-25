@@ -29,13 +29,16 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(url,body)
       .pipe(
-        tap( ({token,email}) => {
+        tap( ({token,email,isProfileSet}) => {
           const newAuthUser:AuthUser = {
-            email:email
+            email:email,
+            isProfileSet:isProfileSet
           }
           this._currentUser.set(newAuthUser);
           this._authStatus.set(AuthStatus.authenticated);
           localStorage.setItem('token',token);
+          localStorage.setItem('isProfileSet',isProfileSet);
+          
 
           console.log({email,token});
         }),
@@ -77,17 +80,33 @@ export class AuthService {
 
     return this.http.get<AuthUser>(url)
       .pipe(
-        tap(user => {this._currentUser.set(user);this._authStatus.set(AuthStatus.authenticated);}),
+        tap(user => {this._currentUser.set(user);
+                     this._authStatus.set(AuthStatus.authenticated);
+                     localStorage.setItem('isProfileSet',user.isProfileSet);
+
+        }),
         map(user => !!user),
         catchError(err => of(false))
       );
-
-
-
-
-
   }
 
+  checkProfileSet() : Observable<boolean>{
+    if(!localStorage.getItem('token')) return of(false);
+    const url = `${this.baseUrl}/auth/me`;
+
+    return this.http.get<AuthUser>(url)
+      .pipe(
+        tap(user => {localStorage.setItem('isProfileSet',user.isProfileSet);}),
+        map(user => {
+          if(user.isProfileSet == 'false'){
+            return false;
+          }else{
+            return true;
+          }
+      }),
+      catchError(err => of(false))
+    );
+  }
 
 
 }
