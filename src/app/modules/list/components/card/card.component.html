@@ -1,10 +1,10 @@
 <div class="card" (click)="openProfile()">
-    <img [src]="image" alt="">
+    <img [src]="user.image" alt="">
     <div class="rating">
         <i class="fa fa-star"></i>
-        <b> {{rate}}</b>
-        <p>({{opinions}} opiniones)</p>
-        <b> {{rol}} </b>
+        <b> {{ user.rate }}</b>
+        <p>({{ user.opinions }} opiniones)</p>
+        <b> {{ user.role }} </b>
     </div>
-    <p>{{ description }}</p>
+    <p>{{ user.description }}</p>
 </div>

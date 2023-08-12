@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core/models/user';
 
 @Component({
   selector: 'app-card',
@@ -8,13 +9,7 @@ import { Router } from '@angular/router';
 })
 export class CardComponent {
 
-  @Input() id!: number;
-  @Input() description!: string;
-  @Input() name!: string;
-  @Input() image!: string;
-  @Input() rate!: number;
-  @Input() rol!: string;
-  @Input() opinions!: number;
+  @Input() user!: User;
 
   constructor(private router: Router) { }
 
@@ -22,7 +17,7 @@ export class CardComponent {
   }
 
   openProfile(): void {
-    this.router.navigate(['/list/profile', this.id]);
+    this.router.navigate(['/list/profile', this.user.id]);
   }
 
 }
