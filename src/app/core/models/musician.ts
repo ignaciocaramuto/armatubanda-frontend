@@ -1,4 +1,4 @@
-export interface User {
+export interface Musician {
     id: number;
     firstname: string;
     lastname: string;

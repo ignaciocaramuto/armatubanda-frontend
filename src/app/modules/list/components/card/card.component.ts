@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/core/models/user';
+import { Musician } from 'src/app/core/models/musician';
 
 @Component({
   selector: 'app-card',
@@ -9,7 +9,7 @@ import { User } from 'src/app/core/models/user';
 })
 export class CardComponent {
 
-  @Input() user!: User;
+  @Input() musician!: Musician;
 
   constructor(private router: Router) { }
 
@@ -17,7 +17,7 @@ export class CardComponent {
   }
 
   openProfile(): void {
-    this.router.navigate(['/list/profile', this.user.id]);
+    this.router.navigate(['/list/profile', this.musician.id]);
   }
 
 }

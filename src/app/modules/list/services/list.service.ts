@@ -1,190 +1,23 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { User } from 'src/app/core/models/user';
+import { Musician } from 'src/app/core/models/musician';
+import { environment } from 'src/environments/environment.local';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
 
-  constructor() { }
+  private readonly baseUrl: string = environment.apiUrl;
 
-  getAllUsers(): Observable<User[]> {
-    return of([
-      {
-        id: 1,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 2,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 3,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 4,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 5,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 6,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 7,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 8,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 9,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 10,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 11,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 12,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 13,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 14,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 15,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 16,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      },
-      {
-        id: 17,
-        firstname: 'Fabricio',
-        lastname: 'Gomez',
-        role: 'Guitarrista',
-        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries',
-        image: 'https://i.ibb.co/9HD3gMf/img-random.png',
-        rate: 4.5,
-        opinions: 15
-      }
-    ])
+  private http = inject(HttpClient);
+
+  getAllUsers(): Observable<Musician[]> {
+    return this.http.get<Musician[]>(`${this.baseUrl}/musician`)
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(id: number): Observable<Musician> {
     return of({
       id: 1,
       firstname: 'Fabricio',

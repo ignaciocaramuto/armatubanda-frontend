@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { User } from 'src/app/core/models/user';
+import { Musician } from 'src/app/core/models/musician';
 import { ListService } from '../../services/list.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ListService } from '../../services/list.service';
 export class ProfilePageComponent implements OnInit {
 
   userID!: number;
-  user!: User;
+  user!: Musician;
 
   constructor(private route: ActivatedRoute, private listService: ListService) { }
 
