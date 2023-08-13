@@ -1,14 +1,14 @@
 import { LoginResponse } from './../interfaces/login-response';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable,computed,inject,signal } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment.local';
 import {AuthUser,AuthStatus} from 'src/app/modules/auth/interfaces/index'
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  private readonly baseUrl: string = environment.baseUrl;
+  private readonly baseUrl: string = environment.apiUrl;
 
   private http = inject(HttpClient);
 
