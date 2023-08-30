@@ -1,10 +1,23 @@
+import { Instrument } from "./instrument.interface";
+import { ProfileImage } from "./profile-image.interface";
+import { Review } from "./review.interface";
+
 export interface Musician {
     id: number;
-    firstname: string;
+    musicianContactInformation: ContactInformation;
+    intruments: Instrument[];
+    profileImage: ProfileImage;
+    reviews: Review[]
+}
+
+export interface ContactInformation {
+    name: string;
     lastname: string;
-    role: string;
-    description: string;
-    image: string;
-    rate: number;
-    opinions: number;
+    stageName: string;
+    bio: string;
+    country: string;
+    city: string;
+    phoneNumber: string;
+    webSite: string;
+    socialMediaLink: string;
 }
