@@ -4,25 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 
-// Primeng
-import { InputTextModule } from 'primeng/inputtext';
-
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [
-    ButtonComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule
-  ],
-  exports: [
-    ButtonComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule
-  ]
+  declarations: [ButtonComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSelectModule],
+  exports: [ButtonComponent, FormsModule, ReactiveFormsModule, MatSelectModule],
 })
-export class SharedModule { }
+export class SharedModule {}

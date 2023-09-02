@@ -5,9 +5,8 @@ import {
   MusicianContactInformation,
 } from '../../interfaces/profile-creation.interface';
 import { HttpClient } from '@angular/common/http';
-import { Observable, delay } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-instrument-form',
@@ -15,18 +14,17 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./instrument-form.component.scss'],
 })
 export class InstrumentFormComponent implements OnInit {
+  instrumentSelectionForm = new FormControl<Instrument | null>(
+    null,
+    Validators.required
+  );
+  data: Instrument[] = [];
+  musicianBasicInfo: MusicianContactInformation | undefined = undefined;
+
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
-
   private readonly baseUrl: string = environment.apiUrl;
-
-  public InstrumentSelectionForm: FormGroup = this.fb.group({
-    instruments: ['', []],
-  });
-
-  data: Instrument[] = [];
-  musicianBasicInfo: MusicianContactInformation | undefined = undefined;
 
   ngOnInit(): void {
     this.getInstruments();

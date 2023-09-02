@@ -1,12 +1,13 @@
 <span>test</span>
 <div>
-<form class="form-container" [formGroup]="InstrumentSelectionForm">
-  <p-dropdown
-                        formControlName="instruments"
-                        [options]="this.data"
-                        optionValue="id"
-                        optionLabel="name"
-                        placeholder="Selecciona uno">
-  </p-dropdown>
-</form>
+  <div class="form-container">
+    <mat-form-field>
+      <mat-label>Selecciona uno</mat-label>
+      <mat-select [formControl]="instrumentSelectionForm" required>
+        <mat-option *ngFor="let instrument of data">
+          {{ instrument }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>

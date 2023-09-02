@@ -1,18 +1,28 @@
 <div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="login">
-            <h2>Inicio de sesión</h2>
-            <span class="p-input-icon-left">
-                <i class="fa-solid fa-envelope"></i>
-                <input type="email" pInputText formControlName="email" placeholder="Nombre de usuario" aria-label="Useremail">
-            </span>
-            <span class="p-input-icon-left">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" pInputText formControlName="password" placeholder="Contraseña" aria-label="Password">
-            </span>
-            <button type="submit">Iniciar sesión</button>
-            <a href="/">¿Olvidaste tu contraseña?</a>
-            <p>¿No tienes cuenta? <a href="/auth/register">Regístrate</a></p>
-        </div>
-    </form>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="login">
+      <h2>Inicio de sesión</h2>
+      <span class="p-input-icon-left">
+        <i class="fa-solid fa-envelope"></i>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Nombre de usuario"
+          aria-label="Useremail"
+        />
+      </span>
+      <span class="p-input-icon-left">
+        <i class="fa-solid fa-lock"></i>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Contraseña"
+          aria-label="Password"
+        />
+      </span>
+      <button type="submit">Iniciar sesión</button>
+      <a href="/">¿Olvidaste tu contraseña?</a>
+      <p>¿No tienes cuenta? <a href="/auth/register">Regístrate</a></p>
+    </div>
+  </form>
 </div>
