@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from './components/button/button.component';
 
 import { MatSelectModule } from '@angular/material/select';
+import { ButtonModule } from './components/button/button.module';
 
 @NgModule({
-  declarations: [ButtonComponent],
+  declarations: [],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MatSelectModule],
-  exports: [ButtonComponent, FormsModule, ReactiveFormsModule, MatSelectModule],
+  exports: [ButtonModule, FormsModule, ReactiveFormsModule, MatSelectModule],
 })
 export class SharedModule {}
