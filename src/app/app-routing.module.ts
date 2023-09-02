@@ -21,9 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: () => import(`./modules/list/list.module`).then(m => m.ListModule),
-    canActivate: [canActivateGuard],
-    canMatch:[canMatchGuard]
+    loadChildren: () => import(`./modules/list/list.module`).then(m => m.ListModule)
   }
 ];
 
