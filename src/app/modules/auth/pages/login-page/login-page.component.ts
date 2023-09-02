@@ -20,7 +20,7 @@ export class LoginPageComponent {
 
   public loginForm: FormGroup = this.fb.group({
     email: ['martin@gmail.com', [Validators.required, Validators.email]],
-    password: ['asdasd123', [Validators.required, Validators.minLength(6)]],
+    password: ['asdasd123', [Validators.required]],
   });
 
   constructor() {}
