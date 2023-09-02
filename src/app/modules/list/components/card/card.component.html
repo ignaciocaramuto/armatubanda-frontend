@@ -1,10 +1,11 @@
 <div class="card" (click)="openProfile()">
-    <img [src]="musician.image" alt="">
+    <img [src]="" alt="">
     <div class="rating">
         <i class="fa fa-star"></i>
-        <b> {{ musician.rate }}</b>
-        <p>({{ musician.opinions }} opiniones)</p>
-        <b> {{ musician.role }} </b>
+        <b> 4.5 </b>
+        <p>({{ musician.reviews.length }} opiniones)</p>
+        <b> Musico </b>
     </div>
-    <p>{{ musician.description }}</p>
+    <h4>{{ musician.musicianContactInformation.name }}</h4>
+    <p>{{ musician.musicianContactInformation.bio }}</p>
 </div>
