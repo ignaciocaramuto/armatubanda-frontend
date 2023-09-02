@@ -1,4 +1,5 @@
 export interface LoginResponse{
   token: string,
-  email: string
+  email: string,
+  isProfileSet: string
 }

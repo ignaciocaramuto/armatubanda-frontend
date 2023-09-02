@@ -1,0 +1,36 @@
+@import 'themes';
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+  
+    .form-section {
+      display: flex;
+      gap: 10px; /* Adjust the gap between inputs as needed */
+      margin-bottom: 10px;
+  
+      input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .non-resizable {
+    resize: none;
+  }
+
+  button {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 1em;
+    color: $white;
+    background-color: $main-color;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    cursor: pointer;
+}

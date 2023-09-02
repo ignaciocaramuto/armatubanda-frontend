@@ -1,3 +1,4 @@
 export interface AuthUser {
-  email:    string
+  email:    string,
+  isProfileSet: string
 }

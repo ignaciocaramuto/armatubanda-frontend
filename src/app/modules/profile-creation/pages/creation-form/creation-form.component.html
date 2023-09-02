@@ -1,0 +1,31 @@
+<form class="form-container" autocomplete="off" [formGroup]="creationProfileForm" (ngSubmit)="onSubmit()">
+  <div class="form-section">
+    <input type="text"  formControlName="firstName" placeholder="Nombre" aria-label="Nombre" />
+    <input type="text"  formControlName="lastName" placeholder="Apellido" aria-label="Apellido" />
+    <input type="text"  formControlName="stageName" placeholder="Nombre Artistico" aria-label="Nombre Artistico" />
+  </div>
+  <div class="form-section">
+    <input type="text" formControlName="country" placeholder="Pais" aria-label="Pais" />
+    <input type="text" formControlName="city" placeholder="Ciudad" aria-label="Ciudad" />
+    <input type="text" formControlName="phoneNumber" placeholder="Numero de celular" aria-label="Numero de celular" />
+  </div>
+  <div class="form-section">
+    <input type="text" formControlName="webSite" placeholder="Website" aria-label="Website" />
+    <input type="text" formControlName="socialMediaWebSite" placeholder="Social Media Website" aria-label="SocialWebsite" />
+  </div>
+  <div class="form-section">
+    <textarea class="non-resizable" rows="4" cols="73"  formControlName="bio" placeholder="Ingrese una breve biografia" aria-label="Biografia" ></textarea>
+  </div>
+  <div class="form-section">
+    <p-multiSelect
+                        formControlName="instrumentList"
+                        [options]="this.data"
+                        optionValue="name"
+                        optionLabel="name"
+                        placeholder="Selecciona uno">
+  </p-multiSelect>
+  </div>
+  <div class="form-section">
+    <button type="submit">Siguiente</button>
+  </div>
+</form>
