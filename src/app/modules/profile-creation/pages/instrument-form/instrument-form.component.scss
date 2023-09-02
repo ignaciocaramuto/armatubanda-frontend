@@ -1,0 +1,19 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust the height as needed */
+
+  .form-section {
+    display: flex;
+    gap: 10px; /* Adjust the gap between inputs as needed */
+    margin-bottom: 10px;
+
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+}

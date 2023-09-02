@@ -1,1 +1,12 @@
 <span>test</span>
+<div>
+<form class="form-container" [formGroup]="InstrumentSelectionForm">
+  <p-dropdown
+                        formControlName="instruments"
+                        [options]="this.data"
+                        optionValue="id"
+                        optionLabel="name"
+                        placeholder="Selecciona uno">
+  </p-dropdown>
+</form>
+</div>

@@ -17,6 +17,15 @@
     <textarea class="non-resizable" rows="4" cols="73"  formControlName="bio" placeholder="Ingrese una breve biografia" aria-label="Biografia" ></textarea>
   </div>
   <div class="form-section">
+    <p-multiSelect
+                        formControlName="instrumentList"
+                        [options]="this.data"
+                        optionValue="name"
+                        optionLabel="name"
+                        placeholder="Selecciona uno">
+  </p-multiSelect>
+  </div>
+  <div class="form-section">
     <button type="submit">Siguiente</button>
   </div>
 </form>

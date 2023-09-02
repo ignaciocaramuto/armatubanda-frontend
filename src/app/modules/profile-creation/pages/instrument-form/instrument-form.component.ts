@@ -4,7 +4,7 @@ import { Instrument, MusicianContactInformation } from '../../interfaces/profile
 import { HttpClient } from '@angular/common/http';
 import { Observable, delay } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -13,12 +13,16 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./instrument-form.component.scss']
 })
 export class InstrumentFormComponent implements OnInit {
-  
+
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
   private readonly baseUrl: string = environment.baseUrl;
+
+  public InstrumentSelectionForm : FormGroup = this.fb.group({
+    instruments:['',[]]
+  });
 
   data: Instrument[] = [];
   musicianBasicInfo: MusicianContactInformation|undefined = undefined;
@@ -28,24 +32,21 @@ export class InstrumentFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
     const myObject = window.history.state;
     this.musicianBasicInfo = myObject;
-  }  
+  }
     )
     console.log(this.musicianBasicInfo);
 
   }
-  
+
   getInstruments(): void {
     const url = `${this.baseUrl}/instrument/all`;
 
     this.http.get<Instrument[]>(url).subscribe({
 
-      next: (list) => {this.data = list;console.log(this.data);},
+      next: (list) => {this.data = list;},
       error: (e) => console.log(e),
     }
     );
   }
-
-
-
 
 }

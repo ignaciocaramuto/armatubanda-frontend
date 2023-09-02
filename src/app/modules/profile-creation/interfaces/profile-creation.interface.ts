@@ -1,4 +1,4 @@
-export interface MusicianContactInformationNameMartinLastnamePereyraStageNameMartoBioEstaEsMiBioCountryArgentinaCityRosarioPhoneNumber34151WebSiteWebsiteCOMSocialMediaLinkLinkedinCOMInstrumentsNameGuitarraNameViolin {
+export interface BasicProfile {
     musicianContactInformation: MusicianContactInformation;
     instruments:                Instrument[];
 }
