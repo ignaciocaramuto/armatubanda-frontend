@@ -4,20 +4,20 @@
       <p>Encontrá tu banda ideal</p>
       <div class="search-bar">
         <div class="dropdowns">
-          <app-select
+          <app-input-select
             [items]="musicGenres"
             formControlName="musicGenres"
             placeholder="Selecciona uno"
           >
-          </app-select>
+          </app-input-select>
 
-          <app-select
+          <app-input-select
             [items]="instruments"
             formControlName="instruments"
             placeholder="Selecciona uno o varios"
             [multiple]="true"
           >
-          </app-select>
+          </app-input-select>
         </div>
         <app-button [type]="'submit'" [label]="'Buscar'"></app-button>
       </div>
