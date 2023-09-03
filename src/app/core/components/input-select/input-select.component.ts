@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  Input,
-} from '@angular/core';
+import { Component, Injector, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControlValueAccessorConnector } from '../form-control-value-accessor-connector/form-control-value-accessor-connector';
@@ -15,7 +10,6 @@ import { FormControlValueAccessorConnector } from '../form-control-value-accesso
   imports: [CommonModule, MatSelectModule, ReactiveFormsModule],
   templateUrl: './input-select.component.html',
   styleUrls: ['./input-select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
