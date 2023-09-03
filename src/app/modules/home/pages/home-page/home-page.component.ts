@@ -11,8 +11,6 @@ export class HomePageComponent implements OnInit {
   formGroup: FormGroup;
   musicGenres: any[] = [];
   instruments: any[] = [];
-  selectedMusicGenre!: string;
-  selectedInstruments!: string[];
   disableMultiselect = true;
 
   private authService = inject(AuthService);
@@ -40,5 +38,9 @@ export class HomePageComponent implements OnInit {
       { name: 'Bass', code: 'ASD' },
       { name: 'Saxophone', code: 'AS' },
     ];
+  }
+
+  onSubmit(): void {
+    // TODO: request with form values
   }
 }

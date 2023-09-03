@@ -1,6 +1,6 @@
 <div class="home-body">
   <div class="content">
-    <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <p>Encontrá tu banda ideal</p>
       <div class="search-bar">
         <div class="dropdowns">
