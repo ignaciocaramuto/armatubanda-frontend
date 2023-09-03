@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { environment } from 'src/environments/environment.local';
 import {
   Instrument,
@@ -12,6 +17,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   selector: 'app-instrument-form',
   templateUrl: './instrument-form.component.html',
   styleUrls: ['./instrument-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InstrumentFormComponent implements OnInit {
   instrumentSelectionForm = new FormControl<Instrument | null>(

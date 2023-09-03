@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   FormControl,
   FormBuilder,
@@ -19,6 +24,7 @@ import { catchError } from 'rxjs';
   selector: 'app-creation-form',
   templateUrl: './creation-form.component.html',
   styleUrls: ['./creation-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreationFormComponent implements OnInit {
   private fb = inject(FormBuilder);
