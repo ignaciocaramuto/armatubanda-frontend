@@ -37,8 +37,6 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () =>
       import(`./modules/list/list.module`).then((m) => m.ListModule),
-    canActivate: [canActivateGuard, canActivateGuardProfile],
-    canMatch: [canMatchGuard, canMatchGuardProfile],
   },
   {
     path: 'new-profile',
