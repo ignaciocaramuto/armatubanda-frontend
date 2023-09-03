@@ -1,0 +1,32 @@
+import { CommonModule } from '@angular/common';
+import { Component, Injector, Input } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { FormControlValueAccessorConnector } from '../form-control-value-accessor-connector/form-control-value-accessor-connector';
+
+@Component({
+  standalone: true,
+  selector: 'app-input-select',
+  imports: [CommonModule, MatSelectModule, ReactiveFormsModule],
+  templateUrl: './input-select.component.html',
+  styleUrls: ['./input-select.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: InputSelectComponent,
+      multi: true,
+    },
+  ],
+})
+export class InputSelectComponent extends FormControlValueAccessorConnector {
+  @Input() items: any[] = [];
+  @Input() idPropertyName: string = 'id';
+  @Input() namePropertyName: string = 'name';
+  @Input() placeholder: string = '';
+  @Input() required: boolean = false;
+  @Input() multiple: boolean = false;
+
+  constructor(injector: Injector) {
+    super(injector);
+  }
+}

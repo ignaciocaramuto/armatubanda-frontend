@@ -4,23 +4,20 @@
       <p>Encontrá tu banda ideal</p>
       <div class="search-bar">
         <div class="dropdowns">
-          <mat-form-field>
-            <mat-label>Selecciona uno</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let genre of musicGenres">
-                {{ genre }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <app-select
+            [items]="musicGenres"
+            formControlName="musicGenres"
+            placeholder="Selecciona uno"
+          >
+          </app-select>
 
-          <mat-form-field>
-            <mat-label>Selecciona uno o varios</mat-label>
-            <mat-select multiple>
-              <mat-option *ngFor="let instrument of instruments">
-                {{ instrument }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <app-select
+            [items]="instruments"
+            formControlName="instruments"
+            placeholder="Selecciona uno o varios"
+            [multiple]="true"
+          >
+          </app-select>
         </div>
         <app-button [type]="'submit'" [label]="'Buscar'"></app-button>
       </div>

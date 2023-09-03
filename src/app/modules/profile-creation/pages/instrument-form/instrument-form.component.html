@@ -9,5 +9,12 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <app-select
+      [items]="data"
+      [formControl]="instrumentSelectionForm"
+      placeholder="Selecciona uno"
+      [required]="true"
+    >
+    </app-select>
   </div>
 </div>

@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileCreationRoutingModule } from './profile-creation-routing.module';
 import { CreationFormComponent } from './pages/creation-form/creation-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from './../../shared/shared.module';
 import { InstrumentFormComponent } from './pages/instrument-form/instrument-form.component';
+import { MatSelectModule } from '@angular/material/select';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
 
 @NgModule({
   declarations: [CreationFormComponent, InstrumentFormComponent],
   imports: [
     CommonModule,
     ProfileCreationRoutingModule,
-    ReactiveFormsModule,
+    MatSelectModule,
     SharedModule,
+    InputSelectComponent,
   ],
 })
 export class ProfileCreationModule {}

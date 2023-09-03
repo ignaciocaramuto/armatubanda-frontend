@@ -69,14 +69,13 @@
     ></textarea>
   </div>
   <div class="form-section">
-    <mat-form-field>
-      <mat-label>Selecciona uno</mat-label>
-      <mat-select formControlName="'instrumentList'" multiple required>
-        <mat-option *ngFor="let instrument of data">
-          {{ instrument }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-select
+      [items]="data"
+      formControlName="instrumentList"
+      placeholder="Selecciona uno"
+      [required]="true"
+    >
+    </app-select>
   </div>
   <div class="form-section">
     <button type="submit">Siguiente</button>
