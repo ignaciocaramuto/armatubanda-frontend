@@ -1,3 +1,4 @@
+<!--
 <form
   class="form-container"
   autocomplete="off"
@@ -81,3 +82,36 @@
     <button type="submit">Siguiente</button>
   </div>
 </form>
+-->
+<div class="form-container">
+  <h2>Creacion del perfil</h2>
+  <mat-stepper orientation="vertical" [linear]="true" #stepper>
+    <mat-step [stepControl]="creationProfileForm">
+      <form [formGroup]="creationProfileForm">
+        <ng-template matStepLabel>Informacion Basica</ng-template>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input
+            matInput
+            placeholder="Nombre"
+            formControlName="firstName"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Apellido</mat-label>
+          <input
+            matInput
+            placeholder="Apellido"
+            formControlName="lastName"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step> </mat-step>
+  </mat-stepper>
+</div>
