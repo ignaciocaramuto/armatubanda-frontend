@@ -1,94 +1,9 @@
-<!--
-<form
-  class="form-container"
-  autocomplete="off"
-  [formGroup]="creationProfileForm"
-  (ngSubmit)="onSubmit()"
->
-  <div class="form-section">
-    <input
-      type="text"
-      formControlName="firstName"
-      placeholder="Nombre"
-      aria-label="Nombre"
-    />
-    <input
-      type="text"
-      formControlName="lastName"
-      placeholder="Apellido"
-      aria-label="Apellido"
-    />
-    <input
-      type="text"
-      formControlName="stageName"
-      placeholder="Nombre Artistico"
-      aria-label="Nombre Artistico"
-    />
-  </div>
-  <div class="form-section">
-    <input
-      type="text"
-      formControlName="country"
-      placeholder="Pais"
-      aria-label="Pais"
-    />
-    <input
-      type="text"
-      formControlName="city"
-      placeholder="Ciudad"
-      aria-label="Ciudad"
-    />
-    <input
-      type="text"
-      formControlName="phoneNumber"
-      placeholder="Numero de celular"
-      aria-label="Numero de celular"
-    />
-  </div>
-  <div class="form-section">
-    <input
-      type="text"
-      formControlName="webSite"
-      placeholder="Website"
-      aria-label="Website"
-    />
-    <input
-      type="text"
-      formControlName="socialMediaWebSite"
-      placeholder="Social Media Website"
-      aria-label="SocialWebsite"
-    />
-  </div>
-  <div class="form-section">
-    <textarea
-      class="non-resizable"
-      rows="4"
-      cols="73"
-      formControlName="bio"
-      placeholder="Ingrese una breve biografia"
-      aria-label="Biografia"
-    ></textarea>
-  </div>
-  <div class="form-section">
-    <app-input-select
-      [items]="data"
-      formControlName="instrumentList"
-      placeholder="Selecciona uno"
-      [required]="true"
-    >
-    </app-input-select>
-  </div>
-  <div class="form-section">
-    <button type="submit">Siguiente</button>
-  </div>
-</form>
--->
 <div class="form-container">
   <h2>Creacion del perfil</h2>
   <mat-stepper orientation="vertical" [linear]="true" #stepper>
-    <mat-step [stepControl]="creationProfileForm">
-      <form [formGroup]="creationProfileForm">
-        <ng-template matStepLabel>Informacion Basica</ng-template>
+    <mat-step [stepControl]="personalInfoForm">
+      <form [formGroup]="personalInfoForm">
+        <ng-template matStepLabel>Información personal</ng-template>
         <mat-form-field>
           <mat-label>Nombre</mat-label>
           <input
@@ -107,11 +22,123 @@
             required
           />
         </mat-form-field>
+        <mat-form-field>
+          <mat-label>Nombre artístico</mat-label>
+          <input
+            matInput
+            placeholder="Nombre artístico"
+            formControlName="stageName"
+            required
+          />
+        </mat-form-field>
         <div>
           <button mat-button matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
-    <mat-step> </mat-step>
+    <mat-step [stepControl]="locationForm">
+      <form [formGroup]="locationForm">
+        <ng-template matStepLabel>Ubicación y contacto</ng-template>
+        <mat-form-field>
+          <mat-label>Ciudad</mat-label>
+          <input
+            matInput
+            placeholder="Ciudad"
+            formControlName="city"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Pais</mat-label>
+          <input
+            matInput
+            placeholder="Pais"
+            formControlName="country"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Número celular</mat-label>
+          <input
+            matInput
+            placeholder="Nro. celular"
+            formControlName="phoneNumber"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="socialMediaForm">
+      <ng-template matStepLabel>Redes sociales y sitio web</ng-template>
+      <form [formGroup]="socialMediaForm">
+        <mat-form-field>
+          <mat-label>Website personal</mat-label>
+          <input
+            matInput
+            placeholder="Website"
+            formControlName="webSite"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Red social</mat-label>
+          <input
+            matInput
+            placeholder="Red social"
+            formControlName="socialMediaLink"
+            required
+          />
+        </mat-form-field>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="instrumentForm">
+      <ng-template matStepLabel>Selección de instrumentos</ng-template>
+      <form [formGroup]="instrumentForm">
+        <mat-form-field>
+          <mat-label>Instrumentos</mat-label>
+          <mat-select multiple>
+            <mat-option> {{ "opcion1" }} </mat-option>
+            <mat-option> {{ "opcion2" }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Biografia</ng-template>
+      <form [formGroup]="bioForm"></form>
+      <div>
+        <button mat-button matStepperPrevious>Volver</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Subir foto de perfil</ng-template>
+      <mat-form-field>
+        <mat-label>Textarea</mat-label>
+        <textarea
+          matInput
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+        ></textarea>
+      </mat-form-field>
+      <div>
+        <button>Crear perfil</button>
+      </div>
+    </mat-step>
   </mat-stepper>
 </div>

@@ -28,17 +28,29 @@ export class CreationFormComponent implements OnInit {
 
   data: Instrument[] = [];
 
-  public creationProfileForm: FormGroup = this.fb.group({
+  public personalInfoForm: FormGroup = this.fb.group({
     firstName: ['martin', [Validators.required]],
     lastName: ['pereyra', [Validators.required]],
     stageName: ['tnc', []],
+  });
+
+  public locationForm: FormGroup = this.fb.group({
     country: ['argentina', []],
     city: ['rosario', []],
     phoneNumber: ['3416511155', []],
-    webSite: ['wwwmp.com', []],
-    socialMediaWebSite: ['wwwlinkedicom', []],
-    bio: ['esta es mi bio', [Validators.maxLength(256)]],
+  });
+
+  public instrumentForm: FormGroup = this.fb.group({
     instrumentList: ['', []],
+  });
+
+  public socialMediaForm: FormGroup = this.fb.group({
+    webSite: ['wwwmp.com', []],
+    socialMediaLink: ['wwwlinkedicom', []],
+  });
+
+  public bioForm: FormGroup = this.fb.group({
+    bio: ['esta es mi bio', [Validators.maxLength(256)]],
   });
 
   ngOnInit(): void {
@@ -46,19 +58,23 @@ export class CreationFormComponent implements OnInit {
   }
 
   public onSubmit() {
-    if (this.creationProfileForm.valid) {
-      const {
-        firstName,
-        lastName,
-        stageName,
-        country,
-        city,
-        phoneNumber,
-        webSite,
-        socialMediaWebSite,
-        bio,
-        instrumentList,
-      } = this.creationProfileForm.value;
+    if (
+      this.personalInfoForm.valid &&
+      this.locationForm.valid &&
+      this.instrumentForm.valid &&
+      this.socialMediaForm.valid &&
+      this.bioForm.valid
+    ) {
+      const { firstName, lastName, stageName } = this.personalInfoForm.value;
+
+      const { country, city, phoneNumber } = this.locationForm.value;
+
+      const { webSite, socialMediaLink } = this.socialMediaForm.value;
+
+      const { instrumentList } = this.instrumentForm.value;
+
+      const { bio } = this.bioForm.value;
+
       const musicianContactObject: MusicianContactInformation = {
         name: firstName,
         lastname: lastName,
@@ -68,7 +84,7 @@ export class CreationFormComponent implements OnInit {
         city: city,
         phoneNumber: phoneNumber,
         webSite: webSite,
-        socialMediaLink: socialMediaWebSite,
+        socialMediaLink: socialMediaLink,
       };
       const instruments: Instrument[] = instrumentList;
       const basicInfo: BasicProfile = {
@@ -89,6 +105,7 @@ export class CreationFormComponent implements OnInit {
     this.http.get<Instrument[]>(url).subscribe({
       next: (list) => {
         this.data = list;
+        console.log(this.data);
       },
       error: (e) => console.log(e),
     });

@@ -1,36 +1,39 @@
-@import 'themes';
+@import "themes";
 
 .form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Adjust the height as needed */
-  
-    .form-section {
-      display: flex;
-      gap: 10px; /* Adjust the gap between inputs as needed */
-      margin-bottom: 10px;
-  
-      input {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh; /* Adjust the height as needed */
+
+  mat-step-header {
+    height: 30px;
   }
 
-  .non-resizable {
-    resize: none;
+  ::ng-deep .mat-step-header:hover {
+    background-color: transparent;
   }
 
-  button {
-    border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
-    margin-bottom: 1em;
-    color: $white;
-    background-color: $main-color;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    cursor: pointer;
+  mat-form-field {
+    margin-top: 5px;
+    margin-left: 10px;
+    height: 70px;
+  }
+
+  text-area {
+    overflow: auto;
+  }
+}
+
+button {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  margin-bottom: 1em;
+  color: $white;
+  background-color: $main-color;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 10px;
 }

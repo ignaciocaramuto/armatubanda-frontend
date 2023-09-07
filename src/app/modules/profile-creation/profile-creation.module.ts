@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [CreationFormComponent, InstrumentFormComponent],
@@ -24,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    TextFieldModule,
   ],
 })
 export class ProfileCreationModule {}
