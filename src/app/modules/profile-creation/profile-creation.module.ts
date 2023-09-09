@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileCreationRoutingModule } from './profile-creation-routing.module';
 import { CreationFormComponent } from './pages/creation-form/creation-form.component';
-import { InstrumentFormComponent } from './pages/instrument-form/instrument-form.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
@@ -14,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
-  declarations: [CreationFormComponent, InstrumentFormComponent],
+  declarations: [CreationFormComponent],
   imports: [
     CommonModule,
     ProfileCreationRoutingModule,
