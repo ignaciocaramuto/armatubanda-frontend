@@ -53,6 +53,10 @@ export class CreationFormComponent implements OnInit {
     bio: ['esta es mi bio', [Validators.maxLength(256)]],
   });
 
+  public photoForm: FormGroup = this.fb.group({
+    photo: ['', ,],
+  });
+
   ngOnInit(): void {
     this.getInstruments();
   }

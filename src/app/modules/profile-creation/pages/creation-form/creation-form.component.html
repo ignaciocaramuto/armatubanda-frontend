@@ -4,7 +4,7 @@
     <mat-step [stepControl]="personalInfoForm">
       <form [formGroup]="personalInfoForm">
         <ng-template matStepLabel>Información personal</ng-template>
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Nombre</mat-label>
           <input
             matInput
@@ -13,7 +13,7 @@
             required
           />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Apellido</mat-label>
           <input
             matInput
@@ -22,7 +22,7 @@
             required
           />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Nombre artístico</mat-label>
           <input
             matInput
@@ -39,7 +39,7 @@
     <mat-step [stepControl]="locationForm">
       <form [formGroup]="locationForm">
         <ng-template matStepLabel>Ubicación y contacto</ng-template>
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Ciudad</mat-label>
           <input
             matInput
@@ -48,7 +48,7 @@
             required
           />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Pais</mat-label>
           <input
             matInput
@@ -57,7 +57,7 @@
             required
           />
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Número celular</mat-label>
           <input
             matInput
@@ -75,7 +75,7 @@
     <mat-step [stepControl]="socialMediaForm">
       <ng-template matStepLabel>Redes sociales y sitio web</ng-template>
       <form [formGroup]="socialMediaForm">
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Website personal</mat-label>
           <input
             matInput
@@ -85,7 +85,7 @@
           />
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field class="textinput">
           <mat-label>Red social</mat-label>
           <input
             matInput
@@ -118,7 +118,18 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Biografia</ng-template>
-      <form [formGroup]="bioForm"></form>
+      <form [formGroup]="bioForm">
+        <mat-form-field class="bioinput">
+          <mat-label>Biografia</mat-label>
+          <textarea
+            matInput
+            placeholder="Ex. It makes me feel..."
+            rows="2"
+            cols="200"
+            style="width: 500px"
+          ></textarea>
+        </mat-form-field>
+      </form>
       <div>
         <button mat-button matStepperPrevious>Volver</button>
         <button mat-button matStepperNext>Siguiente</button>
@@ -126,19 +137,11 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Subir foto de perfil</ng-template>
-      <mat-form-field>
-        <mat-label>Textarea</mat-label>
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          #autosize="cdkTextareaAutosize"
-          cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5"
-        ></textarea>
-      </mat-form-field>
-      <div>
-        <button>Crear perfil</button>
-      </div>
+      <form [formGroup]="photoForm" (ngSubmit)="onSubmit()">
+        <div>
+          <button type="submit">Crear perfil</button>
+        </div>
+      </form>
     </mat-step>
   </mat-stepper>
 </div>
