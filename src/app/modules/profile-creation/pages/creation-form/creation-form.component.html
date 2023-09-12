@@ -138,6 +138,17 @@
     <mat-step>
       <ng-template matStepLabel>Subir foto de perfil</ng-template>
       <form [formGroup]="photoForm" (ngSubmit)="onSubmit()">
+        <button type="button" mat-raised-button (click)="fileInput.click()">
+          Choose File
+        </button>
+        <input
+          hidden
+          (change)="onFileSelected($event)"
+          #fileInput
+          type="file"
+          id="file"
+          accept="image/png,image/jpg,image/jpeg"
+        />
         <div>
           <button type="submit">Crear perfil</button>
         </div>

@@ -12,7 +12,8 @@ import {
   MusicianContactInformation,
 } from '../../interfaces/profile-creation.interface';
 import { environment } from 'src/environments/environment.local';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { catchError } from 'rxjs';
 
 @Component({
@@ -25,6 +26,7 @@ export class CreationFormComponent implements OnInit {
   private router = inject(Router);
   private readonly baseUrl: string = environment.apiUrl;
   private http = inject(HttpClient);
+  selectedFile: File | null = null;
 
   data: Instrument[] = [];
 
@@ -41,7 +43,7 @@ export class CreationFormComponent implements OnInit {
   });
 
   public instrumentForm: FormGroup = this.fb.group({
-    instrumentList: ['', []],
+    instrumentList: [[], []],
   });
 
   public socialMediaForm: FormGroup = this.fb.group({
@@ -50,11 +52,11 @@ export class CreationFormComponent implements OnInit {
   });
 
   public bioForm: FormGroup = this.fb.group({
-    bio: ['esta es mi bio', [Validators.maxLength(256)]],
+    bio: ['what', [Validators.maxLength(256)]],
   });
 
   public photoForm: FormGroup = this.fb.group({
-    photo: ['', ,],
+    photo: [, ,],
   });
 
   ngOnInit(): void {
@@ -76,6 +78,7 @@ export class CreationFormComponent implements OnInit {
       const { webSite, socialMediaLink } = this.socialMediaForm.value;
 
       const { instrumentList } = this.instrumentForm.value;
+      console.log('lista de instru', instrumentList);
 
       const { bio } = this.bioForm.value;
 
@@ -97,7 +100,26 @@ export class CreationFormComponent implements OnInit {
       };
       console.log(basicInfo);
       const urlPut = `${this.baseUrl}/musician/create-profile`;
-      console.log(this.http.put<BasicProfile>(urlPut, basicInfo));
+      var formData = new FormData();
+      console.log(typeof this.selectedFile);
+      if (this.selectedFile) {
+        formData.append('profileImageFile', this.selectedFile);
+      }
+      if (basicInfo) {
+        formData.append(
+          'musician',
+          new Blob([JSON.stringify(basicInfo)], { type: 'application/json' })
+        );
+      }
+
+      this.http.put<BasicProfile>(urlPut, formData).subscribe({
+        next: (resp) => {
+          console.log(resp);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     } else {
       console.log('There is an error');
     }
@@ -113,5 +135,9 @@ export class CreationFormComponent implements OnInit {
       },
       error: (e) => console.log(e),
     });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 }
