@@ -33,7 +33,7 @@ export class CreationFormComponent implements OnInit {
   public personalInfoForm: FormGroup = this.fb.group({
     firstName: ['martin', [Validators.required]],
     lastName: ['pereyra', [Validators.required]],
-    stageName: ['tnc', []],
+    stageName: ['tincho', []],
   });
 
   public locationForm: FormGroup = this.fb.group({
@@ -52,7 +52,7 @@ export class CreationFormComponent implements OnInit {
   });
 
   public bioForm: FormGroup = this.fb.group({
-    bio: ['what', [Validators.maxLength(256)]],
+    bio: ['Test Bio', [Validators.maxLength(256)]],
   });
 
   public photoForm: FormGroup = this.fb.group({
@@ -78,7 +78,6 @@ export class CreationFormComponent implements OnInit {
       const { webSite, socialMediaLink } = this.socialMediaForm.value;
 
       const { instrumentList } = this.instrumentForm.value;
-      console.log('lista de instru', instrumentList);
 
       const { bio } = this.bioForm.value;
 
@@ -93,7 +92,15 @@ export class CreationFormComponent implements OnInit {
         webSite: webSite,
         socialMediaLink: socialMediaLink,
       };
-      const instruments: Instrument[] = instrumentList;
+
+      var tempInstrumentArray = [];
+      for (let inst of this.data) {
+        if (instrumentList.indexOf(inst.id) !== -1) {
+          tempInstrumentArray.push(inst);
+        }
+      }
+
+      const instruments: Instrument[] = tempInstrumentArray;
       const basicInfo: BasicProfile = {
         musicianContactInformation: musicianContactObject,
         instruments: instruments,

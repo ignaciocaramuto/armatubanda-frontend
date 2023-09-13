@@ -105,9 +105,10 @@
       <form [formGroup]="instrumentForm">
         <mat-form-field>
           <mat-label>Instrumentos</mat-label>
-          <mat-select multiple>
-            <mat-option> {{ "opcion1" }} </mat-option>
-            <mat-option> {{ "opcion2" }} </mat-option>
+          <mat-select multiple formControlName="instrumentList">
+            <mat-option *ngFor="let inst of data" [value]="inst.id">
+              {{ inst.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </form>
@@ -127,6 +128,7 @@
             rows="2"
             cols="200"
             style="width: 500px"
+            formControlName="bio"
           ></textarea>
         </mat-form-field>
       </form>
