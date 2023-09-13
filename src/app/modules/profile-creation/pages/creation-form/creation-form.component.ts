@@ -12,7 +12,8 @@ import {
   MusicianContactInformation,
 } from '../../interfaces/profile-creation.interface';
 import { environment } from 'src/environments/environment.local';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { catchError } from 'rxjs';
 
 @Component({
@@ -25,20 +26,37 @@ export class CreationFormComponent implements OnInit {
   private router = inject(Router);
   private readonly baseUrl: string = environment.apiUrl;
   private http = inject(HttpClient);
+  selectedFile: File | null = null;
 
   data: Instrument[] = [];
 
-  public creationProfileForm: FormGroup = this.fb.group({
+  public personalInfoForm: FormGroup = this.fb.group({
     firstName: ['martin', [Validators.required]],
     lastName: ['pereyra', [Validators.required]],
-    stageName: ['tnc', []],
+    stageName: ['tincho', []],
+  });
+
+  public locationForm: FormGroup = this.fb.group({
     country: ['argentina', []],
     city: ['rosario', []],
     phoneNumber: ['3416511155', []],
+  });
+
+  public instrumentForm: FormGroup = this.fb.group({
+    instrumentList: [[], []],
+  });
+
+  public socialMediaForm: FormGroup = this.fb.group({
     webSite: ['wwwmp.com', []],
-    socialMediaWebSite: ['wwwlinkedicom', []],
-    bio: ['esta es mi bio', [Validators.maxLength(256)]],
-    instrumentList: ['', []],
+    socialMediaLink: ['wwwlinkedicom', []],
+  });
+
+  public bioForm: FormGroup = this.fb.group({
+    bio: ['Test Bio', [Validators.maxLength(256)]],
+  });
+
+  public photoForm: FormGroup = this.fb.group({
+    photo: [, ,],
   });
 
   ngOnInit(): void {
@@ -46,19 +64,23 @@ export class CreationFormComponent implements OnInit {
   }
 
   public onSubmit() {
-    if (this.creationProfileForm.valid) {
-      const {
-        firstName,
-        lastName,
-        stageName,
-        country,
-        city,
-        phoneNumber,
-        webSite,
-        socialMediaWebSite,
-        bio,
-        instrumentList,
-      } = this.creationProfileForm.value;
+    if (
+      this.personalInfoForm.valid &&
+      this.locationForm.valid &&
+      this.instrumentForm.valid &&
+      this.socialMediaForm.valid &&
+      this.bioForm.valid
+    ) {
+      const { firstName, lastName, stageName } = this.personalInfoForm.value;
+
+      const { country, city, phoneNumber } = this.locationForm.value;
+
+      const { webSite, socialMediaLink } = this.socialMediaForm.value;
+
+      const { instrumentList } = this.instrumentForm.value;
+
+      const { bio } = this.bioForm.value;
+
       const musicianContactObject: MusicianContactInformation = {
         name: firstName,
         lastname: lastName,
@@ -68,16 +90,43 @@ export class CreationFormComponent implements OnInit {
         city: city,
         phoneNumber: phoneNumber,
         webSite: webSite,
-        socialMediaLink: socialMediaWebSite,
+        socialMediaLink: socialMediaLink,
       };
-      const instruments: Instrument[] = instrumentList;
+
+      var tempInstrumentArray = [];
+      for (let inst of this.data) {
+        if (instrumentList.indexOf(inst.id) !== -1) {
+          tempInstrumentArray.push(inst);
+        }
+      }
+
+      const instruments: Instrument[] = tempInstrumentArray;
       const basicInfo: BasicProfile = {
         musicianContactInformation: musicianContactObject,
         instruments: instruments,
       };
       console.log(basicInfo);
       const urlPut = `${this.baseUrl}/musician/create-profile`;
-      console.log(this.http.put<BasicProfile>(urlPut, basicInfo));
+      var formData = new FormData();
+      console.log(typeof this.selectedFile);
+      if (this.selectedFile) {
+        formData.append('profileImageFile', this.selectedFile);
+      }
+      if (basicInfo) {
+        formData.append(
+          'musician',
+          new Blob([JSON.stringify(basicInfo)], { type: 'application/json' })
+        );
+      }
+
+      this.http.put<BasicProfile>(urlPut, formData).subscribe({
+        next: (resp) => {
+          console.log(resp);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     } else {
       console.log('There is an error');
     }
@@ -89,8 +138,13 @@ export class CreationFormComponent implements OnInit {
     this.http.get<Instrument[]>(url).subscribe({
       next: (list) => {
         this.data = list;
+        console.log(this.data);
       },
       error: (e) => console.log(e),
     });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 }
