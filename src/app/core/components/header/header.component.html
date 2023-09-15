@@ -1,11 +1,18 @@
-<div [ngClass]="{
-    'home-header': route.url === '/',
-    'header': route.url !== '/'
-}">
-    <div class="logo"><a routerLink="/">Logo</a></div>
-    <div class="links">
-        <a routerLink="/auth/login" (click)="logout()" *ngIf="status() == 'authenticated'">Logout</a>
-        <a routerLink="/auth/register"*ngIf="status() != 'authenticated'">Registrarse</a>
-        <a routerLink="/auth/login" *ngIf="status() != 'authenticated'">Conectarse</a>
-    </div>
+<div class="header">
+  <div class="logo"><a routerLink="/">Logo</a></div>
+  <div class="links">
+    <a
+      routerLink="/auth/login"
+      (click)="logout()"
+      *ngIf="status() == 'authenticated'"
+    >
+      Logout
+    </a>
+    <a routerLink="/auth/register" *ngIf="status() != 'authenticated'">
+      Registrarse
+    </a>
+    <a routerLink="/auth/login" *ngIf="status() != 'authenticated'">
+      Conectarse
+    </a>
+  </div>
 </div>
