@@ -2,24 +2,22 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="login">
       <h2>Inicio de sesión</h2>
-      <span class="p-input-icon-left">
-        <i class="fa-solid fa-envelope"></i>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Nombre de usuario"
-          aria-label="Useremail"
-        />
-      </span>
-      <span class="p-input-icon-left">
-        <i class="fa-solid fa-lock"></i>
-        <input
-          type="password"
-          formControlName="password"
-          placeholder="Contraseña"
-          aria-label="Password"
-        />
-      </span>
+      <app-input-text
+        formControlName="email"
+        type="email"
+        placeholder="Nombre de usuario"
+        [required]="true"
+        requiredInputName="Email"
+      >
+      </app-input-text>
+      <app-input-text
+        formControlName="password"
+        type="password"
+        placeholder="Contraseña"
+        [required]="true"
+        requiredInputName="Password"
+      >
+      </app-input-text>
       <button type="submit">Iniciar sesión</button>
       <a href="/">¿Olvidaste tu contraseña?</a>
       <p>¿No tienes cuenta? <a href="/auth/register">Regístrate</a></p>
