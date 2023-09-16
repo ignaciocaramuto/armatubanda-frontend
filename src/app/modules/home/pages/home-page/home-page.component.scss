@@ -1,75 +1,49 @@
-@import 'themes';
+@import "themes";
 
 .home-body {
-    background-image: url('../../../../../assets/images/fondo-guitarra.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    background-size: cover;
-    min-height: 100%;
-    min-width: 100%;
-    .content {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        text-align: center;
-        min-height: 80vh;
-        margin-left: 15%;
-        p {
-            font-size: 50px;
-            margin: 0 0 10px 0;
-        }
-        .search-bar {
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            background-color: $white;
-            border: 1px solid $white;
-            border-radius: 15px;
-            height: 65px;
-            align-items: center;
-            box-shadow: $box-shadow;
-            .dropdowns {
-                width: 100%;
-                display: flex;
-                justify-content: space-evenly;
-                .multiselect {
-                    width: 50%;
-                }
-            }
-        }
+  background-image: url("../../../../../assets/images/fondo-guitarra.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 100%;
+  .content {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: center;
+    min-height: 80vh;
+    margin-left: 15%;
+    p {
+      font-size: 50px;
+      margin: 0 0 10px 0;
     }
-}
-
-::ng-deep {
-    .p-dropdown, .p-multiselect {
+    .search-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: $white;
+      border: 1px solid $white;
+      border-radius: 15px;
+      height: 65px;
+      align-items: center;
+      box-shadow: $box-shadow;
+      .dropdowns {
         width: 100%;
-        border: 0;
-        border-color: none;
+        display: flex;
+        justify-content: space-evenly;
+        .multiselect {
+          width: 50%;
+        }
+      }
     }
-    .p-dropdown:not(.p-disabled).p-focus, .p-multiselect:not(.p-disabled).p-focus {
-        box-shadow: 0 0 0 0 $white;
-    }
-    .p-dropdown .p-dropdown-trigger, .p-multiselect .p-multiselect-trigger {
-        display: none;
-    }
-    .p-divider.p-divider-vertical {
-        margin: 0;
-        padding: 0;
-    }
+  }
 }
 
 @media (max-width: 828px) {
-    .content {
-        justify-content: center !important;
-        margin-left: 0 !important;
-    }
-}
-
-@media (max-width: 500px) {
-    ::ng-deep {
-        .p-dropdown, .p-multiselect {
-            width: 140px;
-        }
-    }
+  .content {
+    justify-content: center !important;
+    margin-left: 0 !important;
+  }
 }
