@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Token } from '@angular/compiler';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
   imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   private authService = inject(AuthService);
