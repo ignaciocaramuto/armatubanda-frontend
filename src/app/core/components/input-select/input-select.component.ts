@@ -31,6 +31,7 @@ export class InputSelectComponent extends FormControlValueAccessorConnector {
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
   @Input() multiple: boolean = false;
+  @Input() class: string = 'default-input';
 
   constructor(injector: Injector) {
     super(injector);
