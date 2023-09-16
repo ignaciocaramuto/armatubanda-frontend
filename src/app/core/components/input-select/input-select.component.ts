@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Injector, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  Input,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControlValueAccessorConnector } from '../form-control-value-accessor-connector/form-control-value-accessor-connector';
@@ -17,6 +22,7 @@ import { FormControlValueAccessorConnector } from '../form-control-value-accesso
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputSelectComponent extends FormControlValueAccessorConnector {
   @Input() items: any[] = [];
