@@ -1,8 +1,8 @@
 :host::ng-deep {
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: white;
+  }
   .home-input {
-    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-      background-color: white;
-    }
     .mdc-text-field--filled {
       --mdc-filled-text-field-active-indicator-height: 0px;
       --mdc-filled-text-field-focus-active-indicator-height: 0px;
@@ -10,6 +10,12 @@
       border-top-left-radius: 0px;
       border-top-right-radius: 0px;
     }
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+  .filter-input {
+    width: 100%;
     .mat-mdc-form-field-subscript-wrapper {
       display: none;
     }

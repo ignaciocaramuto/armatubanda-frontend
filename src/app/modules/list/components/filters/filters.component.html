@@ -1,57 +1,52 @@
 <div class="filter">
   <div class="filter-container">
-    <p>Filtros</p>
-    <form>
-      <input class="filter-inputs" type="text" placeholder="Nombre" />
-      <!-- <p-dropdown
-              class="filter-inputs"
-              [options]="userType"
-              [(ngModel)]="selectedUser"
-              optionLabel="nombre"
-              (onChange)="changeMultiSelectOptions()"
-              placeholder="Selecciona uno">
-          </p-dropdown>
-          <p-multiSelect
-              class="filter-inputs"
-              [options]="multipleOptions"
-              [(ngModel)]="selectedMultipleOptions"
-              optionLabel="nombre"
-              placeholder="Selecciona uno o varios">
-          </p-multiSelect>
-          <h4>Rating: {{ratingValues[0] + ' - ' + ratingValues[1]}}</h4>
-          <p-slider
-              class="filter-inputs"
-              [(ngModel)]="ratingValues"
-              [range]="true"
-              [min]="1"
-              [max]="5"
-              [step]="0.1">
-          </p-slider>
-          <p-dropdown
-              class="filter-inputs"
-              [options]="experience"
-              [(ngModel)]="selectedExperience"
-              optionLabel="año"
-              (onChange)="changeMultiSelectOptions()"
-              placeholder="Años de experiencia">
-          </p-dropdown>
-          <div class="buttons">
-              <button
-                  pButton
-                  pRipple
-                  type="button"
-                  label="Limpiar"
-                  (click)="clearFilters()"
-                  class="limpiar">
-              </button>
-              <button
-                  pButton
-                  pRipple
-                  type="button"
-                  label="Buscar"
-                  class="buscar">
-              </button>
-          </div> -->
+    <div class="filter-header">
+      <h3>Filtros</h3>
+      <button mat-button (click)="removeAllFilters()">Borrar todo</button>
+    </div>
+    <div class="divider"></div>
+    <mat-chip-grid>
+      <mat-chip-row
+        *ngFor="let selectedFilter of getSelectedFilterKeys()"
+        (removed)="removeChip(selectedFilter)"
+      >
+        {{ selectedFilter }}
+        <button matChipRemove [attr.aria-label]="'remove ' + selectedFilter">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <div class="divider"></div>
+    <form [formGroup]="formGroup">
+      <app-input-select
+        [items]="userTypes"
+        formControlName="userType"
+        placeholder="Musico o Banda"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-text
+        formControlName="name"
+        type="text"
+        placeholder="Nombre"
+        class="filter-input"
+      >
+      </app-input-text>
+      <app-input-select
+        [items]="instruments"
+        formControlName="instruments"
+        placeholder="Intrumentos"
+        [multiple]="true"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-select
+        [items]="experienceTypes"
+        formControlName="experience"
+        placeholder="Experiencia"
+        class="filter-input"
+      >
+      </app-input-select>
     </form>
   </div>
 </div>
