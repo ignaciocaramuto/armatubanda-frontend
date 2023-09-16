@@ -8,9 +8,9 @@
       !control.hasError('required')
     "
   >
-    Please enter a valid {{ requiredInputName }}
+    Por favor ingresa un {{ requiredInputName }} válido
   </mat-error>
   <mat-error *ngIf="required && control.hasError('required')">
-    {{ requiredInputName }} is <strong>required</strong>
+    {{ requiredInputName }} es <strong>requerida</strong>
   </mat-error>
 </mat-form-field>
