@@ -5,16 +5,17 @@ import { Musician } from 'src/app/core/models/musician';
 import { environment } from 'src/environments/environment.local';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ListService {
-
   private readonly baseUrl: string = environment.apiUrl;
 
   private http = inject(HttpClient);
 
   getAllUsers(): Observable<Musician[]> {
     let params = new HttpParams();
-    return this.http.get<Musician[]>(`${this.baseUrl}/musician`, {params})
+    return this.http.get<Musician[]>(`${this.baseUrl}/musician/all`, {
+      params,
+    });
   }
 }
