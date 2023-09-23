@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Musician } from 'src/app/core/models/musician';
-import { ListService } from '../../services/list.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -12,17 +11,11 @@ export class ProfilePageComponent implements OnInit {
   userID!: number;
   user!: Musician;
 
-  constructor(
-    private route: ActivatedRoute,
-    private listService: ListService
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => (this.userID = params['id'])
     );
-    // this.listService.getUser(this.userID).subscribe(data => {
-    //   this.user = data;
-    // });
   }
 }

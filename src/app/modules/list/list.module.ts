@@ -5,7 +5,7 @@ import { ListRoutingModule } from './list-routing.module';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { CardComponent } from './components/card/card.component';
 import { FiltersComponent } from './components/filters/filters.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { ProfilePageComponent } from '../profile/pages/profile-page/profile-page.component';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { InputTextComponent } from 'src/app/core/components/input-text/input-text.component';
 import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';

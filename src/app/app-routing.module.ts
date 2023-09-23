@@ -41,6 +41,13 @@ const routes: Routes = [
     canMatch: [canMatchGuardProfile],
   },
   {
+    path: 'profile',
+    loadChildren: () =>
+      import(`./modules/profile/profile.module`).then((m) => m.ProfileModule),
+    canActivate: [canActivateGuardProfile],
+    canMatch: [canMatchGuardProfile],
+  },
+  {
     path: 'new-profile',
     loadChildren: () =>
       import(`./modules/profile-creation/profile-creation.module`).then(
