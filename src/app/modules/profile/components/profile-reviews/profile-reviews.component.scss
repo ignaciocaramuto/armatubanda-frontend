@@ -1,0 +1,14 @@
+@import "themes";
+
+.container {
+  width: 23vw;
+  height: 100%;
+  background-color: $white;
+  text-align: center;
+  position: fixed;
+  right: 0;
+}
+
+.button {
+  margin-top: 2em;
+}

@@ -4,12 +4,24 @@ button {
   margin-right: 0.5em;
   border-radius: 15px;
   transition: all 0.4s;
-  font-size: 16px;
   padding: 1.4em;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 button:hover {
   transform: scale(1.05, 1.05);
+}
+
+.smaller {
+  font-size: 8px;
+}
+
+.medium {
+  font-size: 12px;
+}
+
+.larger {
+  font-size: 16px;
 }
 
 .mat-mdc-unelevated-button:not(:disabled) {

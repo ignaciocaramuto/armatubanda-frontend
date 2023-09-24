@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
@@ -11,7 +13,9 @@ import { MatButtonModule } from '@angular/material/button';
 export class ButtonComponent {
   @Input() label!: string;
   @Input() type!: string;
-  @Input() color!: string;
+  @Input() color: string = 'primary';
+  @Input() class: string = 'medium';
+  @Input() icon: string = '';
   @Output() click = new EventEmitter<void>();
 
   onClick(): void {
