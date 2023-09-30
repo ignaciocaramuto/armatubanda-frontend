@@ -2,10 +2,9 @@
   <div class="button">
     <app-button class="larger" label="Invitar" icon="person_add"></app-button>
   </div>
-  <p>
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-    ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-    parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-    pellentesque eu, pretium.
-  </p>
+  <div class="reviews">
+    <div *ngFor="let review of reviews">
+      <app-review></app-review>
+    </div>
+  </div>
 </div>

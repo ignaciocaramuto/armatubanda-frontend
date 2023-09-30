@@ -8,6 +8,7 @@ import { ProfileReviewsComponent } from './components/profile-reviews/profile-re
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { PostComponent } from './components/profile-feed/post/post.component';
+import { ReviewComponent } from './components/profile-reviews/review/review.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { PostComponent } from './components/profile-feed/post/post.component';
     ProfileFeedComponent,
     ProfileReviewsComponent,
     PostComponent,
+    ReviewComponent,
   ],
   imports: [CommonModule, ProfileRoutingModule, ButtonComponent],
 })
