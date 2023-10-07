@@ -1,13 +1,16 @@
 <div class="card" (click)="openProfile()">
   <img
-    [src]=""
+    [src]="
+      musician.profileImage?.picByte
+        | sanitizeImage : musician.profileImage?.type
+    "
     alt=""
     onerror="src='../../../../../assets/images/no-profile-picture.png'"
   />
   <div class="rating">
     <i class="fa fa-star"></i>
     <b> 4.5 </b>
-    <p>({{ musician.reviews.length }} opiniones)</p>
+    <p>({{ musician.reviews?.length }} opiniones)</p>
     <b> Musico </b>
   </div>
   <h4>{{ musician.personalInformation.name }}</h4>

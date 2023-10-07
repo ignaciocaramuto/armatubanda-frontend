@@ -9,6 +9,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { PostComponent } from './components/profile-feed/post/post.component';
 import { ReviewComponent } from './components/profile-reviews/review/review.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,6 @@ import { ReviewComponent } from './components/profile-reviews/review/review.comp
     PostComponent,
     ReviewComponent,
   ],
-  imports: [CommonModule, ProfileRoutingModule, ButtonComponent],
+  imports: [CommonModule, ProfileRoutingModule, ButtonComponent, SharedModule],
 })
 export class ProfileModule {}

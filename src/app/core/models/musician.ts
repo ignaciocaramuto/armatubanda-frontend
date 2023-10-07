@@ -12,8 +12,8 @@ export interface Musician {
   careerInformation: CareerInformation;
   biographyInformation: BiographyInformation;
   preferenceInformation: PreferenceInformation;
-  profileImage: ProfileImage;
-  reviews: Review[];
+  profileImage?: ProfileImage;
+  reviews?: Review[];
 }
 
 export interface PersonalInformation {
