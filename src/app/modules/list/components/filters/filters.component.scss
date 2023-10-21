@@ -28,3 +28,18 @@
   border-bottom: 1px solid grey;
   width: 100%;
 }
+
+:host::ng-deep {
+  .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) {
+    background-color: $main-color;
+    color: $white;
+  }
+  .mat-mdc-chip.mdc-evolution-chip--with-trailing-action
+    .mat-mdc-chip-action-label,
+  .mat-mdc-chip-remove .mat-icon {
+    color: $white;
+  }
+  .mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+    padding: 0 5px;
+  }
+}
