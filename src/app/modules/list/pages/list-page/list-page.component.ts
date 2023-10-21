@@ -18,6 +18,9 @@ export class ListPageComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
+      if (Object.keys(params).length > 0) {
+        localStorage.setItem('filter-data', JSON.stringify(params));
+      }
       this.getList(params);
     });
   }

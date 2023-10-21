@@ -58,10 +58,15 @@ export class FiltersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let storedData = localStorage.getItem('filter-data');
+    if (storedData) {
+      this.setFormGroup(JSON.parse(storedData));
+    }
     this.getInstruments();
     this.getGenres();
-    this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe(() => {
-      this.filterSelected.emit(this.formGroup.value);
+    this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
+      localStorage.setItem('filter-data', JSON.stringify(value));
+      this.filterSelected.emit(value);
     });
   }
 
@@ -108,5 +113,15 @@ export class FiltersComponent implements OnInit {
 
   removeAllFilters(): void {
     this.formGroup.reset();
+  }
+
+  setFormGroup(values?: any) {
+    this.formGroup = this.fb.group({
+      userType: [values.userType || ''],
+      name: [values.name || ''],
+      instruments: [values.instruments || []], // Asegura que sea un array
+      genres: [values.genres || []], // Asegura que sea un array
+      experience: [values.experience || ''],
+    });
   }
 }
