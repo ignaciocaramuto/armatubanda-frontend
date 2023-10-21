@@ -12,16 +12,16 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $primary-palette: (
-  50: #fdfdea,
-  100: #faf9cb,
-  200: #f8f5a9,
-  300: #f6f189,
-  400: #f3ec71,
-  500: #f0e75b,
-  600: #f1d958,
-  700: #edc34e,
-  800: #e9ac45,
-  900: #e18835,
+  50: #fffee6,
+  100: #fffac1,
+  200: #fef697,
+  300: #fdf16b,
+  400: #fbed46,
+  500: #f8e814,
+  600: #ffdc1c,
+  700: #ffc30f,
+  800: #ffaa00,
+  900: #fe7f00,
   contrast: (
     50: rgba(black, 0.87),
     100: rgba(black, 0.87),
@@ -61,7 +61,7 @@ $secondary-palette: (
   ),
 );
 
-$primary-color: mat.define-palette($primary-palette, 900);
+$primary-color: mat.define-palette($primary-palette, 800);
 $secondary-color: mat.define-palette($secondary-palette, 600);
 $accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
 
@@ -93,8 +93,8 @@ $armatubanda-frontend-theme: mat.define-light-theme(
 html,
 body {
   height: 100%;
+  font-family: "Inter", sans-serif;
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
