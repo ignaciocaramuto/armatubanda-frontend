@@ -8,6 +8,17 @@
   transition: all 0.4s;
 }
 
+.tag {
+  padding: 3px;
+  font-size: 14px;
+  background-color: $main-color;
+  color: $white;
+  position: absolute;
+  margin-top: 15px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .card:hover {
   transform: scale(1.05, 1.05);
   cursor: pointer;
