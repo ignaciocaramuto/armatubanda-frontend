@@ -117,11 +117,11 @@ export class FiltersComponent implements OnInit {
 
   setFormGroup(values?: any) {
     this.formGroup = this.fb.group({
-      userType: [values.userType || ''],
-      name: [values.name || ''],
-      instruments: [values.instruments || []], // Asegura que sea un array
-      genres: [values.genres || []], // Asegura que sea un array
-      experience: [values.experience || ''],
+      userType: [values.userType ?? ''],
+      name: [values.name ?? ''],
+      instruments: [values.instruments ?? []],
+      genres: [values.genres ?? []],
+      experience: [values.experience ?? ''],
     });
   }
 }
