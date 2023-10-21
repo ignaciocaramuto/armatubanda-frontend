@@ -18,10 +18,17 @@ export class ListPageComponent {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
+      let existingFilterData = localStorage.getItem('filter-data');
       if (Object.keys(params).length > 0) {
-        localStorage.setItem('filter-data', JSON.stringify(params));
+        let newData = params;
+        if (existingFilterData) {
+          const existingData = JSON.parse(existingFilterData);
+          newData = { ...existingData, ...params };
+        }
+        existingFilterData = JSON.stringify(newData);
+        localStorage.setItem('filter-data', existingFilterData);
       }
-      this.getList(params);
+      this.getList(JSON.parse(existingFilterData ?? ''));
     });
   }
 
