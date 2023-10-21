@@ -20,4 +20,8 @@ export class InstrumentService extends CrudService<Instrument> {
   addInstrument(instrument: Instrument): Observable<Instrument> {
     return this.create(instrument);
   }
+
+  deleteInstrument(id: number): Observable<void> {
+    return this.delete(id);
+  }
 }
