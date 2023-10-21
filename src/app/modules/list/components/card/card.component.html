@@ -1,13 +1,19 @@
 <div class="card" (click)="openProfile()">
   <div class="tag">Busca banda</div>
-  <img
-    [src]="
-      musician.profileImage?.picByte
-        | sanitizeImage : musician.profileImage?.type
-    "
-    alt=""
-    onerror="src='../../../../../assets/images/no-profile-picture.png'"
-  />
+  <div class="pickgradient">
+    <img
+      [src]="
+        musician.profileImage?.picByte
+          | sanitizeImage : musician.profileImage?.type
+      "
+      alt=""
+      onerror="src='../../../../../assets/images/no-profile-picture.png'"
+    />
+    <div class="image-text">
+      <h3>{{ musician.personalInformation.name }}</h3>
+    </div>
+  </div>
+
   <div class="rating">
     <i class="fa fa-star"></i>
     <span>4.5</span>
