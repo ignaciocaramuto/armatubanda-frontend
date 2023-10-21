@@ -1,20 +1,29 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.local';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CrudService<T> {
-  private readonly baseUrl: string = environment.apiUrl;
-  private http = inject(HttpClient);
+  constructor(
+    private http: HttpClient,
+    @Inject(String) private apiUrl: string
+  ) {}
 
-  get(endpoint: string, params?: any): Observable<T> {
+  getAll(params?: any): Observable<T[]> {
     const queryParams = this.buildQueryParams(params);
-    return this.http.get<T>(`${this.baseUrl}/${endpoint}`, {
+    return this.http.get<T[]>(this.apiUrl, {
       params: queryParams,
     });
+  }
+
+  getById(id: number): Observable<T> {
+    return this.http.get<T>(`${this.apiUrl}/${id}`);
+  }
+
+  create(data: T): Observable<T> {
+    return this.http.post<T>(this.apiUrl, data);
   }
 
   buildQueryParams(filters: any): HttpParams {
