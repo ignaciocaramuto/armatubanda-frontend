@@ -41,6 +41,14 @@
       >
       </app-input-select>
       <app-input-select
+        [items]="genres"
+        formControlName="genres"
+        placeholder="Géneros"
+        [multiple]="true"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-select
         [items]="experienceTypes"
         formControlName="experience"
         placeholder="Experiencia"
