@@ -1,6 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
+import { Genre } from 'src/app/core/models/genre.interface';
+import { Instrument } from 'src/app/core/models/instrument.interface';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { GenreService } from 'src/app/shared/services/genre.service';
+import { InstrumentService } from 'src/app/shared/services/instrument.service';
 
 @Component({
   selector: 'app-home-page',
@@ -9,38 +15,55 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class HomePageComponent implements OnInit {
   formGroup: FormGroup;
-  musicGenres: any[] = [];
-  instruments: any[] = [];
+  genres: Genre[] = [];
+  instruments: Instrument[] = [];
   disableMultiselect = true;
 
   private authService = inject(AuthService);
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private genreService: GenreService,
+    private instrumentService: InstrumentService
+  ) {
     this.formGroup = this.fb.group({
-      genres: ['', Validators.required],
-      instruments: ['', Validators.required],
+      genres: [''],
+      instruments: [''],
     });
   }
 
   ngOnInit(): void {
     this.authService.checkAuthentication();
-
-    this.musicGenres = [
-      { name: 'Rock', code: 'AS' },
-      { name: 'Pop', code: 'AS' },
-      { name: 'Cumbia', code: 'ASD' },
-      { name: 'Jazz', code: 'DAS' },
-    ];
-
-    this.instruments = [
-      { name: 'Guitar', code: 'ASD' },
-      { name: 'Trumpet', code: 'ASD' },
-      { name: 'Bass', code: 'ASD' },
-      { name: 'Saxophone', code: 'AS' },
-    ];
+    this.getGenres();
+    this.getInstruments();
   }
 
   onSubmit(): void {
-    // TODO: request with form values
+    if (
+      !!this.formGroup.get('genres')?.value ||
+      !!this.formGroup.get('imstrumnts')?.value
+    ) {
+      const queryParams = this.formGroup.value;
+      this.router.navigate(['/', 'list'], {
+        queryParams,
+      });
+    } else {
+      this.router.navigate(['/list']);
+    }
+  }
+
+  getGenres(): void {
+    this.genreService
+      .getGenres()
+      .pipe(tap((res) => (this.genres = res)))
+      .subscribe();
+  }
+
+  getInstruments(): void {
+    this.instrumentService
+      .getInstruments()
+      .pipe(tap((res) => (this.instruments = res)))
+      .subscribe();
   }
 }
