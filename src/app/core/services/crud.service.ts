@@ -26,6 +26,14 @@ export class CrudService<T> {
     return this.http.post<T>(this.apiUrl, data);
   }
 
+  update(data: Partial<T>): Observable<T> {
+    return this.http.put<T>(this.apiUrl, data);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
   buildQueryParams(filters: any): HttpParams {
     let params = new HttpParams();
     for (const key in filters) {
