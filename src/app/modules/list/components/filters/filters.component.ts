@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
 import { UserType } from 'src/app/core/enums/userType.enum';
 import { Instrument } from 'src/app/core/models/instrument.interface';
@@ -9,7 +10,8 @@ import { Instrument } from 'src/app/core/models/instrument.interface';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
 })
-export class FiltersComponent {
+export class FiltersComponent implements OnInit {
+  @Output() filterSelected = new EventEmitter<any>();
   readonly experienceTypes = [
     { name: ExperienceType.Beginner },
     { name: ExperienceType.Intermediate },
@@ -27,7 +29,7 @@ export class FiltersComponent {
       experience: [''],
     });
     this.instruments = [
-      { name: 'Guitar', id: 1 },
+      { name: 'Guitarra', id: 1 },
       { name: 'Trumpet', id: 2 },
       { name: 'Bass', id: 3 },
       { name: 'Saxophone', id: 4 },
@@ -42,6 +44,12 @@ export class FiltersComponent {
       controls['instruments'].value.length > 0 ||
       controls['experience'].value
     );
+  }
+
+  ngOnInit(): void {
+    this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe(() => {
+      this.filterSelected.emit(this.formGroup.value);
+    });
   }
 
   getSelectedFilterKeys(): string[] {

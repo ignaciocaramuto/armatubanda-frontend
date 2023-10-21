@@ -13,7 +13,11 @@ export class ListPageComponent {
   constructor(private listService: ListService) {}
 
   ngOnInit(): void {
-    this.listService.getAllUsers().subscribe((data: Musician[]) => {
+    this.getList();
+  }
+
+  getList(filters?: any): void {
+    this.listService.getAllUsers(filters).subscribe((data: Musician[]) => {
       this.musicians = data;
     });
   }

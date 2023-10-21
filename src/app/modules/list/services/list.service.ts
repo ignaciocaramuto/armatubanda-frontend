@@ -12,10 +12,22 @@ export class ListService {
 
   private http = inject(HttpClient);
 
-  getAllUsers(): Observable<Musician[]> {
-    let params = new HttpParams();
+  getAllUsers(filters?: any): Observable<Musician[]> {
+    const params = this.buildQueryParams(filters);
     return this.http.get<Musician[]>(`${this.baseUrl}/musician/all`, {
       params,
     });
+  }
+
+  buildQueryParams(filters: any): HttpParams {
+    let params = new HttpParams();
+    for (const key in filters) {
+      if (filters.hasOwnProperty(key)) {
+        if (filters[key]) {
+          params = params.set(key, filters[key]);
+        }
+      }
+    }
+    return params;
   }
 }
