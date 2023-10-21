@@ -116,12 +116,10 @@ export class FiltersComponent implements OnInit {
   }
 
   setFormGroup(values?: any) {
-    this.formGroup = this.fb.group({
-      userType: [values.userType ?? ''],
-      name: [values.name ?? ''],
-      instruments: [values.instruments ?? []],
-      genres: [values.genres ?? []],
-      experience: [values.experience ?? ''],
+    Object.keys(values).map((controlName: string) => {
+      if (this.formGroup.get(controlName)) {
+        this.formGroup.get(controlName)?.setValue(values[controlName]);
+      }
     });
   }
 }
