@@ -3,14 +3,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
 
 @Component({
   standalone: true,
   selector: 'app-header',
-  imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, RouterModule, SanitizeImagePipe],
 })
 export class HeaderComponent implements OnInit {
   private authService = inject(AuthService);
