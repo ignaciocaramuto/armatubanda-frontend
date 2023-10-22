@@ -1,20 +1,26 @@
 <div class="header">
-  <a routerLink="/">
-    <img src="../../../../assets/images/atb-alt-logo.png" alt="" />
+  <a class="logo" routerLink="/">
+    <img class="logo" src="../../../../assets/images/atb-alt-logo.png" alt="" />
   </a>
-  <div class="links">
-    <a
-      routerLink="/auth/login"
-      (click)="logout()"
-      *ngIf="status() == 'authenticated'"
-    >
-      Logout
-    </a>
-    <a routerLink="/auth/register" *ngIf="status() != 'authenticated'">
-      Registrarse
-    </a>
-    <a routerLink="/auth/login" *ngIf="status() != 'authenticated'">
-      Conectarse
-    </a>
+  <div class="profile-options">
+    <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
+      {{ user()?.firstName }}
+      <a class="profile-image" routerLink="/auth/login" (click)="logout()">
+        <img
+          class="profile-image"
+          [src]="
+            user()?.profileImage?.picByte
+              | sanitizeImage : user()?.profileImage?.type
+          "
+          alt=""
+          onerror="src='../../../../../assets/images/no-profile-picture.png'"
+        />
+      </a>
+    </ng-container>
   </div>
 </div>
+
+<ng-template #Unauthenticated>
+  <a routerLink="/auth/register"> Registrarse </a>
+  <a routerLink="/auth/login"> Conectarse </a>
+</ng-template>
