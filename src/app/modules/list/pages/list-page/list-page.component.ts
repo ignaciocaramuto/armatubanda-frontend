@@ -28,7 +28,11 @@ export class ListPageComponent {
         existingFilterData = JSON.stringify(newData);
         localStorage.setItem('filter-data', existingFilterData);
       }
-      this.getList(JSON.parse(existingFilterData ?? ''));
+      if (existingFilterData) {
+        this.getList(JSON.parse(existingFilterData));
+      } else {
+        this.getList();
+      }
     });
   }
 
