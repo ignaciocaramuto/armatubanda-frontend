@@ -4,8 +4,8 @@
   </a>
   <div class="profile-options">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
-      {{ user()?.firstName }}
-      <a class="profile-image" routerLink="/auth/login" (click)="logout()">
+      <span>{{ user()?.firstName }}</span>
+      <a routerLink="/auth/login" (click)="logout()">
         <img
           class="profile-image"
           [src]="
