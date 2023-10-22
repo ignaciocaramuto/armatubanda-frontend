@@ -1,5 +1,5 @@
 import { LoginResponse } from './../interfaces/login-response';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from 'src/environments/environment.local';
 import { AuthUser, AuthStatus } from 'src/app/modules/auth/interfaces/index';
@@ -25,22 +25,24 @@ export class AuthService {
     const body = { email: email, password: password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      tap(({ token, email, isProfileSet }) => {
-        const newAuthUser: AuthUser = {
-          email: email,
-          isProfileSet: isProfileSet,
-        };
-        this._currentUser.set(newAuthUser);
-        this._authStatus.set(AuthStatus.authenticated);
-        localStorage.setItem('token', token);
-        localStorage.setItem('isProfileSet', isProfileSet);
-
-        console.log({ email, token });
-      }),
+      tap(
+        ({ token, email, isProfileSet, firstName, lastName, profileImage }) => {
+          const newAuthUser: AuthUser = {
+            email,
+            isProfileSet,
+            firstName,
+            lastName,
+            profileImage,
+          };
+          this._currentUser.set(newAuthUser);
+          this._authStatus.set(AuthStatus.authenticated);
+          localStorage.setItem('token', token);
+          localStorage.setItem('isProfileSet', isProfileSet);
+        }
+      ),
       map(() => true),
 
       catchError((err) => {
-        console.log(err);
         return throwError(() => 'Something went wrong');
       })
     );
@@ -52,7 +54,6 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(url, body).pipe(
       catchError((error) => {
-        console.error(error);
         return throwError(() => error);
       }),
       map(() => true)
