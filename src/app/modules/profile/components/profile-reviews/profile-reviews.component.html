@@ -1,6 +1,13 @@
 <div class="container">
   <div class="button">
-    <app-button class="larger" label="Invitar" icon="person_add"></app-button>
+    <ng-container *ngIf="user()?.id === userId; else inviteButton">
+      <app-button
+        (click)="openAddPostDialog()"
+        class="larger"
+        label="Subir post"
+        icon="add_a_photo"
+      ></app-button>
+    </ng-container>
   </div>
   <div class="reviews">
     <div *ngFor="let review of reviews">
@@ -8,3 +15,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #inviteButton>
+  <app-button class="larger" label="Invitar" icon="person_add"></app-button>
+</ng-template>
