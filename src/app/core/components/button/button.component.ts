@@ -16,9 +16,4 @@ export class ButtonComponent {
   @Input() color: string = 'primary';
   @Input() class: string = 'medium';
   @Input() icon: string = '';
-  @Output() click = new EventEmitter<void>();
-
-  onClick(): void {
-    this.click.emit();
-  }
 }
