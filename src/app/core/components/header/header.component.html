@@ -4,18 +4,19 @@
   </a>
   <div class="profile-options">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
-      <span>{{ user()?.firstName }}</span>
-      <a routerLink="/auth/login" (click)="logout()">
-        <img
-          class="profile-image"
-          [src]="
-            user()?.profileImage?.picByte
-              | sanitizeImage : user()?.profileImage?.type
-          "
-          alt=""
-          onerror="src='../../../../../assets/images/no-profile-picture.png'"
-        />
-      </a>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <span>{{ user()?.firstName }}</span>
+        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+      </button>
+      <img
+        class="profile-image"
+        [src]="
+          user()?.profileImage?.picByte
+            | sanitizeImage : user()?.profileImage?.type
+        "
+        alt=""
+        onerror="src='../../../../../assets/images/no-profile-picture.png'"
+      />
     </ng-container>
   </div>
 </div>
@@ -24,3 +25,12 @@
   <a routerLink="/auth/register"> Registrarse </a>
   <a routerLink="/auth/login"> Conectarse </a>
 </ng-template>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
+    Ver perfil
+  </button>
+  <button mat-menu-item routerLink="/auth/login" (click)="logout()">
+    Cerrar sesión
+  </button>
+</mat-menu>

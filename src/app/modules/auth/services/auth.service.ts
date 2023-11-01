@@ -26,8 +26,17 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(url, body).pipe(
       tap(
-        ({ token, email, isProfileSet, firstName, lastName, profileImage }) => {
+        ({
+          id,
+          token,
+          email,
+          isProfileSet,
+          firstName,
+          lastName,
+          profileImage,
+        }) => {
           const newAuthUser: AuthUser = {
+            id,
             email,
             isProfileSet,
             firstName,

@@ -4,6 +4,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
@@ -11,7 +14,14 @@ import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterModule, SanitizeImagePipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SanitizeImagePipe,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
 })
 export class HeaderComponent implements OnInit {
   private authService = inject(AuthService);

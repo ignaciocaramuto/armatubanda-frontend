@@ -44,6 +44,7 @@ a {
 img.profile-image {
   width: 40px;
   border-radius: 100%;
+  margin-right: 1em;
 }
 
 .profile-options {
@@ -51,7 +52,18 @@ img.profile-image {
   align-items: center;
 }
 
-span {
+span,
+.mat-icon {
   color: $white;
-  margin-right: 8px;
+}
+
+:host::ng-deep {
+  .mat-mdc-button .mdc-button__label + .mat-icon {
+    margin-left: 2px;
+  }
+  .mat-mdc-button,
+  .mat-mdc-outlined-button {
+    --mat-mdc-button-persistent-ripple-color: none;
+    --mat-mdc-button-ripple-color: none;
+  }
 }
