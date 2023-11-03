@@ -102,3 +102,22 @@ body {
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 50;
 }
+
+.success-snackbar {
+  color: white;
+  --mdc-snackbar-container-color: #1e9b60;
+  --mat-mdc-snack-bar-button-color: white;
+}
+
+.info-snackbar {
+  color: white;
+  --mat-mdc-snack-bar-button-color: white;
+}
+
+.error-snackbar {
+  max-width: max-content !important;
+  color: white;
+  --mdc-snackbar-container-color: #dc3545;
+  border-color: #f5c6cb;
+  --mat-mdc-snack-bar-button-color: white;
+}

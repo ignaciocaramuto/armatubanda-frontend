@@ -11,6 +11,7 @@ import { PostComponent } from './components/profile-feed/post/post.component';
 import { ReviewComponent } from './components/profile-reviews/review/review.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ButtonComponent,
     SharedModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
 })
 export class ProfileModule {}

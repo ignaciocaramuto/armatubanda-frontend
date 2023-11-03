@@ -9,6 +9,9 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { SanitizeImagePipe } from '../../../../../core/pipes/sanitize-image.pipe';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from 'src/app/core/components/snackbar/snackbar.component';
+import { snackbarConfig } from 'src/app/config/snackbar-config';
 
 @Component({
   selector: 'app-add-review-dialog',
@@ -29,14 +32,24 @@ import { MatIconModule } from '@angular/material/icon';
   ],
 })
 export class AddReviewDialogComponent {
-  private authService = inject(AuthService);
-  user = this.authService.currentUser();
+  private _authService = inject(AuthService);
+  private _snackBar = inject(MatSnackBar);
+  user = this._authService.currentUser();
 
   formReview = new FormControl('', [
     Validators.required,
     Validators.maxLength(200),
   ]);
   constructor(public dialogRef: MatDialogRef<AddReviewDialogComponent>) {}
+
+  postReview(): void {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      ...snackbarConfig,
+      data: { message: '¡Tu reseña ha sido añadida!' },
+      panelClass: ['success-snackbar'],
+    });
+    this.dialogRef.close();
+  }
 
   closeDialog(): void {
     this.dialogRef.close();
