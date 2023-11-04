@@ -31,10 +31,11 @@ export class AuthService {
       }),
       map(() => true),
 
-      catchError((res: HttpErrorResponse) => {
-        this._logMessageService.logServerError(res.error.message);
-        return throwError(() => 'Something went wrong');
-      })
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
+        )
+      )
     );
   }
 
@@ -43,9 +44,11 @@ export class AuthService {
     const body = { email: email, password: password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      catchError((res: HttpErrorResponse) => {
-        return throwError(() => res);
-      }),
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
+        )
+      ),
       map(() => true)
     );
   }
@@ -68,7 +71,11 @@ export class AuthService {
         localStorage.setItem('isProfileSet', user.isProfileSet);
       }),
       map((user) => !!user),
-      catchError((err) => of(false))
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
+        )
+      )
     );
   }
 
@@ -77,17 +84,20 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/me`;
 
     return this.http.get<AuthUser>(url).pipe(
-      tap((user) => {
+      tap((user: AuthUser) => {
         localStorage.setItem('isProfileSet', user.isProfileSet);
       }),
-      map((user) => {
-        if (user.isProfileSet == 'false') {
+      map((user: AuthUser) => {
+        if (user.isProfileSet) {
           return false;
-        } else {
-          return true;
         }
+        return true;
       }),
-      catchError((err) => of(false))
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
+        )
+      )
     );
   }
 }
