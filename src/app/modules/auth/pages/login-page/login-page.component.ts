@@ -18,21 +18,13 @@ export class LoginPageComponent {
     password: ['', [Validators.required]],
   });
 
-  constructor() {}
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
       this.authService.login(email, password).subscribe({
         next: () => this.router.navigateByUrl('/list'),
-        error: (error) => {
-          console.log({ loginError: error });
-        },
       });
-    } else {
-      // Handle form validation errors
-      console.log('Invalid form');
     }
   }
 }

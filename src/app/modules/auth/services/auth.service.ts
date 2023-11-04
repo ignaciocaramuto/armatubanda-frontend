@@ -89,9 +89,9 @@ export class AuthService {
       }),
       map((user: AuthUser) => {
         if (user.isProfileSet) {
-          return false;
+          return true;
         }
-        return true;
+        return false;
       }),
       catchError((res: HttpErrorResponse) =>
         throwError(() =>

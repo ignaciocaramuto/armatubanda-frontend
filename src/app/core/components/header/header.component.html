@@ -30,7 +30,7 @@
   <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
     Ver perfil
   </button>
-  <button mat-menu-item routerLink="/auth/login" (click)="logout()">
+  <button mat-menu-item routerLink="/auth/login" (click)="authService.logout()">
     Cerrar sesión
   </button>
 </mat-menu>
