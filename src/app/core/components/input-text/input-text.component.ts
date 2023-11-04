@@ -29,7 +29,9 @@ export class InputTextComponent extends FormControlValueAccessorConnector {
   @Input() required: boolean = false;
   @Input() type: string = 'text';
   @Input() class: string = 'default-input';
-  @Input() requiredInputName: string = '';
+  @Input() invalidErrorMessage: string = '';
+  @Input() requiredErrorMessage: string = '';
+  @Input() errorKey: string = '';
 
   constructor(injector: Injector) {
     super(injector);

@@ -1,16 +1,10 @@
 <mat-form-field [class]="class">
   <mat-label>{{ placeholder }}</mat-label>
-  <input matInput [type]="type" [formControl]="control" />
-  <mat-error
-    *ngIf="
-      required &&
-      control.hasError(formControlName) &&
-      !control.hasError('required')
-    "
-  >
-    Por favor ingresa un {{ requiredInputName }} válido
+  <input matInput [type]="type" [formControl]="control" [required]="required" />
+  <mat-error *ngIf="control.hasError(formControlName)">
+    {{ invalidErrorMessage }}
   </mat-error>
-  <mat-error *ngIf="required && control.hasError('required')">
-    {{ requiredInputName }} es <strong>requerida</strong>
+  <mat-error *ngIf="control.hasError('required')">
+    {{ requiredErrorMessage }}
   </mat-error>
 </mat-form-field>

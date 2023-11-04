@@ -1,15 +1,37 @@
 <div class="container">
-    <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="register">
-            <h2>Registro</h2>
-            <input type="email" pInputText formControlName="email" placeholder="Nombre de usuario" aria-label="Useremail">
-            <span *ngIf="isValidField('email')"  class="form-text text-danger">Email incorrecto</span>
-            <input type="password" pInputText formControlName="password" placeholder="Contraseña" aria-label="Password">
-            <span *ngIf="isValidField('password')"  class="form-text text-danger">La contraseña debe tener más de 6 caractéres</span>
-            <input type="password" pInputText formControlName="repeatPassword" placeholder="Repetir contraseña" aria-label="RepeatPassword">
-            <span *ngIf="isValidField('repeatPassword')"  class="form-text text-danger">Las contraseñas deben de ser iguales</span>
-            <button type="submit">Registrarse</button>
-            <p>¿Ya tienes cuenta?</p><a href="/auth/login">Iniciar sesión</a>
-        </div>
-    </form>
+  <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="register">
+      <h2>Registro</h2>
+      <app-input-text
+        formControlName="email"
+        type="email"
+        placeholder="Email"
+        [required]="true"
+        invalidErrorMessage="Ingrese un email válido"
+        requiredErrorMessage="El email es requerido"
+      >
+      </app-input-text>
+      <app-input-text
+        formControlName="password"
+        type="password"
+        placeholder="Contraseña"
+        [required]="true"
+        invalidErrorMessage="La contraseña debe tener un mínimo de 6 caracteres"
+        requiredErrorMessage="La contraseña es requerida"
+      >
+      </app-input-text>
+      <app-input-text
+        formControlName="repeatPassword"
+        type="password"
+        placeholder="Repetir contraseña"
+        [required]="true"
+        invalidErrorMessage="Las contraseñas no coinciden"
+        requiredErrorMessage="La contraseña es requerida"
+      >
+      </app-input-text>
+      <button type="submit">Registrarse</button>
+      <p>¿Ya tienes cuenta?</p>
+      <a href="/auth/login">Iniciar sesión</a>
+    </div>
+  </form>
 </div>

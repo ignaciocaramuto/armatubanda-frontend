@@ -1,13 +1,9 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/core/services/validators.service';
+import { LogMessageService } from 'src/app/core/services/log-message.service';
 
 @Component({
   selector: 'app-register-page',
@@ -19,15 +15,13 @@ export class RegisterPageComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private validatorsService = inject(ValidatorsService);
+  private logMessageService = inject(LogMessageService);
 
   public registerForm: FormGroup = this.fb.group(
     {
-      email: ['martin@gmail.com', [Validators.required, Validators.email]],
-      password: ['asdasd123', [Validators.required, Validators.minLength(6)]],
-      repeatPassword: [
-        'asdasd123',
-        [Validators.required, Validators.minLength(6)],
-      ],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      repeatPassword: ['', [Validators.required, Validators.minLength(6)]],
     },
     {
       validators: [
@@ -39,25 +33,17 @@ export class RegisterPageComponent {
     }
   );
 
-  constructor() {}
-
-  onSubmit() {
+  onSubmit(): void {
     if (this.registerForm.valid) {
-      const { email, password, repeatPassword } = this.registerForm.value;
+      const { email, password } = this.registerForm.value;
 
-      this.authService.register(email, password).subscribe({
-        next: () => this.router.navigateByUrl('/list'),
-        error: (error) => {
-          console.log({ registerError: error });
-        },
-      });
+      this.authService
+        .register(email, password)
+        .subscribe(() => this.router.navigateByUrl('/list'));
     } else {
-      // Handle form validation errors
-      console.log('Invalid form');
+      this.logMessageService.logServerError(
+        'Por favor completa los campos requeridos.'
+      );
     }
-  }
-
-  isValidField(field: string) {
-    return this.validatorsService.isValidField(this.registerForm, field);
   }
 }
