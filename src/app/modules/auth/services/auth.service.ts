@@ -1,57 +1,38 @@
 import { LoginResponse } from './../interfaces/login-response';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from 'src/environments/environment.local';
 import { AuthUser, AuthStatus } from 'src/app/modules/auth/interfaces/index';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { LogMessageService } from 'src/app/core/services/log-message.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly baseUrl: string = environment.apiUrl;
-
   private http = inject(HttpClient);
-
   private _currentUser = signal<AuthUser | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
+  private _logMessageService = inject(LogMessageService);
 
   // devuelve una señal de solo lectura
   public currentUser = computed(() => this._currentUser);
   public authStatus = computed(() => this._authStatus);
-
-  constructor() {}
 
   login(email: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/auth/authenticate`;
     const body = { email: email, password: password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      tap(
-        ({
-          id,
-          token,
-          email,
-          isProfileSet,
-          firstName,
-          lastName,
-          profileImage,
-        }) => {
-          const newAuthUser: AuthUser = {
-            id,
-            email,
-            isProfileSet,
-            firstName,
-            lastName,
-            profileImage,
-          };
-          this._currentUser.set(newAuthUser);
-          this._authStatus.set(AuthStatus.authenticated);
-          localStorage.setItem('token', token);
-          localStorage.setItem('isProfileSet', isProfileSet);
-        }
-      ),
+      tap((user: LoginResponse) => {
+        this._currentUser.set(user);
+        this._authStatus.set(AuthStatus.authenticated);
+        localStorage.setItem('token', user.token);
+        localStorage.setItem('isProfileSet', user.isProfileSet);
+      }),
       map(() => true),
 
-      catchError((err) => {
+      catchError((res: HttpErrorResponse) => {
+        this._logMessageService.logServerError(res.error.message);
         return throwError(() => 'Something went wrong');
       })
     );
@@ -62,17 +43,18 @@ export class AuthService {
     const body = { email: email, password: password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      catchError((error) => {
-        return throwError(() => error);
+      catchError((res: HttpErrorResponse) => {
+        return throwError(() => res);
       }),
       map(() => true)
     );
   }
 
-  logout() {
+  logout(): void {
     this._currentUser.set(null);
     this._authStatus.set(AuthStatus.notAuthenticated);
-    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('isProfileSet');
   }
 
   checkAuthentication(): Observable<boolean> {
