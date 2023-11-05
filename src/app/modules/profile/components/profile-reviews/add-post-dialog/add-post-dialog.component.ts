@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { DialogComponent } from 'src/app/core/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-add-post-dialog',
@@ -8,8 +7,6 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./add-post-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [DialogComponent],
 })
-export class AddPostDialogComponent {
-  constructor(public dialogRef: MatDialogRef<AddPostDialogComponent>) {}
-}
+export class AddPostDialogComponent {}

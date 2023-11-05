@@ -1,52 +1,37 @@
-<div class="header">
-  <mat-icon style="margin-left: 1em">rate_review</mat-icon>
-  <span style="margin-left: 0.5em">Reseña</span>
-</div>
-<div class="container">
-  <div class="reviewer">
-    <app-profile-image
-      [picByte]="user()?.profileImage?.picByte"
-      [type]="user()?.profileImage?.type"
-      class="small-size"
-    ></app-profile-image>
-    <p>{{ user()?.firstName }} {{ user()?.lastName }}</p>
+<app-dialog icon="rate_review" title="Reseña" (confirmDialog)="postReview()">
+  <div class="container">
+    <div class="reviewer">
+      <app-profile-image
+        [picByte]="user()?.profileImage?.picByte"
+        [type]="user()?.profileImage?.type"
+        class="small-size"
+      ></app-profile-image>
+      <p>{{ user()?.firstName }} {{ user()?.lastName }}</p>
+    </div>
+    <div class="stars">
+      <span class="material-symbols-outlined"> grade </span>
+      <span class="material-symbols-outlined"> grade </span>
+      <span class="material-symbols-outlined"> grade </span>
+      <span class="material-symbols-outlined"> grade </span>
+      <span class="material-symbols-outlined"> grade </span>
+    </div>
   </div>
-  <div class="stars">
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-  </div>
-</div>
 
-<mat-form-field>
-  <textarea
-    matInput
-    cdkTextareaAutosize
-    cdkAutosizeMinRows="8"
-    cdkAutosizeMaxRows="8"
-    [formControl]="formReview"
-    placeholder="Escribe una reseña"
-  >
-  </textarea>
-  <mat-error *ngIf="formReview.hasError('required')">
-    La reseña es requerida.
-  </mat-error>
-  <mat-error *ngIf="formReview.hasError('maxlength')">
-    Máximo 200 caracteres.
-  </mat-error>
-</mat-form-field>
-<div class="actions">
-  <app-button
-    (click)="closeDialog()"
-    label="Cancelar"
-    color="warn"
-  ></app-button>
-  <app-button
-    (click)="postReview()"
-    style="margin-right: 1em"
-    type="submit"
-    label="Postear"
-  ></app-button>
-</div>
+  <mat-form-field>
+    <textarea
+      matInput
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="8"
+      cdkAutosizeMaxRows="8"
+      [formControl]="formReview"
+      placeholder="Escribe un comentario"
+    >
+    </textarea>
+    <mat-error *ngIf="formReview.hasError('required')">
+      El comentario es requerido.
+    </mat-error>
+    <mat-error *ngIf="formReview.hasError('maxlength')">
+      Máximo 200 caracteres.
+    </mat-error>
+  </mat-form-field>
+</app-dialog>

@@ -1,15 +1,5 @@
 @import "themes";
 
-.header {
-  width: 100%;
-  height: 80px;
-  background-color: $main-color;
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  color: $white;
-}
-
 mat-form-field {
   width: 100%;
 }
@@ -24,12 +14,6 @@ mat-form-field {
 .reviewer {
   display: flex;
   align-items: center;
-}
-
-.actions {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
 }
 
 .stars span {

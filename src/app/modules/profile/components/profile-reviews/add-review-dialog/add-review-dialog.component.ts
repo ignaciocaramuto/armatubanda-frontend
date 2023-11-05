@@ -1,20 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { ButtonComponent } from 'src/app/core/components/button/button.component';
-import { MatIconModule } from '@angular/material/icon';
 import { ProfileService } from '../../../services/profile.service';
 import { Review } from 'src/app/core/models/review.interface';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
+import { DialogComponent } from 'src/app/core/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-add-review-dialog',
@@ -24,14 +18,11 @@ import { ProfileImageComponent } from 'src/app/core/components/profile-image/pro
   standalone: true,
   imports: [
     CommonModule,
-    MatDialogModule,
-    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    ButtonComponent,
-    MatIconModule,
     ProfileImageComponent,
+    DialogComponent,
   ],
 })
 export class AddReviewDialogComponent {
@@ -57,9 +48,5 @@ export class AddReviewDialogComponent {
         this.dialogRef.close(reviews);
       });
     }
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
   }
 }

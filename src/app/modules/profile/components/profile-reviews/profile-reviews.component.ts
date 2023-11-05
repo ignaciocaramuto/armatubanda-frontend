@@ -19,7 +19,8 @@ export class ProfileReviewsComponent {
 
   openAddPostDialog(): void {
     const dialogRef = this.dialog.open(AddPostDialogComponent, {
-      width: '250px',
+      width: '600px',
+      height: '450px',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result) => {
