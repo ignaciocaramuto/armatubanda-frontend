@@ -1,14 +1,11 @@
 <div class="card" (click)="openProfile()">
   <div class="tag">Busca banda</div>
   <div class="pickgradient">
-    <img
-      [src]="
-        musician.profileImage?.picByte
-          | sanitizeImage : musician.profileImage?.type
-      "
-      alt=""
-      onerror="src='../../../../../assets/images/no-profile-picture.png'"
-    />
+    <app-profile-image
+      [picByte]="musician.profileImage?.picByte"
+      [type]="musician.profileImage?.type"
+      class="list-size"
+    ></app-profile-image>
     <div class="image-text">
       <h3>{{ musician.personalInformation.name }}</h3>
     </div>

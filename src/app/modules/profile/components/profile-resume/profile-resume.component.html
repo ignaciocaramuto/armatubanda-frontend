@@ -1,9 +1,9 @@
 <div class="container">
-  <img
-    [src]="profileImage?.picByte | sanitizeImage : profileImage?.type"
-    alt=""
-    onerror="src='../../../../../assets/images/no-profile-picture.png'"
-  />
+  <app-profile-image
+    [picByte]="profileImage?.picByte"
+    [type]="profileImage?.type"
+    class="large-size"
+  ></app-profile-image>
   <h2>{{ personalInfo.name }} {{ personalInfo.lastname }}</h2>
   <p>{{ biographyInfo.bio }}</p>
   <div class="actions">

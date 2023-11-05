@@ -12,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 
 @NgModule({
   declarations: [ListPageComponent, CardComponent, FiltersComponent],
@@ -25,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
+    ProfileImageComponent,
   ],
 })
 export class ListModule {}

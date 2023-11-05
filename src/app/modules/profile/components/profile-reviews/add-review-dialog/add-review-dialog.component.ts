@@ -10,11 +10,11 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { SanitizeImagePipe } from '../../../../../core/pipes/sanitize-image.pipe';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileService } from '../../../services/profile.service';
 import { Review } from 'src/app/core/models/review.interface';
+import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 
 @Component({
   selector: 'app-add-review-dialog',
@@ -29,9 +29,9 @@ import { Review } from 'src/app/core/models/review.interface';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    SanitizeImagePipe,
     ButtonComponent,
     MatIconModule,
+    ProfileImageComponent,
   ],
 })
 export class AddReviewDialogComponent {

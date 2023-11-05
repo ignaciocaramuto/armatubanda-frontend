@@ -8,15 +8,11 @@
         <span>{{ user()?.firstName }}</span>
         <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
       </button>
-      <img
-        class="profile-image"
-        [src]="
-          user()?.profileImage?.picByte
-            | sanitizeImage : user()?.profileImage?.type
-        "
-        alt=""
-        onerror="src='../../../../../assets/images/no-profile-picture.png'"
-      />
+      <app-profile-image
+        [picByte]="user()?.profileImage?.picByte"
+        [type]="user()?.profileImage?.type"
+        class="small-size"
+      ></app-profile-image>
     </ng-container>
   </div>
 </div>

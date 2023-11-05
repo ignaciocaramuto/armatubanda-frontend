@@ -4,15 +4,11 @@
 </div>
 <div class="container">
   <div class="reviewer">
-    <img
-      class="profile-image"
-      [src]="
-        user()?.profileImage?.picByte
-          | sanitizeImage : user()?.profileImage?.type
-      "
-      alt=""
-      onerror="src='../../../../../assets/images/no-profile-picture.png'"
-    />
+    <app-profile-image
+      [picByte]="user()?.profileImage?.picByte"
+      [type]="user()?.profileImage?.type"
+      class="small-size"
+    ></app-profile-image>
     <p>{{ user()?.firstName }} {{ user()?.lastName }}</p>
   </div>
   <div class="stars">

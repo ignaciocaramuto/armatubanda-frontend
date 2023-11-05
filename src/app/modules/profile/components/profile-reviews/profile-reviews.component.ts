@@ -35,7 +35,9 @@ export class ProfileReviewsComponent {
       data: { userId: this.userId },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      this.reviews = result;
+      if (result) {
+        this.reviews = result;
+      }
     });
   }
 }

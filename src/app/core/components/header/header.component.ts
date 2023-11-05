@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { ProfileImageComponent } from '../profile-image/profile-image.component';
 
 @Component({
   standalone: true,
@@ -17,10 +17,10 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     RouterModule,
-    SanitizeImagePipe,
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    ProfileImageComponent,
   ],
 })
 export class HeaderComponent implements OnInit {
