@@ -20,12 +20,12 @@ export class ProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params: Params) => (this.userId = params['id'])
-    );
-    this.profileService.getById(this.userId).subscribe((res) => {
-      this.user = res;
-      this.reviews = this.user.reviews ?? [];
+    this.route.params.subscribe((params: Params) => {
+      this.userId = params['id'];
+      this.profileService.getById(this.userId).subscribe((res) => {
+        this.user = res;
+        this.reviews = this.user.reviews ?? [];
+      });
     });
   }
 }
