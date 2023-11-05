@@ -9,12 +9,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LogMessageService {
   private _snackBar = inject(MatSnackBar);
 
+  logConfirm(message: string): void {
+    this._snackBar.openFromComponent(SnackbarComponent, {
+      ...snackbarConfig,
+      data: { message },
+      panelClass: ['success-snackbar'],
+    });
+  }
+
   logServerError(message: string): void {
     this._snackBar.openFromComponent(SnackbarComponent, {
       ...snackbarConfig,
-      data: {
-        message,
-      },
+      data: { message },
       panelClass: ['info-snackbar'],
     });
   }

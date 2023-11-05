@@ -1,14 +1,12 @@
 <div class="reviewer">
   <img
-    src="https://static.vecteezy.com/system/resources/previews/005/520/506/non_2x/cartoon-drawing-of-a-musician-vector.jpg"
+    [src]="
+      review.reviewerProfileImage?.picByte
+        | sanitizeImage : review.reviewerProfileImage?.type
+    "
     alt=""
     onerror="src='../../../../../assets/images/no-profile-picture.png'"
   />
-  <span>Cosme Fulano</span>
+  <span>{{ review.reviewerFirstName }} {{ review.reviewerLastName }}</span>
 </div>
-<p>
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-  ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-  pellentesque eu, pretium.
-</p>
+<p>{{ review.comment }}</p>

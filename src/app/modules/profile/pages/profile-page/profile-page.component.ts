@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Musician } from 'src/app/core/models/musician';
 import { ProfileService } from '../../services/profile.service';
+import { Review } from 'src/app/core/models/review.interface';
 
 @Component({
   selector: 'app-profile-page',
@@ -11,6 +12,7 @@ import { ProfileService } from '../../services/profile.service';
 export class ProfilePageComponent implements OnInit {
   userId!: number;
   user!: Musician;
+  reviews: Review[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +23,9 @@ export class ProfilePageComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => (this.userId = params['id'])
     );
-    this.profileService
-      .getMusician(this.userId)
-      .subscribe((res) => (this.user = res));
+    this.profileService.getById(this.userId).subscribe((res) => {
+      this.user = res;
+      this.reviews = this.user.reviews ?? [];
+    });
   }
 }

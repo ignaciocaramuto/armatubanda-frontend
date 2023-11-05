@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class CrudService<T> {
   constructor(
-    private http: HttpClient,
-    @Inject(String) private apiUrl: string
+    protected http: HttpClient,
+    @Inject(String) protected apiUrl: string
   ) {}
 
   getAll(params?: any): Observable<T[]> {
