@@ -20,7 +20,7 @@ export class ProfileReviewsComponent {
   openAddPostDialog(): void {
     const dialogRef = this.dialog.open(AddPostDialogComponent, {
       width: '600px',
-      height: '450px',
+      height: '520px',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result) => {

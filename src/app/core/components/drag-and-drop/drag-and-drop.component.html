@@ -1,0 +1,14 @@
+<div class="dropzone" appDnd>
+  <span class="material-symbols-outlined"> publish </span>
+  <h3>Arrastra y suelta el archivo aquí</h3>
+  <h3>o</h3>
+  <app-button label="Buscar archivo" (click)="fileInput.click()"> </app-button>
+  <input
+    hidden
+    (change)="onFileSelected($event)"
+    #fileInput
+    type="file"
+    id="file"
+    accept="image/png,image/jpg,image/jpeg"
+  />
+</div>

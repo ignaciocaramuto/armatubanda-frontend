@@ -1,9 +1,19 @@
 <app-dialog icon="photo" title="Subir post">
-  <div class="stars">
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-    <span class="material-symbols-outlined"> grade </span>
-  </div>
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">attach_file</mat-icon>
+        Adjuntar
+      </ng-template>
+      <app-drag-and-drop></app-drag-and-drop>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">share</mat-icon>
+        Link
+      </ng-template>
+      Content 2
+    </mat-tab>
+  </mat-tab-group>
 </app-dialog>

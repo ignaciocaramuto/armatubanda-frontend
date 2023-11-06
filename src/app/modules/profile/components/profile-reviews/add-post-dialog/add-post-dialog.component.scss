@@ -1,0 +1,9 @@
+mat-icon {
+  margin-right: 1em;
+}
+
+:host::ng-deep {
+  .mat-mdc-tab-body.mat-mdc-tab-body-active {
+    padding: 2rem;
+  }
+}
