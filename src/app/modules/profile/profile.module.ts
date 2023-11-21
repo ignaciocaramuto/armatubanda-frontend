@@ -12,6 +12,7 @@ import { ReviewComponent } from './components/profile-reviews/review/review.comp
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
+import { ProfileInfoPageComponent } from './pages/profile-info-page/profile-info-page.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ProfileImageComponent } from 'src/app/core/components/profile-image/pro
     ProfileReviewsComponent,
     PostComponent,
     ReviewComponent,
+    ProfileInfoPageComponent,
   ],
   imports: [
     CommonModule,
