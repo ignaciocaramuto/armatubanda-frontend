@@ -41,13 +41,19 @@ a {
   transition: all 300ms;
 }
 
-.profile-options {
+.menu-buttons {
   display: flex;
   align-items: center;
   margin-right: 1em;
+  gap: 1em;
 }
 
-span,
+.profile-options {
+  display: flex;
+  align-items: center;
+}
+
+span.text-white,
 .mat-icon {
   color: $white;
 }
@@ -60,5 +66,9 @@ span,
   .mat-mdc-outlined-button {
     --mat-mdc-button-persistent-ripple-color: none;
     --mat-mdc-button-ripple-color: none;
+  }
+
+  .mat-mdc-menu-item-text {
+    display: flex !important;
   }
 }

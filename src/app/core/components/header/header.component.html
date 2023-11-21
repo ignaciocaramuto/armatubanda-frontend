@@ -2,17 +2,25 @@
   <a class="logo" routerLink="/">
     <img class="logo" src="../../../../assets/images/atb-alt-logo.png" alt="" />
   </a>
-  <div class="profile-options">
+  <div class="menu-buttons">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
-      <button mat-button [matMenuTriggerFor]="menu">
-        <span>{{ user()?.firstName }}</span>
-        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+      <button mat-button [matMenuTriggerFor]="invitationsMenu">
+        <span class="text-white">Mis invitaciones</span>
       </button>
-      <app-profile-image
-        [picByte]="user()?.profileImage?.picByte"
-        [type]="user()?.profileImage?.type"
-        class="small-size"
-      ></app-profile-image>
+      <button mat-button [matMenuTriggerFor]="bandsMenu">
+        <span class="text-white">Mis bandas</span>
+      </button>
+      <div class="profile-options">
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <span class="text-white">{{ user()?.firstName }}</span>
+          <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+        </button>
+        <app-profile-image
+          [picByte]="user()?.profileImage?.picByte"
+          [type]="user()?.profileImage?.type"
+          class="small-size"
+        ></app-profile-image>
+      </div>
     </ng-container>
   </div>
 </div>
@@ -22,7 +30,22 @@
   <a routerLink="/auth/login"> Conectarse </a>
 </ng-template>
 
-<mat-menu #menu="matMenu">
+<mat-menu #invitationsMenu="matMenu">
+  <span>No hay invitaciones</span>
+</mat-menu>
+
+<mat-menu #bandsMenu="matMenu">
+  <button mat-menu-item class="profile-options">
+    <app-profile-image
+      [picByte]="user()?.profileImage?.picByte"
+      [type]="user()?.profileImage?.type"
+      class="small-size"
+    ></app-profile-image>
+    AC/CD
+  </button>
+</mat-menu>
+
+<mat-menu #userMenu="matMenu">
   <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
     Ver perfil
   </button>
