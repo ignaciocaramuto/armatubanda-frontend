@@ -13,6 +13,13 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { ProfileInfoPageComponent } from './pages/profile-info-page/profile-info-page.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { InfoCardComponent } from './pages/profile-info-page/info-card/info-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +30,7 @@ import { ProfileInfoPageComponent } from './pages/profile-info-page/profile-info
     PostComponent,
     ReviewComponent,
     ProfileInfoPageComponent,
+    InfoCardComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +39,12 @@ import { ProfileInfoPageComponent } from './pages/profile-info-page/profile-info
     SharedModule,
     MatDialogModule,
     ProfileImageComponent,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
 })
 export class ProfileModule {}
