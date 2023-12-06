@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Musician } from 'src/app/core/models/musician';
+import { ProfileInfo } from 'src/app/core/models/profileInfo.interface';
 import { Review } from 'src/app/core/models/review.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
@@ -26,6 +27,12 @@ export class ProfileService extends CrudService<Musician> {
           this._logMessageService.logServerError(res.error.message)
         )
       )
+    );
+  }
+
+  getProfileInfo(id: number): Observable<ProfileInfo> {
+    return this.http.get<ProfileInfo>(
+      `${this.apiUrl}/get-profile/information/${id}`
     );
   }
 }
