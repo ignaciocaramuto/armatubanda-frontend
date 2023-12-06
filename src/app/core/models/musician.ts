@@ -1,4 +1,5 @@
 import { ExperienceType } from '../enums/experienceType.enum';
+import { Genre } from './genre.interface';
 import { Instrument } from './instrument.interface';
 import { ProfileImage } from './profile-image.interface';
 import { Review } from './review.interface';
@@ -34,6 +35,8 @@ export interface ContactInformation {
 
 export interface SkillsInformation {
   instrumentExperience: InstrumentExperience[];
+  genres: Genre[];
+  generalExperience: string;
 }
 
 export interface InstrumentExperience {

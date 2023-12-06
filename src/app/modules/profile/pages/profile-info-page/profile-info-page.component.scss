@@ -1,17 +1,65 @@
+@import "themes";
+
 :host {
+  font-family: "Arial", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
   height: calc(100% - 70px);
-  margin-top: 70px;
   display: block;
+  margin-top: 70px;
 }
 
-.actions {
-  display: flex;
-  justify-content: end;
-  padding: 1em;
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2em;
+h2 {
+  color: $main-color;
+  margin-bottom: 10px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin-bottom: 20px;
+}
+
+.career,
+.skills {
+  margin-bottom: 20px;
+}
+
+.career span,
+.skills span {
+  font-weight: bold;
+  color: #555;
+}
+
+h4 {
+  color: $main-color;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+}
+
+.skill-item {
+  margin-bottom: 10px;
+}
+
+.skill-item span {
+  margin-right: 10px;
+  font-weight: bold;
 }

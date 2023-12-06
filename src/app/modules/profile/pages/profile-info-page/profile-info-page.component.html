@@ -1,15 +1,57 @@
-<div class="actions">
-  <button mat-button (click)="isEdit = !isEdit">
-    <span>Editar</span>
-    <mat-icon iconPositionStart>edit</mat-icon>
-  </button>
-</div>
+<div class="container">
+  <h2>Biografía</h2>
+  <hr />
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus totam
+    perspiciatis sequi dolores quam nobis ut modi neque, voluptate itaque eos a
+    consequatur soluta magni? Pariatur sapiente sit consequuntur tenetur.
+  </p>
 
-<form class="cards" [formGroup]="formGroup">
-  <ng-container *ngFor="let control of formGroup.controls | keyvalue">
-    <app-info-card
-      [isEdit]="isEdit"
-      [formControlName]="control.key"
-    ></app-info-card>
-  </ng-container>
-</form>
+  <h2>Carrera</h2>
+  <hr />
+  <div
+    *ngFor="let career of profileInfo.careerInformation.careerHistory"
+    class="career"
+  >
+    <span>
+      Desde {{ career.startDate | date : "dd/MM/yyyy" }} hasta
+      {{ career.endDate | date : "dd/MM/yyyy" }}
+    </span>
+    <h4>{{ career.name }}</h4>
+    <p>{{ career.description }}</p>
+  </div>
+
+  <h2>Educación</h2>
+  <hr />
+  <div
+    *ngFor="let education of profileInfo.educationInformation.educationHistory"
+    class="career"
+  >
+    <span>
+      Desde {{ education.startDate | date : "dd/MM/yyyy" }} hasta
+      {{ education.endDate | date : "dd/MM/yyyy" }}
+    </span>
+    <h4>{{ education.name }}</h4>
+    <p>{{ education.description }}</p>
+  </div>
+
+  <h2>Habilidades</h2>
+  <hr />
+  <div class="skills">
+    <span
+      >Experiencia General:
+      {{ profileInfo.skillsInformation.generalExperience }}</span
+    >
+    <ul class="skills-list">
+      <li
+        *ngFor="
+          let instrument of profileInfo.skillsInformation.instrumentExperience
+        "
+        class="skill-item"
+      >
+        <span>{{ instrument.instrument.name }}:</span>
+        <span>{{ instrument.experience }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileService } from '../../services/profile.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { ProfileInfo } from 'src/app/core/models/profileInfo.interface';
 
 @Component({
   selector: 'app-profile-info-page',
@@ -16,6 +17,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class ProfileInfoPageComponent implements OnInit {
   isEdit: boolean = false;
+  profileInfo!: ProfileInfo;
   private fb = inject(FormBuilder);
   private profileService = inject(ProfileService);
   private route = inject(ActivatedRoute);
@@ -32,9 +34,10 @@ export class ProfileInfoPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.profileService
-        .getProfileInfo(params['id'])
-        .subscribe((result) => console.log(result));
+      this.profileService.getProfileInfo(params['id']).subscribe((result) => {
+        this.profileInfo = result;
+        console.log(result);
+      });
     });
   }
 }
