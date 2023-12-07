@@ -32,12 +32,14 @@ hr {
 }
 
 .career,
-.skills {
+.skills,
+.preferences {
   margin-bottom: 20px;
 }
 
 .career span,
-.skills span {
+.skills span,
+.preferences span {
   font-weight: bold;
   color: #555;
 }
@@ -62,4 +64,20 @@ p {
 .skill-item span {
   margin-right: 10px;
   font-weight: bold;
+}
+
+.preferences {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  padding: 3px;
+  font-size: 14px;
+  background-color: $main-color;
+  color: $white;
+  width: 100px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 700;
 }

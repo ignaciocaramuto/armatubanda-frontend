@@ -13,7 +13,6 @@ import { ProfileInfo } from 'src/app/core/models/profileInfo.interface';
   selector: 'app-profile-info-page',
   templateUrl: './profile-info-page.component.html',
   styleUrls: ['./profile-info-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileInfoPageComponent implements OnInit {
   isEdit: boolean = false;
@@ -36,7 +35,6 @@ export class ProfileInfoPageComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.profileService.getProfileInfo(params['id']).subscribe((result) => {
         this.profileInfo = result;
-        console.log(result);
       });
     });
   }

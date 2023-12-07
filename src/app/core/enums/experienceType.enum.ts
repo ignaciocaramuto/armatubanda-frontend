@@ -1,5 +1,5 @@
 export enum ExperienceType {
-  Beginner = 'Beginner',
-  Intermediate = 'Intermediate',
-  Expert = 'Expert',
+  Novice = 'NOVICE',
+  Advanced = 'ADVANCED',
+  Expert = 'EXPERT',
 }

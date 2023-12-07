@@ -36,7 +36,7 @@ export interface ContactInformation {
 export interface SkillsInformation {
   instrumentExperience: InstrumentExperience[];
   genres: Genre[];
-  generalExperience: string;
+  generalExperience: ExperienceType;
 }
 
 export interface InstrumentExperience {

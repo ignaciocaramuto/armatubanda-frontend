@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { InfoCardComponent } from './pages/profile-info-page/info-card/info-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateExperienceTypePipe } from 'src/app/core/pipes/translate-experience-type.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    TranslateExperienceTypePipe,
   ],
 })
 export class ProfileModule {}

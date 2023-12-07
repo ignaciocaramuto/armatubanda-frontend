@@ -23,8 +23,8 @@ import { InstrumentService } from 'src/app/shared/services/instrument.service';
 export class FiltersComponent implements OnInit {
   @Output() filterSelected = new EventEmitter<any>();
   readonly experienceTypes = [
-    { name: ExperienceType.Beginner },
-    { name: ExperienceType.Intermediate },
+    { name: ExperienceType.Novice },
+    { name: ExperienceType.Advanced },
     { name: ExperienceType.Expert },
   ];
   readonly userTypes = [{ name: UserType.Musician }, { name: UserType.Band }];
