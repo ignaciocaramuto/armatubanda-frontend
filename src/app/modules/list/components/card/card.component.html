@@ -1,5 +1,7 @@
 <div class="card" (click)="openProfile()">
-  <div class="tag">Busca banda</div>
+  <div class="tag" *ngIf="musician.preferenceInformation.lookingBands">
+    Busca banda
+  </div>
   <div class="pickgradient">
     <app-profile-image
       [picByte]="musician.profileImage?.picByte"
