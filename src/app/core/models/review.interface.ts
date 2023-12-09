@@ -1,4 +1,4 @@
-import { ProfileImage } from './profile-image.interface';
+import { Image } from './image.interface';
 
 export interface Review {
   id?: number;
@@ -7,5 +7,5 @@ export interface Review {
   reviewerId?: number;
   reviewerFirstName?: string;
   reviewerLastName?: string;
-  reviewerProfileImage?: ProfileImage;
+  reviewerProfileImage?: Image;
 }

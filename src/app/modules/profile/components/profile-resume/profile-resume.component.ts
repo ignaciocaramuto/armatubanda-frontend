@@ -4,7 +4,7 @@ import {
   ContactInformation,
   PersonalInformation,
 } from 'src/app/core/models/musician';
-import { ProfileImage } from 'src/app/core/models/profile-image.interface';
+import { Image } from 'src/app/core/models/image.interface';
 
 @Component({
   selector: 'app-profile-resume',
@@ -15,7 +15,7 @@ export class ProfileResumeComponent {
   @Input() biographyInfo!: BiographyInformation;
   @Input() contactInfo!: ContactInformation;
   @Input() personalInfo!: PersonalInformation;
-  @Input() profileImage?: ProfileImage;
+  @Input() profileImage?: Image;
 
   redirectToUserWebsite(): void {
     window.open(this.contactInfo.webSite, '_blank');

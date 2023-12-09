@@ -1,7 +1,7 @@
 import { ExperienceType } from '../enums/experienceType.enum';
 import { Genre } from './genre.interface';
 import { Instrument } from './instrument.interface';
-import { ProfileImage } from './profile-image.interface';
+import { Image } from './image.interface';
 import { Review } from './review.interface';
 
 export interface Musician {
@@ -13,7 +13,7 @@ export interface Musician {
   careerInformation: CareerInformation;
   biographyInformation: BiographyInformation;
   preferenceInformation: PreferenceInformation;
-  profileImage?: ProfileImage;
+  profileImage?: Image;
   reviews?: Review[];
 }
 

@@ -1,19 +1,27 @@
-<app-dialog icon="photo" title="Subir post">
-  <mat-tab-group>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">attach_file</mat-icon>
-        Adjuntar
-      </ng-template>
-      <app-drag-and-drop></app-drag-and-drop>
-    </mat-tab>
+<app-dialog icon="photo" title="Subir post" (confirmDialog)="addPost()">
+  <form [formGroup]="formGroup" enctype="multipart/form-data">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">attach_file</mat-icon>
+          Adjuntar
+        </ng-template>
+        <app-drag-and-drop></app-drag-and-drop>
+      </mat-tab>
 
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon">share</mat-icon>
-        Link
-      </ng-template>
-      Content 2
-    </mat-tab>
-  </mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">share</mat-icon>
+          Link
+        </ng-template>
+        <div class="text-center video-url">
+          <h3>Agrega la URL del vídeo aquí</h3>
+          <app-input-text
+            placeholder="Ingrese la URL para cargar desde la web"
+            formControlName="urlVideo"
+          ></app-input-text>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
 </app-dialog>

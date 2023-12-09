@@ -1,4 +1,4 @@
-import { ProfileImage } from 'src/app/core/models/profile-image.interface';
+import { Image } from 'src/app/core/models/image.interface';
 
 export interface AuthUser {
   id: number;
@@ -6,5 +6,5 @@ export interface AuthUser {
   isProfileSet: string;
   firstName: string;
   lastName: string;
-  profileImage: ProfileImage;
+  profileImage: Image;
 }
