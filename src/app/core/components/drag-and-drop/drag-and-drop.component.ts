@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { DndDirective } from '../../directives/dnd.directive';
@@ -12,7 +17,9 @@ import { DndDirective } from '../../directives/dnd.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DragAndDropComponent {
-  onFileSelected(event: any): void {
-    console.log(event);
+  @Output() fileSelected = new EventEmitter<Event>();
+
+  onFileSelected(event: Event): void {
+    this.fileSelected.emit(event);
   }
 }

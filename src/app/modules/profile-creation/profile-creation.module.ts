@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag-and-drop.component';
 
 @NgModule({
   declarations: [CreationFormComponent],
@@ -25,6 +26,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatInputModule,
     MatButtonModule,
     TextFieldModule,
+    DragAndDropComponent,
   ],
 })
 export class ProfileCreationModule {}

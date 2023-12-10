@@ -1,8 +1,8 @@
 <div class="form-container">
   <h2>Creacion del perfil</h2>
   <mat-stepper orientation="horizontal" [linear]="true" #stepper>
-    <mat-step [stepControl]="personalInfoForm">
-      <form [formGroup]="personalInfoForm">
+    <mat-step [stepControl]="personalformGroup">
+      <form [formGroup]="personalformGroup">
         <ng-template matStepLabel>Información personal</ng-template>
         <mat-form-field class="textinput">
           <mat-label>Nombre</mat-label>
@@ -36,8 +36,8 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="locationForm">
-      <form [formGroup]="locationForm">
+    <mat-step [stepControl]="contactformGroup">
+      <form [formGroup]="contactformGroup">
         <ng-template matStepLabel>Ubicación y contacto</ng-template>
         <mat-form-field class="textinput">
           <mat-label>Ciudad</mat-label>
@@ -72,9 +72,10 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="socialMediaForm">
-      <ng-template matStepLabel>Redes sociales y sitio web</ng-template>
-      <form [formGroup]="socialMediaForm">
+    <mat-step [stepControl]="socialNetworkformGroup">
+      <form [formGroup]="socialNetworkformGroup">
+        <ng-template matStepLabel>Redes sociales y sitio web</ng-template>
+
         <mat-form-field class="textinput">
           <mat-label>Website personal</mat-label>
           <input
@@ -94,32 +95,31 @@
             required
           />
         </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
       </form>
-      <div>
-        <button mat-button matStepperPrevious>Volver</button>
-        <button mat-button matStepperNext>Siguiente</button>
-      </div>
     </mat-step>
-    <mat-step [stepControl]="instrumentForm">
-      <ng-template matStepLabel>Selección de instrumentos</ng-template>
-      <form [formGroup]="instrumentForm">
-        <mat-form-field>
-          <mat-label>Instrumentos</mat-label>
-          <mat-select multiple formControlName="instrumentList">
-            <mat-option *ngFor="let inst of data" [value]="inst.id">
-              {{ inst.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+    <mat-step [stepControl]="instrumentstformGroup">
+      <form [formGroup]="instrumentstformGroup">
+        <ng-template matStepLabel>Selección de instrumentos</ng-template>
+        <app-input-select
+          [items]="instruments"
+          formControlName="instruments"
+          placeholder="Selecciona uno o varios"
+          [multiple]="true"
+        >
+        </app-input-select>
+        <div>
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
       </form>
-      <div>
-        <button mat-button matStepperPrevious>Volver</button>
-        <button mat-button matStepperNext>Siguiente</button>
-      </div>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Biografia</ng-template>
-      <form [formGroup]="bioForm">
+    <mat-step [stepControl]="bioformGroup">
+      <form [formGroup]="bioformGroup">
+        <ng-template matStepLabel>Biografia</ng-template>
         <mat-form-field class="bioinput">
           <mat-label>Biografia</mat-label>
           <textarea
@@ -131,29 +131,23 @@
             formControlName="bio"
           ></textarea>
         </mat-form-field>
-      </form>
-      <div>
-        <button mat-button matStepperPrevious>Volver</button>
-        <button mat-button matStepperNext>Siguiente</button>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Subir foto de perfil</ng-template>
-      <form [formGroup]="photoForm" (ngSubmit)="onSubmit()">
-        <button type="button" mat-raised-button (click)="fileInput.click()">
-          Choose File
-        </button>
-        <input
-          hidden
-          (change)="onFileSelected($event)"
-          #fileInput
-          type="file"
-          id="file"
-          accept="image/png,image/jpg,image/jpeg"
-        />
         <div>
-          <button type="submit">Crear perfil</button>
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
         </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="profileImageformGroup">
+      <form
+        [formGroup]="profileImageformGroup"
+        enctype="multipart/form-data"
+        (ngSubmit)="onSubmit()"
+      >
+        <ng-template matStepLabel>Subir foto de perfil</ng-template>
+        <app-drag-and-drop
+          (fileSelected)="setSelectedFile($event)"
+        ></app-drag-and-drop>
+        <button type="submit">Crear perfil</button>
       </form>
     </mat-step>
   </mat-stepper>
