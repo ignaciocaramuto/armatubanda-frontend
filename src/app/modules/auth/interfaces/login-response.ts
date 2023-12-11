@@ -4,7 +4,7 @@ export interface LoginResponse {
   id: number;
   token: string;
   email: string;
-  isProfileSet: string;
+  profileSet: boolean;
   firstName: string;
   lastName: string;
   profileImage: Image;

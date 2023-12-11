@@ -27,7 +27,7 @@ export class AuthService {
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('token', user.token);
-        localStorage.setItem('isProfileSet', user.isProfileSet);
+        localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
       }),
       map(() => true),
 
@@ -68,7 +68,7 @@ export class AuthService {
       tap((user) => {
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
-        localStorage.setItem('isProfileSet', user.isProfileSet);
+        localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
       }),
       map((user) => !!user),
       catchError((res: HttpErrorResponse) =>
@@ -84,15 +84,7 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/me`;
 
     return this.http.get<AuthUser>(url).pipe(
-      tap((user: AuthUser) => {
-        localStorage.setItem('isProfileSet', user.isProfileSet);
-      }),
-      map((user: AuthUser) => {
-        if (user.isProfileSet) {
-          return true;
-        }
-        return false;
-      }),
+      map(({ profileSet }) => profileSet),
       catchError((res: HttpErrorResponse) =>
         throwError(() =>
           this._logMessageService.logServerError(res.error.message)
