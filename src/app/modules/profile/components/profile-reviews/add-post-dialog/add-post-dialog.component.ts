@@ -14,6 +14,7 @@ import { InputTextComponent } from 'src/app/core/components/input-text/input-tex
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
 import { Post } from '../../../models/post.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-post-dialog',
@@ -36,6 +37,7 @@ export class AddPostDialogComponent {
 
   private fb = inject(FormBuilder);
   private profileService = inject(ProfileService);
+  private router = inject(Router);
 
   formGroup: FormGroup = this.fb.group({
     urlVideo: [],
@@ -52,9 +54,7 @@ export class AddPostDialogComponent {
       }
       this.profileService.addPost(formData).subscribe((res) => {
         if (res) {
-          this.profileService
-            .getPosts(this.userId)
-            .subscribe((result) => this.posts.emit(result));
+          window.location.reload();
         }
       });
     }

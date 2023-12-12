@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileImageComponent } from '../profile-image/profile-image.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ import { ProfileImageComponent } from '../profile-image/profile-image.component'
     MatIconModule,
     MatButtonModule,
     ProfileImageComponent,
+    MatDividerModule,
   ],
 })
 export class HeaderComponent implements OnInit {

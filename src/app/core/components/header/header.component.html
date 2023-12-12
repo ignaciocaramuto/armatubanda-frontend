@@ -4,6 +4,9 @@
   </a>
   <div class="menu-buttons">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
+      <button mat-button routerLink="/list" class="text-white">
+        <span class="text-white">Listado</span>
+      </button>
       <button mat-button [matMenuTriggerFor]="invitationsMenu">
         <span class="text-white">Mis invitaciones</span>
       </button>
@@ -11,7 +14,11 @@
         <span class="text-white">Mis bandas</span>
       </button>
       <div class="profile-options">
-        <button mat-button [matMenuTriggerFor]="userMenu">
+        <button
+          mat-button
+          [matMenuTriggerFor]="userMenu"
+          *ngIf="user()?.profileSet"
+        >
           <span class="text-white">{{ user()?.firstName }}</span>
           <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
@@ -43,6 +50,8 @@
     ></app-profile-image>
     AC/CD
   </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item class="profile-options">Crear banda</button>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu">
