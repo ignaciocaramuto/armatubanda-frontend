@@ -1,1 +1,7 @@
-<iframe [src]="srcSafeUrl" frameborder="0" allowfullscreen></iframe>
+<ng-container *ngIf="post.urlVideo; else image">
+  <iframe [src]="srcSafeUrl" frameborder="0" allowfullscreen></iframe>
+</ng-container>
+
+<ng-template #image>
+  <img [src]="post.image.picByte | sanitizeImage : post.image.type" alt="" />
+</ng-template>

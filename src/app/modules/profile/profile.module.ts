@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { InfoCardComponent } from './pages/profile-info-page/info-card/info-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateExperienceTypePipe } from 'src/app/core/pipes/translate-experience-type.pipe';
+import { SanitizeImagePipe } from '../../core/pipes/sanitize-image.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TranslateExperienceTypePipe } from 'src/app/core/pipes/translate-experi
     MatInputModule,
     ReactiveFormsModule,
     TranslateExperienceTypePipe,
+    SanitizeImagePipe,
   ],
 })
 export class ProfileModule {}

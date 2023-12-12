@@ -1,12 +1,14 @@
 <app-dialog icon="photo" title="Subir post" (confirmDialog)="addPost()">
-  <form [formGroup]="formGroup" enctype="multipart/form-data">
+  <form [formGroup]="formGroup">
     <mat-tab-group>
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">attach_file</mat-icon>
           Adjuntar
         </ng-template>
-        <app-drag-and-drop></app-drag-and-drop>
+        <app-drag-and-drop
+          (fileSelected)="setSelectedFile($event)"
+        ></app-drag-and-drop>
       </mat-tab>
 
       <mat-tab>

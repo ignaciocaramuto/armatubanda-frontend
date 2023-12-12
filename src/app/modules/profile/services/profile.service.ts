@@ -42,23 +42,20 @@ export class ProfileService extends CrudService<Musician> {
     );
   }
 
-  addPost(post: Post): Observable<Post> {
-    const headers = new HttpHeaders();
-    if (post.image) {
-      headers.set('Content-Type', 'multipart/form-data');
-    }
-
-    return this.http
-      .post<Post>(`${this.apiUrl}/create-post`, post, { headers })
-      .pipe(
-        tap(() =>
-          this._logMessageService.logConfirm('¡Tu posteo ha sido añadido!')
-        ),
-        catchError((res: HttpErrorResponse) =>
-          throwError(() =>
-            this._logMessageService.logServerError(res.error.message)
-          )
+  addPost(post: FormData): Observable<Post> {
+    return this.http.post<Post>(`${this.apiUrl}/create-post`, post).pipe(
+      tap(() =>
+        this._logMessageService.logConfirm('¡Tu posteo ha sido añadido!')
+      ),
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
         )
-      );
+      )
+    );
+  }
+
+  getPosts(id: number): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}/get-post/${id}`);
   }
 }
