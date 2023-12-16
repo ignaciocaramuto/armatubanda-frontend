@@ -72,9 +72,11 @@ export class AuthService {
       }),
       map((user) => !!user),
       catchError((res: HttpErrorResponse) =>
-        throwError(() =>
-          this._logMessageService.logServerError(res.error.message)
-        )
+        throwError(() => {
+          localStorage.removeItem('token');
+          if (res.error.message)
+            this._logMessageService.logServerError(res.error?.message);
+        })
       )
     );
   }
