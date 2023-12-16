@@ -12,6 +12,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag-and-drop.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ButtonComponent } from 'src/app/core/components/button/button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [CreationFormComponent],
@@ -27,6 +30,9 @@ import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag
     MatButtonModule,
     TextFieldModule,
     DragAndDropComponent,
+    MatDatepickerModule,
+    ButtonComponent,
+    MatIconModule,
   ],
 })
 export class ProfileCreationModule {}

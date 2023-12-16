@@ -1,5 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, forwardRef, inject } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { BasicProfile } from '../../interfaces/profile-creation.interface';
 import { environment } from 'src/environments/environment.local';
@@ -13,6 +19,13 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
   selector: 'app-creation-form',
   templateUrl: './creation-form.component.html',
   styleUrls: ['./creation-form.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: CreationFormComponent,
+      multi: true,
+    },
+  ],
 })
 export class CreationFormComponent implements OnInit {
   private fb = inject(FormBuilder);
@@ -25,24 +38,15 @@ export class CreationFormComponent implements OnInit {
   instruments: Instrument[] = [];
 
   personalformGroup: FormGroup = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    stageName: ['', Validators.required],
-  });
-
-  contactformGroup: FormGroup = this.fb.group({
-    country: ['', Validators.required],
-    city: ['', Validators.required],
-    phoneNumber: ['', Validators.required],
-  });
-
-  socialNetworkformGroup: FormGroup = this.fb.group({
-    webSite: [''],
-    socialMediaLink: [''],
-  });
-
-  instrumentstformGroup: FormGroup = this.fb.group({
-    instruments: [null, Validators.required],
+    firstName: ['asd', Validators.required],
+    lastName: ['asd', Validators.required],
+    stageName: ['asd', Validators.required],
+    country: ['asd', Validators.required],
+    city: ['asd', Validators.required],
+    phoneNumber: ['asd', Validators.required],
+    birthday: ['', Validators.required],
+    webSite: ['asd'],
+    socialMediaLink: ['asd'],
   });
 
   bioformGroup: FormGroup = this.fb.group({
@@ -58,12 +62,7 @@ export class CreationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (
-      this.personalformGroup.valid &&
-      this.contactformGroup.valid &&
-      this.instrumentstformGroup.valid &&
-      this.bioformGroup.valid
-    ) {
+    if (this.personalformGroup.valid && this.bioformGroup.valid) {
       const urlPut = `${this.baseUrl}/musician/create-profile`;
 
       const musician = {
@@ -71,16 +70,15 @@ export class CreationFormComponent implements OnInit {
           name: this.personalformGroup.get('firstName')?.value,
           lastname: this.personalformGroup.get('lastName')?.value,
           stageName: this.personalformGroup.get('stageName')?.value,
-          country: this.contactformGroup.get('country')?.value,
-          city: this.contactformGroup.get('city')?.value,
-          birthday: '2023-09-10T00:00:00Z',
+          country: this.personalformGroup.get('country')?.value,
+          city: this.personalformGroup.get('city')?.value,
+          birthday: this.personalformGroup.get('birthday')?.value,
           gender: 'MALE',
         },
         contactInformation: {
-          phoneNumber: this.contactformGroup.get('phoneNumber')?.value,
-          webSite: this.socialNetworkformGroup.get('webSite')?.value,
-          socialMediaLink:
-            this.socialNetworkformGroup.get('socialMediaLink')?.value,
+          phoneNumber: this.personalformGroup.get('phoneNumber')?.value,
+          webSite: this.personalformGroup.get('webSite')?.value,
+          socialMediaLink: this.personalformGroup.get('socialMediaLink')?.value,
         },
         skillsInformation: {
           instrumentExperience: [

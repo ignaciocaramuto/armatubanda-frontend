@@ -4,6 +4,7 @@
     <mat-step [stepControl]="personalformGroup">
       <form [formGroup]="personalformGroup">
         <ng-template matStepLabel>Información personal</ng-template>
+
         <mat-form-field class="textinput">
           <mat-label>Nombre</mat-label>
           <input
@@ -13,6 +14,7 @@
             required
           />
         </mat-form-field>
+
         <mat-form-field class="textinput">
           <mat-label>Apellido</mat-label>
           <input
@@ -22,6 +24,7 @@
             required
           />
         </mat-form-field>
+
         <mat-form-field class="textinput">
           <mat-label>Nombre artístico</mat-label>
           <input
@@ -31,14 +34,7 @@
             required
           />
         </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="contactformGroup">
-      <form [formGroup]="contactformGroup">
-        <ng-template matStepLabel>Ubicación y contacto</ng-template>
+
         <mat-form-field class="textinput">
           <mat-label>Ciudad</mat-label>
           <input
@@ -48,6 +44,7 @@
             required
           />
         </mat-form-field>
+
         <mat-form-field class="textinput">
           <mat-label>Pais</mat-label>
           <input
@@ -57,6 +54,7 @@
             required
           />
         </mat-form-field>
+
         <mat-form-field class="textinput">
           <mat-label>Número celular</mat-label>
           <input
@@ -66,15 +64,16 @@
             required
           />
         </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="socialNetworkformGroup">
-      <form [formGroup]="socialNetworkformGroup">
-        <ng-template matStepLabel>Redes sociales y sitio web</ng-template>
+
+        <mat-form-field class="textinput">
+          <mat-label>Selecciona una fecha</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthday" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
         <mat-form-field class="textinput">
           <mat-label>Website personal</mat-label>
@@ -95,28 +94,13 @@
             required
           />
         </mat-form-field>
+
         <div>
-          <button mat-button matStepperPrevious>Volver</button>
           <button mat-button matStepperNext>Siguiente</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="instrumentstformGroup">
-      <form [formGroup]="instrumentstformGroup">
-        <ng-template matStepLabel>Selección de instrumentos</ng-template>
-        <app-input-select
-          [items]="instruments"
-          formControlName="instruments"
-          placeholder="Selecciona uno o varios"
-          [multiple]="true"
-        >
-        </app-input-select>
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
+
     <mat-step [stepControl]="bioformGroup">
       <form [formGroup]="bioformGroup">
         <ng-template matStepLabel>Biografia</ng-template>
