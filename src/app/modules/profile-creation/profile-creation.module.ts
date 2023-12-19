@@ -33,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     ButtonComponent,
     MatIconModule,
+    InputSelectComponent,
   ],
 })
 export class ProfileCreationModule {}

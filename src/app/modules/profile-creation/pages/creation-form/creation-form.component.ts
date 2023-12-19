@@ -14,6 +14,7 @@ import { InstrumentService } from 'src/app/shared/services/instrument.service';
 import { tap } from 'rxjs';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
+import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
 
 @Component({
   selector: 'app-creation-form',
@@ -36,6 +37,11 @@ export class CreationFormComponent implements OnInit {
   private _logMessageService = inject(LogMessageService);
 
   instruments: Instrument[] = [];
+  readonly experienceTypes = [
+    { name: ExperienceType.Novice },
+    { name: ExperienceType.Advanced },
+    { name: ExperienceType.Expert },
+  ];
 
   personalformGroup: FormGroup = this.fb.group({
     firstName: ['asd', Validators.required],
@@ -56,6 +62,19 @@ export class CreationFormComponent implements OnInit {
   profileImageformGroup: FormGroup = this.fb.group({
     profileImage: [],
   });
+
+  skillsFormGroup: FormGroup = this.fb.group({
+    skills: this.fb.array([]),
+  });
+
+  get skills(): FormArray {
+    return this.skillsFormGroup.controls['skills'] as FormArray;
+  }
+
+  get skillsFormArrayControls(): FormGroup[] {
+    return (this.skillsFormGroup.controls['skills'] as FormArray)
+      .controls as FormGroup[];
+  }
 
   ngOnInit(): void {
     this.getInstruments();
@@ -187,5 +206,18 @@ export class CreationFormComponent implements OnInit {
     this.profileImageformGroup
       .get('profileImage')
       ?.setValue(event?.target.files[0]);
+  }
+
+  addInstrument(): void {
+    const instrumentForm = this.fb.group({
+      instrument: ['', Validators.required],
+      experience: ['beginner', Validators.required],
+    });
+
+    this.skills.push(instrumentForm);
+  }
+
+  deleteInstrument(skillIndex: number): void {
+    this.skills.removeAt(skillIndex);
   }
 }

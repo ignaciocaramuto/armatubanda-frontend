@@ -101,6 +101,46 @@
       </form>
     </mat-step>
 
+    <mat-step [stepControl]="skillsFormGroup">
+      <form [formGroup]="skillsFormGroup">
+        <ng-template matStepLabel>Instrumentos</ng-template>
+
+        <ng-container formArrayName="skills">
+          <ng-container
+            *ngFor="let skillForm of skillsFormArrayControls; let i = index"
+          >
+            <div class="lesson-form-row" [formGroup]="skillForm">
+              <app-input-select
+                [items]="instruments"
+                formControlName="instrument"
+                placeholder="Selecciona uno"
+                [required]="true"
+              >
+              </app-input-select>
+
+              <app-input-select
+                [items]="experienceTypes"
+                formControlName="experience"
+                placeholder="Experiencia"
+                [required]="true"
+              >
+              </app-input-select>
+
+              <mat-icon (click)="deleteInstrument(i)">delete</mat-icon>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <app-button icon="add" label="Agregar" (click)="addInstrument()">
+        </app-button>
+
+        <div>
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
     <mat-step [stepControl]="bioformGroup">
       <form [formGroup]="bioformGroup">
         <ng-template matStepLabel>Biografia</ng-template>
