@@ -109,7 +109,7 @@
           <ng-container
             *ngFor="let skillForm of skillsFormArrayControls; let i = index"
           >
-            <div class="lesson-form-row" [formGroup]="skillForm">
+            <div [formGroup]="skillForm">
               <app-input-select
                 [items]="instruments"
                 formControlName="instrument"
