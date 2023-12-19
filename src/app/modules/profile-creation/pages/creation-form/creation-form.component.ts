@@ -57,6 +57,7 @@ export class CreationFormComponent implements OnInit {
 
   bioformGroup: FormGroup = this.fb.group({
     bio: ['', [Validators.maxLength(256)]],
+    career: this.fb.array([]),
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
@@ -73,6 +74,15 @@ export class CreationFormComponent implements OnInit {
 
   get skillsFormArrayControls(): FormGroup[] {
     return (this.skillsFormGroup.controls['skills'] as FormArray)
+      .controls as FormGroup[];
+  }
+
+  get career(): FormArray {
+    return this.bioformGroup.controls['career'] as FormArray;
+  }
+
+  get careerFormArrayControls(): FormGroup[] {
+    return (this.bioformGroup.controls['career'] as FormArray)
       .controls as FormGroup[];
   }
 
@@ -219,5 +229,20 @@ export class CreationFormComponent implements OnInit {
 
   deleteInstrument(skillIndex: number): void {
     this.skills.removeAt(skillIndex);
+  }
+
+  addCareer(): void {
+    const careerForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    });
+
+    this.career.push(careerForm);
+  }
+
+  deleteCareer(careerIndex: number): void {
+    this.career.removeAt(careerIndex);
   }
 }

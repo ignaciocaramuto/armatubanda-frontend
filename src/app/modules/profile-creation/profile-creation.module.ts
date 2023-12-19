@@ -15,6 +15,7 @@ import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
+import { InputTextComponent } from 'src/app/core/components/input-text/input-text.component';
 
 @NgModule({
   declarations: [CreationFormComponent],
@@ -34,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
     ButtonComponent,
     MatIconModule,
     InputSelectComponent,
+    InputTextComponent,
   ],
 })
 export class ProfileCreationModule {}
