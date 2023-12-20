@@ -111,6 +111,7 @@
           >
             <div [formGroup]="skillForm">
               <app-input-select
+                appearance="outline"
                 [items]="instruments"
                 formControlName="instrument"
                 placeholder="Selecciona uno"
@@ -119,6 +120,7 @@
               </app-input-select>
 
               <app-input-select
+                appearance="outline"
                 [items]="experienceTypes"
                 formControlName="experience"
                 placeholder="Experiencia"
@@ -144,11 +146,14 @@
     <mat-step [stepControl]="bioformGroup">
       <form [formGroup]="bioformGroup">
         <ng-template matStepLabel>Biografia</ng-template>
-        <mat-form-field>
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-top: 1em"
+        >
           <mat-label>Biografia</mat-label>
           <textarea
             matInput
-            rows="2"
+            rows="4"
             cols="200"
             formControlName="bio"
           ></textarea>
@@ -159,53 +164,56 @@
             *ngFor="let careerForm of careerFormArrayControls; let i = index"
           >
             <div [formGroup]="careerForm">
-              <app-input-text
-                formControlName="name"
-                type="text"
-                placeholder="Nombre de banda"
-                [required]="true"
-              >
-              </app-input-text>
+              <h4>Agregar banda</h4>
+              <div class="bands">
+                <app-input-text
+                  appearance="outline"
+                  formControlName="name"
+                  type="text"
+                  placeholder="Nombre de banda"
+                >
+                </app-input-text>
 
-              <mat-form-field class="textinput">
-                <mat-label>Desde</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="startPicker"
-                  formControlName="startDate"
-                />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="startPicker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #startPicker></mat-datepicker>
-              </mat-form-field>
+                <mat-form-field class="textinput" appearance="outline">
+                  <mat-label>Desde</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="startPicker"
+                    formControlName="startDate"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="startPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
 
-              <mat-form-field class="textinput">
-                <mat-label>Hasta</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="endPicker"
-                  formControlName="endDate"
-                />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="endPicker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #endPicker></mat-datepicker>
-              </mat-form-field>
+                <mat-form-field class="textinput" appearance="outline">
+                  <mat-label>Hasta</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="endPicker"
+                    formControlName="endDate"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="endPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #endPicker></mat-datepicker>
+                </mat-form-field>
 
-              <mat-form-field>
-                <mat-label>Biografia</mat-label>
+                <mat-icon (click)="deleteCareer(i)">delete</mat-icon>
+              </div>
+
+              <mat-form-field appearance="outline" class="band-description">
+                <mat-label>Descripción</mat-label>
                 <textarea
                   matInput
-                  rows="2"
+                  rows="5"
                   cols="200"
                   formControlName="description"
                 ></textarea>
               </mat-form-field>
-
-              <mat-icon (click)="deleteCareer(i)">delete</mat-icon>
             </div>
           </ng-container>
         </ng-container>

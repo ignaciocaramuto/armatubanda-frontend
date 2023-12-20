@@ -56,7 +56,7 @@ export class CreationFormComponent implements OnInit {
   });
 
   bioformGroup: FormGroup = this.fb.group({
-    bio: ['', [Validators.maxLength(256)]],
+    bio: ['', [Validators.maxLength(512), Validators.required]],
     career: this.fb.array([]),
   });
 
