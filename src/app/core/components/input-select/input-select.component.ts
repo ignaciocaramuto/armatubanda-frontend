@@ -8,6 +8,7 @@ import {
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControlValueAccessorConnector } from '../form-control-value-accessor-connector/form-control-value-accessor-connector';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
   standalone: true,
@@ -32,6 +33,7 @@ export class InputSelectComponent extends FormControlValueAccessorConnector {
   @Input() required: boolean = false;
   @Input() multiple: boolean = false;
   @Input() class: string = 'default-input';
+  @Input() appearance: MatFormFieldAppearance = 'fill';
 
   constructor(injector: Injector) {
     super(injector);
