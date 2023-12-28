@@ -68,6 +68,10 @@ export class CreationFormComponent implements OnInit {
     skills: this.fb.array([]),
   });
 
+  academicHistoryFormGroup: FormGroup = this.fb.group({
+    academics: this.fb.array([]),
+  });
+
   get skills(): FormArray {
     return this.skillsFormGroup.controls['skills'] as FormArray;
   }
@@ -81,8 +85,17 @@ export class CreationFormComponent implements OnInit {
     return this.bioformGroup.controls['career'] as FormArray;
   }
 
+  get academics(): FormArray {
+    return this.academicHistoryFormGroup.controls['academics'] as FormArray;
+  }
+
   get careerFormArrayControls(): FormGroup[] {
     return (this.bioformGroup.controls['career'] as FormArray)
+      .controls as FormGroup[];
+  }
+
+  get academicsFormArrayControls(): FormGroup[] {
+    return (this.academicHistoryFormGroup.controls['academics'] as FormArray)
       .controls as FormGroup[];
   }
 
@@ -110,20 +123,7 @@ export class CreationFormComponent implements OnInit {
           socialMediaLink: this.personalformGroup.get('socialMediaLink')?.value,
         },
         skillsInformation: {
-          instrumentExperience: [
-            {
-              instrument: {
-                name: 'Guitarra',
-              },
-              experience: 'ADVANCED',
-            },
-            {
-              instrument: {
-                name: 'Violin',
-              },
-              experience: 'NOVICE',
-            },
-          ],
+          instrumentExperience: this.skills.value,
           genres: [
             {
               name: 'Rock',
@@ -135,36 +135,10 @@ export class CreationFormComponent implements OnInit {
           generalExperience: 'NOVICE',
         },
         educationInformation: {
-          educationHistory: [
-            {
-              name: 'NombreBandaPrueba',
-              description: 'Esta es mi trayectoria en la banda',
-              startDate: '2023-09-10T00:00:00Z',
-              endDate: '2023-09-15T00:00:00Z',
-            },
-            {
-              name: 'NombreBandaDos',
-              description: 'Esta es mi trayectoria en la banda dos',
-              startDate: '2023-01-10T00:00:00Z',
-              endDate: '2023-10-15T00:00:00Z',
-            },
-          ],
+          educationHistory: this.academics.value,
         },
         careerInformation: {
-          careerHistory: [
-            {
-              name: 'EducacionFormal',
-              description: 'En esta institucion comence mis estudios',
-              startDate: '2023-09-10T00:00:00Z',
-              endDate: '2023-09-15T00:00:00Z',
-            },
-            {
-              name: 'InstitutoEducacionDos',
-              description: 'Estudios en mi segunda institucion',
-              startDate: '2023-01-10T00:00:00Z',
-              endDate: '2023-10-15T00:00:00Z',
-            },
-          ],
+          careerHistory: this.career.value,
         },
         biographyInformation: {
           bio: this.bioformGroup.get('bio')?.value,
@@ -175,6 +149,8 @@ export class CreationFormComponent implements OnInit {
           available: true,
         },
       };
+
+      console.log(musician);
 
       const form = new FormData();
       form.append(
@@ -244,5 +220,20 @@ export class CreationFormComponent implements OnInit {
 
   deleteCareer(careerIndex: number): void {
     this.career.removeAt(careerIndex);
+  }
+
+  addStudy(): void {
+    const studyForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    });
+
+    this.academics.push(studyForm);
+  }
+
+  deleteStudy(studyIndex: number): void {
+    this.academics.removeAt(studyIndex);
   }
 }
