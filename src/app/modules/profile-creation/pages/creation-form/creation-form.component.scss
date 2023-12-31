@@ -12,6 +12,13 @@
   }
 }
 
+.stepper-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  gap: 1em;
+}
+
 mat-icon {
   color: $text-grey;
   cursor: pointer;
