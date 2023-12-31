@@ -1,5 +1,17 @@
 @import "themes";
 
+.personal-info-form {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  .personal-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 mat-icon {
   color: $text-grey;
   cursor: pointer;

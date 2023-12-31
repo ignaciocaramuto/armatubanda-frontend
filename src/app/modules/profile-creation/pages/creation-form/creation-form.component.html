@@ -2,103 +2,124 @@
   <h2>Creacion del perfil</h2>
   <mat-stepper orientation="horizontal" [linear]="true" #stepper>
     <mat-step [stepControl]="personalformGroup">
-      <form [formGroup]="personalformGroup">
+      <form [formGroup]="personalformGroup" class="personal-info-form">
         <ng-template matStepLabel>Información personal</ng-template>
 
-        <mat-form-field class="textinput">
-          <mat-label>Nombre</mat-label>
-          <input
-            matInput
-            placeholder="Nombre"
+        <div class="personal-inputs">
+          <!-- First name -->
+          <app-input-text
+            appearance="outline"
             formControlName="firstName"
-            required
-          />
-        </mat-form-field>
+            type="text"
+            placeholder="Nombre"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
 
-        <mat-form-field class="textinput">
-          <mat-label>Apellido</mat-label>
-          <input
-            matInput
-            placeholder="Apellido"
+          <!-- Last name -->
+          <app-input-text
+            appearance="outline"
             formControlName="lastName"
-            required
-          />
-        </mat-form-field>
+            type="text"
+            placeholder="Apellido"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
 
-        <mat-form-field class="textinput">
-          <mat-label>Nombre artístico</mat-label>
-          <input
-            matInput
-            placeholder="Nombre artístico"
+          <!-- Stage name -->
+          <app-input-text
+            appearance="outline"
             formControlName="stageName"
-            required
-          />
-        </mat-form-field>
+            type="text"
+            placeholder="Nombre artístico"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
 
-        <mat-form-field class="textinput">
-          <mat-label>Ciudad</mat-label>
-          <input
-            matInput
-            placeholder="Ciudad"
+          <!-- City -->
+          <app-input-text
+            appearance="outline"
             formControlName="city"
-            required
-          />
-        </mat-form-field>
+            type="text"
+            placeholder="Ciudad"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
 
-        <mat-form-field class="textinput">
-          <mat-label>Pais</mat-label>
-          <input
-            matInput
-            placeholder="Pais"
+          <!-- Country -->
+          <app-input-text
+            appearance="outline"
             formControlName="country"
-            required
-          />
-        </mat-form-field>
-
-        <mat-form-field class="textinput">
-          <mat-label>Número celular</mat-label>
-          <input
-            matInput
-            placeholder="Nro. celular"
+            type="text"
+            placeholder="País"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+        </div>
+        <div class="personal-inputs">
+          <!-- Phone number -->
+          <app-input-text
+            appearance="outline"
             formControlName="phoneNumber"
-            required
-          />
-        </mat-form-field>
+            type="text"
+            placeholder="Nro. de celular"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
 
-        <mat-form-field class="textinput">
-          <mat-label>Selecciona una fecha</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="birthday" />
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+          <!-- Birthday -->
+          <mat-form-field class="textinput" appearance="outline">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="birthday"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
 
-        <mat-form-field class="textinput">
-          <mat-label>Website personal</mat-label>
-          <input
-            matInput
-            placeholder="Website"
+          <!-- Website -->
+          <app-input-text
+            appearance="outline"
             formControlName="webSite"
-            required
-          />
-        </mat-form-field>
+            type="text"
+            placeholder="Website"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
 
-        <mat-form-field class="textinput">
-          <mat-label>Red social</mat-label>
-          <input
-            matInput
-            placeholder="Red social"
+          <!-- Social media -->
+          <app-input-text
+            appearance="outline"
             formControlName="socialMediaLink"
-            required
-          />
-        </mat-form-field>
-
-        <div>
-          <button mat-button matStepperNext>Siguiente</button>
+            type="text"
+            placeholder="Red social"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
         </div>
       </form>
+      <button mat-button matStepperNext>Siguiente</button>
     </mat-step>
 
     <mat-step [stepControl]="skillsFormGroup">
