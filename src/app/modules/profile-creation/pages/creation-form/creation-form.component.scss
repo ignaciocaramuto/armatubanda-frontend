@@ -1,5 +1,13 @@
 @import "themes";
 
+:host {
+  font-family: "Arial", sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 .personal-info-form {
   margin-top: 1em;
   display: flex;
@@ -16,6 +24,17 @@
   width: 100%;
   display: flex;
   justify-content: end;
+  gap: 1em;
+}
+
+.new-button {
+  display: flex;
+  justify-content: center;
+}
+
+.instruments-inputs {
+  display: flex;
+  justify-content: center;
   gap: 1em;
 }
 

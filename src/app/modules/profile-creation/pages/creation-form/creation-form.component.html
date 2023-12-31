@@ -1,355 +1,341 @@
-<div class="form-container">
-  <h2>Creacion del perfil</h2>
-  <mat-stepper orientation="horizontal" [linear]="true" #stepper>
-    <mat-step [stepControl]="personalformGroup">
-      <form [formGroup]="personalformGroup" class="personal-info-form">
-        <ng-template matStepLabel>Información personal</ng-template>
+<mat-stepper orientation="horizontal" [linear]="true" #stepper>
+  <mat-step [stepControl]="personalformGroup">
+    <form [formGroup]="personalformGroup" class="personal-info-form">
+      <ng-template matStepLabel>Información personal</ng-template>
 
-        <div class="personal-inputs">
-          <!-- First name -->
-          <app-input-text
-            appearance="outline"
-            formControlName="firstName"
-            type="text"
-            placeholder="Nombre"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- Last name -->
-          <app-input-text
-            appearance="outline"
-            formControlName="lastName"
-            type="text"
-            placeholder="Apellido"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- Stage name -->
-          <app-input-text
-            appearance="outline"
-            formControlName="stageName"
-            type="text"
-            placeholder="Nombre artístico"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- City -->
-          <app-input-text
-            appearance="outline"
-            formControlName="city"
-            type="text"
-            placeholder="Ciudad"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- Country -->
-          <app-input-text
-            appearance="outline"
-            formControlName="country"
-            type="text"
-            placeholder="País"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-        </div>
-        <div class="personal-inputs">
-          <!-- Phone number -->
-          <app-input-text
-            appearance="outline"
-            formControlName="phoneNumber"
-            type="text"
-            placeholder="Nro. de celular"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- Birthday -->
-          <mat-form-field class="textinput" appearance="outline">
-            <mat-label>Fecha de nacimiento</mat-label>
-            <input
-              matInput
-              [matDatepicker]="picker"
-              formControlName="birthday"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-          <!-- Website -->
-          <app-input-text
-            appearance="outline"
-            formControlName="webSite"
-            type="text"
-            placeholder="Website"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- Social media -->
-          <app-input-text
-            appearance="outline"
-            formControlName="socialMediaLink"
-            type="text"
-            placeholder="Red social"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-
-          <!-- New field -->
-          <app-input-text
-            appearance="outline"
-            formControlName="socialMediaLink"
-            type="text"
-            placeholder="Sexo? deberiamos agregar este campo?"
-            class="textinput"
-            [width]="400"
-            [required]="true"
-          >
-          </app-input-text>
-        </div>
-      </form>
-      <div class="stepper-buttons">
-        <button mat-button matStepperNext>Siguiente</button>
-      </div>
-    </mat-step>
-
-    <mat-step [stepControl]="skillsFormGroup">
-      <form [formGroup]="skillsFormGroup">
-        <ng-template matStepLabel>Instrumentos</ng-template>
-
-        <ng-container formArrayName="skills">
-          <ng-container
-            *ngFor="let skillForm of skillsFormArrayControls; let i = index"
-          >
-            <div [formGroup]="skillForm">
-              <app-input-select
-                appearance="outline"
-                [items]="instruments"
-                formControlName="instrument"
-                placeholder="Selecciona uno"
-                [required]="true"
-              >
-              </app-input-select>
-
-              <app-input-select
-                appearance="outline"
-                [items]="experienceTypes"
-                formControlName="experience"
-                placeholder="Experiencia"
-                [required]="true"
-              >
-              </app-input-select>
-
-              <mat-icon (click)="deleteInstrument(i)">delete</mat-icon>
-            </div>
-          </ng-container>
-        </ng-container>
-
-        <app-button icon="add" label="Agregar" (click)="addInstrument()">
-        </app-button>
-
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-
-    <mat-step [stepControl]="bioformGroup">
-      <form [formGroup]="bioformGroup">
-        <ng-template matStepLabel>Biografia</ng-template>
-        <mat-form-field
+      <div class="personal-inputs">
+        <!-- First name -->
+        <app-input-text
           appearance="outline"
-          style="width: 100%; margin-top: 1em"
+          formControlName="firstName"
+          type="text"
+          placeholder="Nombre"
+          class="textinput"
+          [width]="400"
+          [required]="true"
         >
-          <mat-label>Biografia</mat-label>
-          <textarea
-            matInput
-            rows="4"
-            cols="200"
-            formControlName="bio"
-          ></textarea>
+        </app-input-text>
+
+        <!-- Last name -->
+        <app-input-text
+          appearance="outline"
+          formControlName="lastName"
+          type="text"
+          placeholder="Apellido"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+
+        <!-- Stage name -->
+        <app-input-text
+          appearance="outline"
+          formControlName="stageName"
+          type="text"
+          placeholder="Nombre artístico"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+
+        <!-- City -->
+        <app-input-text
+          appearance="outline"
+          formControlName="city"
+          type="text"
+          placeholder="Ciudad"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+
+        <!-- Country -->
+        <app-input-text
+          appearance="outline"
+          formControlName="country"
+          type="text"
+          placeholder="País"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+      </div>
+      <div class="personal-inputs">
+        <!-- Phone number -->
+        <app-input-text
+          appearance="outline"
+          formControlName="phoneNumber"
+          type="text"
+          placeholder="Nro. de celular"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+
+        <!-- Birthday -->
+        <mat-form-field class="textinput" appearance="outline">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="birthday" />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <ng-container formArrayName="career">
-          <ng-container
-            *ngFor="let careerForm of careerFormArrayControls; let i = index"
-          >
-            <div [formGroup]="careerForm">
-              <h4>Agregar banda</h4>
-              <div class="bands">
-                <app-input-text
-                  appearance="outline"
-                  formControlName="name"
-                  type="text"
-                  placeholder="Nombre de banda"
-                >
-                </app-input-text>
+        <!-- Website -->
+        <app-input-text
+          appearance="outline"
+          formControlName="webSite"
+          type="text"
+          placeholder="Website"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
 
-                <mat-form-field class="textinput" appearance="outline">
-                  <mat-label>Desde</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="startPicker"
-                    formControlName="startDate"
-                  />
-                  <mat-datepicker-toggle
-                    matIconSuffix
-                    [for]="startPicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #startPicker></mat-datepicker>
-                </mat-form-field>
+        <!-- Social media -->
+        <app-input-text
+          appearance="outline"
+          formControlName="socialMediaLink"
+          type="text"
+          placeholder="Red social"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
 
-                <mat-form-field class="textinput" appearance="outline">
-                  <mat-label>Hasta</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="endPicker"
-                    formControlName="endDate"
-                  />
-                  <mat-datepicker-toggle
-                    matIconSuffix
-                    [for]="endPicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #endPicker></mat-datepicker>
-                </mat-form-field>
+        <!-- New field -->
+        <app-input-text
+          appearance="outline"
+          formControlName="socialMediaLink"
+          type="text"
+          placeholder="Sexo? deberiamos agregar este campo?"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+      </div>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
 
-                <mat-icon (click)="deleteCareer(i)">delete</mat-icon>
-              </div>
+  <mat-step [stepControl]="skillsFormGroup">
+    <form [formGroup]="skillsFormGroup">
+      <ng-template matStepLabel>Instrumentos</ng-template>
 
-              <mat-form-field appearance="outline" class="band-description">
-                <mat-label>Descripción</mat-label>
-                <textarea
-                  matInput
-                  rows="5"
-                  cols="200"
-                  formControlName="description"
-                ></textarea>
-              </mat-form-field>
-            </div>
-          </ng-container>
+      <ng-container formArrayName="skills">
+        <ng-container
+          *ngFor="let skillForm of skillsFormArrayControls; let i = index"
+        >
+          <div [formGroup]="skillForm" class="instruments-inputs">
+            <app-input-select
+              appearance="outline"
+              [items]="instruments"
+              formControlName="instrument"
+              placeholder="Selecciona uno"
+              [required]="true"
+              [width]="300"
+            >
+            </app-input-select>
+
+            <app-input-select
+              appearance="outline"
+              [items]="experienceTypes"
+              formControlName="experience"
+              placeholder="Experiencia"
+              [required]="true"
+              [width]="300"
+            >
+            </app-input-select>
+
+            <mat-icon (click)="deleteInstrument(i)">delete</mat-icon>
+          </div>
         </ng-container>
+      </ng-container>
 
-        <app-button icon="add" label="Agregar carrera" (click)="addCareer()">
-        </app-button>
+      <div class="new-button">
+        <app-button
+          icon="add"
+          label="Agregar"
+          (click)="addInstrument()"
+        ></app-button>
+      </div>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-button matStepperPrevious>Volver</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
 
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
+  <mat-step [stepControl]="bioformGroup">
+    <form [formGroup]="bioformGroup">
+      <ng-template matStepLabel>Biografia</ng-template>
+      <mat-form-field appearance="outline" style="width: 100%; margin-top: 1em">
+        <mat-label>Biografia</mat-label>
+        <textarea matInput rows="4" cols="200" formControlName="bio"></textarea>
+      </mat-form-field>
 
-    <mat-step [stepControl]="academicHistoryFormGroup">
-      <form [formGroup]="academicHistoryFormGroup">
-        <ng-template matStepLabel>Historia Académica</ng-template>
-        <ng-container formArrayName="academics">
-          <ng-container
-            *ngFor="
-              let academicForm of academicsFormArrayControls;
-              let i = index
-            "
-          >
-            <div [formGroup]="academicForm">
-              <h4>Agregar estudio</h4>
-              <div class="bands">
-                <app-input-text
-                  appearance="outline"
-                  formControlName="name"
-                  type="text"
-                  placeholder="Nombre de estudio"
-                >
-                </app-input-text>
+      <ng-container formArrayName="career">
+        <ng-container
+          *ngFor="let careerForm of careerFormArrayControls; let i = index"
+        >
+          <div [formGroup]="careerForm">
+            <h4>Agregar banda</h4>
+            <div class="bands">
+              <app-input-text
+                appearance="outline"
+                formControlName="name"
+                type="text"
+                placeholder="Nombre de banda"
+              >
+              </app-input-text>
 
-                <mat-form-field class="textinput" appearance="outline">
-                  <mat-label>Desde</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="startPicker"
-                    formControlName="startDate"
-                  />
-                  <mat-datepicker-toggle
-                    matIconSuffix
-                    [for]="startPicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #startPicker></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field class="textinput" appearance="outline">
-                  <mat-label>Hasta</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="endPicker"
-                    formControlName="endDate"
-                  />
-                  <mat-datepicker-toggle
-                    matIconSuffix
-                    [for]="endPicker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #endPicker></mat-datepicker>
-                </mat-form-field>
-
-                <mat-icon (click)="deleteStudy(i)">delete</mat-icon>
-              </div>
-
-              <mat-form-field appearance="outline" class="band-description">
-                <mat-label>Descripción</mat-label>
-                <textarea
+              <mat-form-field class="textinput" appearance="outline">
+                <mat-label>Desde</mat-label>
+                <input
                   matInput
-                  rows="5"
-                  cols="200"
-                  formControlName="description"
-                ></textarea>
+                  [matDatepicker]="startPicker"
+                  formControlName="startDate"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="startPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
               </mat-form-field>
+
+              <mat-form-field class="textinput" appearance="outline">
+                <mat-label>Hasta</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="endPicker"
+                  formControlName="endDate"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="endPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-icon (click)="deleteCareer(i)">delete</mat-icon>
             </div>
-          </ng-container>
+
+            <mat-form-field appearance="outline" class="band-description">
+              <mat-label>Descripción</mat-label>
+              <textarea
+                matInput
+                rows="5"
+                cols="200"
+                formControlName="description"
+              ></textarea>
+            </mat-form-field>
+          </div>
         </ng-container>
+      </ng-container>
 
-        <app-button icon="add" label="Agregar estudio" (click)="addStudy()">
-        </app-button>
+      <app-button icon="add" label="Agregar carrera" (click)="addCareer()">
+      </app-button>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-button matStepperPrevious>Volver</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
 
-        <div>
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
+  <mat-step [stepControl]="academicHistoryFormGroup">
+    <form [formGroup]="academicHistoryFormGroup">
+      <ng-template matStepLabel>Historia Académica</ng-template>
+      <ng-container formArrayName="academics">
+        <ng-container
+          *ngFor="let academicForm of academicsFormArrayControls; let i = index"
+        >
+          <div [formGroup]="academicForm">
+            <h4>Agregar estudio</h4>
+            <div class="bands">
+              <app-input-text
+                appearance="outline"
+                formControlName="name"
+                type="text"
+                placeholder="Nombre de estudio"
+              >
+              </app-input-text>
 
-    <mat-step [stepControl]="profileImageformGroup">
-      <form
-        [formGroup]="profileImageformGroup"
-        enctype="multipart/form-data"
-        (ngSubmit)="onSubmit()"
-      >
-        <ng-template matStepLabel>Subir foto de perfil</ng-template>
-        <app-drag-and-drop
-          (fileSelected)="setSelectedFile($event)"
-        ></app-drag-and-drop>
-        <button type="submit">Crear perfil</button>
-      </form>
-    </mat-step>
-  </mat-stepper>
-</div>
+              <mat-form-field class="textinput" appearance="outline">
+                <mat-label>Desde</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="startPicker"
+                  formControlName="startDate"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="startPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field class="textinput" appearance="outline">
+                <mat-label>Hasta</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="endPicker"
+                  formControlName="endDate"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="endPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-icon (click)="deleteStudy(i)">delete</mat-icon>
+            </div>
+
+            <mat-form-field appearance="outline" class="band-description">
+              <mat-label>Descripción</mat-label>
+              <textarea
+                matInput
+                rows="5"
+                cols="200"
+                formControlName="description"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <app-button icon="add" label="Agregar estudio" (click)="addStudy()">
+      </app-button>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-button matStepperPrevious>Volver</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="profileImageformGroup">
+    <form
+      [formGroup]="profileImageformGroup"
+      enctype="multipart/form-data"
+      (ngSubmit)="onSubmit()"
+    >
+      <ng-template matStepLabel>Subir foto de perfil</ng-template>
+      <app-drag-and-drop
+        (fileSelected)="setSelectedFile($event)"
+      ></app-drag-and-drop>
+      <button type="submit">Crear perfil</button>
+    </form>
+  </mat-step>
+</mat-stepper>
