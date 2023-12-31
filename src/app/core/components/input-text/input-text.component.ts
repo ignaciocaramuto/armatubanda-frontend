@@ -33,6 +33,7 @@ export class InputTextComponent extends FormControlValueAccessorConnector {
   @Input() invalidErrorMessage: string = '';
   @Input() requiredErrorMessage: string = '';
   @Input() appearance: MatFormFieldAppearance = 'fill';
+  @Input() width!: number;
 
   constructor(injector: Injector) {
     super(injector);
