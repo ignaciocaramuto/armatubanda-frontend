@@ -337,7 +337,9 @@
       <app-drag-and-drop
         (fileSelected)="setSelectedFile($event)"
       ></app-drag-and-drop>
-      <button type="submit">Crear perfil</button>
+      <div class="stepper-buttons">
+        <app-button type="submit" label="Crear perfil"></app-button>
+      </div>
     </form>
   </mat-step>
 </mat-stepper>
