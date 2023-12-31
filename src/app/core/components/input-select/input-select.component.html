@@ -1,4 +1,8 @@
-<mat-form-field [class]="class" [appearance]="appearance">
+<mat-form-field
+  [class]="class"
+  [appearance]="appearance"
+  [style.width.px]="width"
+>
   <mat-label>{{ placeholder }}</mat-label>
   <mat-select
     [formControl]="control"

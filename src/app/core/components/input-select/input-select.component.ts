@@ -34,6 +34,7 @@ export class InputSelectComponent extends FormControlValueAccessorConnector {
   @Input() multiple: boolean = false;
   @Input() class: string = 'default-input';
   @Input() appearance: MatFormFieldAppearance = 'fill';
+  @Input() width!: number;
 
   constructor(injector: Injector) {
     super(injector);

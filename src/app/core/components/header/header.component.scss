@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: sticky;
   top: 0;
   overflow: hidden;
   background: linear-gradient(
@@ -15,7 +15,7 @@
     rgba(255, 199, 0, 1) 35%,
     rgba(225, 135, 53, 1) 100%
   );
-  z-index: 1000;
+  z-index: 3;
 }
 
 img.logo {
