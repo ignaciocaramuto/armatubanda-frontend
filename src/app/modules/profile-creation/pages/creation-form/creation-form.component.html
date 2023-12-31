@@ -13,7 +13,7 @@
             type="text"
             placeholder="Nombre"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -25,7 +25,7 @@
             type="text"
             placeholder="Apellido"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -37,7 +37,7 @@
             type="text"
             placeholder="Nombre artístico"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -49,7 +49,7 @@
             type="text"
             placeholder="Ciudad"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -61,7 +61,7 @@
             type="text"
             placeholder="País"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -74,7 +74,7 @@
             type="text"
             placeholder="Nro. de celular"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -101,7 +101,7 @@
             type="text"
             placeholder="Website"
             class="textinput"
-            [width]="300"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
@@ -113,13 +113,27 @@
             type="text"
             placeholder="Red social"
             class="textinput"
-            [width]="300"
+            [width]="400"
+            [required]="true"
+          >
+          </app-input-text>
+
+          <!-- New field -->
+          <app-input-text
+            appearance="outline"
+            formControlName="socialMediaLink"
+            type="text"
+            placeholder="Sexo? deberiamos agregar este campo?"
+            class="textinput"
+            [width]="400"
             [required]="true"
           >
           </app-input-text>
         </div>
       </form>
-      <button mat-button matStepperNext>Siguiente</button>
+      <div class="stepper-buttons">
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
     </mat-step>
 
     <mat-step [stepControl]="skillsFormGroup">
