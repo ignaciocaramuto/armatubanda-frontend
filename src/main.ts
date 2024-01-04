@@ -48,8 +48,6 @@ bootstrapApplication(AppComponent, {
         path: 'auth',
         loadChildren: () =>
           import(`./app/modules/auth/auth.routes`).then((r) => r.AUTH_ROUTES),
-        canActivate: [canActivateGuardPublic],
-        canMatch: [canMatchGuardPublic],
       },
       {
         path: 'list',
@@ -66,8 +64,6 @@ bootstrapApplication(AppComponent, {
           import(`./app/modules/profile/profile.routes`).then(
             (r) => r.PROFILE_ROUTES
           ),
-        canActivate: [canActivateGuardProfile],
-        canMatch: [canMatchGuardProfile],
       },
       {
         path: 'new-profile',
@@ -77,6 +73,11 @@ bootstrapApplication(AppComponent, {
           ).then((c) => c.CreationFormComponent),
         canActivate: [canActivateGuard],
         canMatch: [canMatchGuard],
+      },
+      {
+        path: 'band',
+        loadChildren: () =>
+          import(`./app/modules/band/band.routes`).then((r) => r.BAND_ROUTES),
       },
     ]),
   ],
