@@ -1,10 +1,18 @@
 import { Component, OnInit, forwardRef, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { BasicProfile } from '../../interfaces/profile-creation.interface';
 import { environment } from 'src/environments/environment.local';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { InstrumentService } from 'src/app/shared/services/instrument.service';
+import { InstrumentService } from 'src/app/core/services/instrument.service';
 import { tap } from 'rxjs';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
@@ -22,32 +30,32 @@ import { InputTextComponent } from '../../../../core/components/input-text/input
 import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
-    selector: 'app-creation-form',
-    templateUrl: './creation-form.component.html',
-    styleUrls: ['./creation-form.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: CreationFormComponent,
-            multi: true,
-        },
-    ],
-    standalone: true,
-    imports: [
-        MatStepperModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputTextComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatButtonModule,
-        NgFor,
-        InputSelectComponent,
-        MatIconModule,
-        ButtonComponent,
-        DragAndDropComponent,
-    ],
+  selector: 'app-creation-form',
+  templateUrl: './creation-form.component.html',
+  styleUrls: ['./creation-form.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: CreationFormComponent,
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    NgFor,
+    InputSelectComponent,
+    MatIconModule,
+    ButtonComponent,
+    DragAndDropComponent,
+  ],
 })
 export class CreationFormComponent implements OnInit {
   private fb = inject(FormBuilder);

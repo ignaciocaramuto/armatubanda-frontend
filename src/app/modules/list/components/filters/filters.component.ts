@@ -5,14 +5,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
 import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
 import { UserType } from 'src/app/core/enums/userType.enum';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
-import { GenreService } from 'src/app/shared/services/genre.service';
-import { InstrumentService } from 'src/app/shared/services/instrument.service';
+import { GenreService } from 'src/app/core/services/genre.service';
+import { InstrumentService } from 'src/app/core/services/instrument.service';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { InputSelectComponent } from '../../../../core/components/input-select/input-select.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,21 +26,21 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-    selector: 'app-filters',
-    templateUrl: './filters.component.html',
-    styleUrls: ['./filters.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        MatButtonModule,
-        MatChipsModule,
-        NgFor,
-        MatIconModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputSelectComponent,
-        InputTextComponent,
-    ],
+  selector: 'app-filters',
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatChipsModule,
+    NgFor,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputSelectComponent,
+    InputTextComponent,
+  ],
 })
 export class FiltersComponent implements OnInit {
   @Output() filterSelected = new EventEmitter<any>();
