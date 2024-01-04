@@ -8,8 +8,8 @@ describe('AddPostDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddPostDialogComponent]
-    });
+    imports: [AddPostDialogComponent]
+});
     fixture = TestBed.createComponent(AddPostDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,7 +1,83 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { AppComponent } from './app/app.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
+import {
+  HTTP_INTERCEPTORS,
+  withInterceptorsFromDi,
+  provideHttpClient,
+} from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import {
+  canActivateGuardTrue,
+  canMatchGuardTrue,
+} from './app/modules/auth/guards/check-auth.guard';
+import {
+  canActivateGuardPublic,
+  canMatchGuardPublic,
+} from './app/modules/auth/guards/public.guard';
+import {
+  canActivateGuardProfile,
+  canMatchGuardProfile,
+} from './app/modules/profile-creation/guards/profile-set.guard';
+import {
+  canActivateGuard,
+  canMatchGuard,
+} from './app/modules/auth/guards/auth.guard';
 
-import { AppModule } from './app/app.module';
-
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(BrowserModule, MatSnackBarModule, MatNativeDateModule),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    provideAnimations(),
+    provideHttpClient(withInterceptorsFromDi()),
+    provideRouter([
+      {
+        path: '',
+        loadComponent: () =>
+          import('./app/modules/home/pages/home-page/home-page.component').then(
+            (c) => c.HomePageComponent
+          ),
+        canActivate: [canActivateGuardTrue],
+        canMatch: [canMatchGuardTrue],
+      },
+      {
+        path: 'auth',
+        loadChildren: () =>
+          import(`./app/modules/auth/auth.routes`).then((r) => r.AUTH_ROUTES),
+        canActivate: [canActivateGuardPublic],
+        canMatch: [canMatchGuardPublic],
+      },
+      {
+        path: 'list',
+        loadComponent: () =>
+          import(`./app/modules/list/pages/list-page/list-page.component`).then(
+            (c) => c.ListPageComponent
+          ),
+        canActivate: [canActivateGuardProfile],
+        canMatch: [canMatchGuardProfile],
+      },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import(`./app/modules/profile/profile.routes`).then(
+            (r) => r.PROFILE_ROUTES
+          ),
+        canActivate: [canActivateGuardProfile],
+        canMatch: [canMatchGuardProfile],
+      },
+      {
+        path: 'new-profile',
+        loadComponent: () =>
+          import(
+            `./app/modules/profile-creation/pages/creation-form/creation-form.component`
+          ).then((c) => c.CreationFormComponent),
+        canActivate: [canActivateGuard],
+        canMatch: [canMatchGuard],
+      },
+    ]),
+  ],
+}).catch((err) => console.error(err));

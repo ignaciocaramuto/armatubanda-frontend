@@ -4,11 +4,21 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
 import { AddReviewDialogComponent } from './add-review-dialog/add-review-dialog.component';
 import { Review } from 'src/app/core/models/review.interface';
+import { ReviewComponent } from './review/review.component';
+import { ButtonComponent } from '../../../../core/components/button/button.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-reviews',
-  templateUrl: './profile-reviews.component.html',
-  styleUrls: ['./profile-reviews.component.scss'],
+    selector: 'app-profile-reviews',
+    templateUrl: './profile-reviews.component.html',
+    styleUrls: ['./profile-reviews.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        ButtonComponent,
+        NgFor,
+        ReviewComponent,
+    ],
 })
 export class ProfileReviewsComponent {
   @Input() userId!: number;

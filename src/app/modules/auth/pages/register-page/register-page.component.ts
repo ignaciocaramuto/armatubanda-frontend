@@ -1,14 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/core/services/validators.service';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
+import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 
 @Component({
-  selector: 'app-register-page',
-  templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss'],
+    selector: 'app-register-page',
+    templateUrl: './register-page.component.html',
+    styleUrls: ['./register-page.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        InputTextComponent,
+    ],
 })
 export class RegisterPageComponent {
   private fb = inject(FormBuilder);

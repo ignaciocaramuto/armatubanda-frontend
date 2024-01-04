@@ -2,11 +2,21 @@ import { Component } from '@angular/core';
 import { Musician } from 'src/app/core/models/musician';
 import { ListService } from '../../services/list.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { CardComponent } from '../../components/card/card.component';
+import { NgIf, NgFor } from '@angular/common';
+import { FiltersComponent } from '../../components/filters/filters.component';
 
 @Component({
-  selector: 'app-list-page',
-  templateUrl: './list-page.component.html',
-  styleUrls: ['./list-page.component.scss'],
+    selector: 'app-list-page',
+    templateUrl: './list-page.component.html',
+    styleUrls: ['./list-page.component.scss'],
+    standalone: true,
+    imports: [
+        FiltersComponent,
+        NgIf,
+        NgFor,
+        CardComponent,
+    ],
 })
 export class ListPageComponent {
   musicians: Musician[] = [];

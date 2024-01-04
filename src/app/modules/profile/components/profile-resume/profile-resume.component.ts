@@ -6,11 +6,15 @@ import {
 } from 'src/app/core/models/musician';
 import { Image } from 'src/app/core/models/image.interface';
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../../../../core/components/button/button.component';
+import { ProfileImageComponent } from '../../../../core/components/profile-image/profile-image.component';
 
 @Component({
-  selector: 'app-profile-resume',
-  templateUrl: './profile-resume.component.html',
-  styleUrls: ['./profile-resume.component.scss'],
+    selector: 'app-profile-resume',
+    templateUrl: './profile-resume.component.html',
+    styleUrls: ['./profile-resume.component.scss'],
+    standalone: true,
+    imports: [ProfileImageComponent, ButtonComponent],
 })
 export class ProfileResumeComponent {
   @Input() biographyInfo!: BiographyInformation;

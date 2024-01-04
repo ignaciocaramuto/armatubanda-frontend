@@ -1,11 +1,15 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { Post } from '../../models/post.interface';
 import { ProfileService } from '../../services/profile.service';
+import { PostComponent } from './post/post.component';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-feed',
-  templateUrl: './profile-feed.component.html',
-  styleUrls: ['./profile-feed.component.scss'],
+    selector: 'app-profile-feed',
+    templateUrl: './profile-feed.component.html',
+    styleUrls: ['./profile-feed.component.scss'],
+    standalone: true,
+    imports: [NgFor, PostComponent],
 })
 export class ProfileFeedComponent implements OnInit {
   @Input() userId!: number;

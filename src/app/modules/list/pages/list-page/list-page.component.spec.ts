@@ -8,8 +8,8 @@ describe('ListPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListPageComponent ]
-    })
+    imports: [ListPageComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ListPageComponent);

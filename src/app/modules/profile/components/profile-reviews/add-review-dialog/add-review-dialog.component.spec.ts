@@ -8,8 +8,8 @@ describe('AddReviewDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddReviewDialogComponent]
-    });
+    imports: [AddReviewDialogComponent]
+});
     fixture = TestBed.createComponent(AddReviewDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
