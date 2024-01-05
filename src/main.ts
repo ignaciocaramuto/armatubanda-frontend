@@ -75,6 +75,15 @@ bootstrapApplication(AppComponent, {
         loadChildren: () =>
           import(`./app/modules/band/band.routes`).then((r) => r.BAND_ROUTES),
       },
+      {
+        path: 'advertisements',
+        loadComponent: () =>
+          import(
+            `./app/modules/advertisements/pages/advertisements-page/advertisements-page.component`
+          ).then((c) => c.AdvertisementsPageComponent),
+        canActivate: [canActivateGuard],
+        canMatch: [canMatchGuard],
+      },
     ]),
   ],
 }).catch((err) => console.error(err));
