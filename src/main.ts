@@ -16,10 +16,6 @@ import {
   canMatchGuardTrue,
 } from './app/modules/auth/guards/check-auth.guard';
 import {
-  canActivateGuardPublic,
-  canMatchGuardPublic,
-} from './app/modules/auth/guards/public.guard';
-import {
   canActivateGuardProfile,
   canMatchGuardProfile,
 } from './app/modules/profile-creation/guards/profile-set.guard';
@@ -75,7 +71,7 @@ bootstrapApplication(AppComponent, {
         canMatch: [canMatchGuard],
       },
       {
-        path: 'band',
+        path: 'band/:id',
         loadChildren: () =>
           import(`./app/modules/band/band.routes`).then((r) => r.BAND_ROUTES),
       },
