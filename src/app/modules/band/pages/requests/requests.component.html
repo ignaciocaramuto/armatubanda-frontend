@@ -1,1 +1,36 @@
-<p>requests works!</p>
+<div class="requests">
+  <div class="container">
+    <app-profile-image
+      [picByte]="undefined"
+      [type]="undefined"
+      class="large-size"
+    ></app-profile-image>
+    <h2>Guns N Roses</h2>
+    <p>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis
+      pariatur facere repellat dolorem non eaque aliquid! Eius, neque quis vel
+      totam laudantium unde ab, molestiae perferendis corporis voluptas
+      repellendus necessitatibus.
+    </p>
+  </div>
+
+  <div class="request-list">
+    <ng-container *ngFor="let request of [1, 2, 3, 4]">
+      <mat-card class="card-content">
+        <div class="card-info">
+          <app-profile-image
+            [picByte]="undefined"
+            [type]="undefined"
+            class="small-size"
+          ></app-profile-image>
+          <h3>Luciano</h3>
+          <p>Quiere unirse a tu banda</p>
+        </div>
+        <div class="card-actions">
+          <button mat-stroked-button color="primary">Aceptar</button>
+          <button mat-stroked-button color="warn">Rechazar</button>
+        </div>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>

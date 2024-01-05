@@ -1,0 +1,49 @@
+@import "themes";
+
+.requests {
+  display: flex;
+  p {
+    color: $text-grey;
+  }
+}
+
+.container {
+  width: 400px;
+  height: 100%;
+  background-color: $white;
+  text-align: center;
+  padding-top: 1em;
+  p {
+    text-align: justify;
+    padding: 0 1.5em;
+  }
+}
+
+mat-card {
+  width: 100%;
+}
+
+.request-list {
+  width: 100%;
+  padding: 2em;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 0em 1em;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1em;
+}
