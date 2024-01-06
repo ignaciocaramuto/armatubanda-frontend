@@ -53,6 +53,7 @@ export class FiltersComponent implements OnInit {
     { name: ExperienceType.Expert },
   ];
   readonly userTypes = [{ name: UserType.Musician }, { name: UserType.Band }];
+  readonly lookingBand = [{ name: 'Sí' }, { name: 'No' }];
   formGroup: FormGroup;
   instruments: Instrument[] = [];
   genres: Genre[] = [];
@@ -68,6 +69,9 @@ export class FiltersComponent implements OnInit {
       instruments: [''],
       genres: [''],
       experience: [''],
+      country: [''],
+      city: [''],
+      lookingBand: [''],
     });
   }
 
@@ -78,7 +82,10 @@ export class FiltersComponent implements OnInit {
       controls['name'].value ||
       controls['instruments'].value.length > 0 ||
       controls['genres'].value.length > 0 ||
-      controls['experience'].value
+      controls['experience'].value ||
+      controls['country'].value ||
+      controls['city'].value ||
+      controls['lookingBand'].value
     );
   }
 
@@ -126,6 +133,15 @@ export class FiltersComponent implements OnInit {
       selectedKeys.push('genres');
     }
     if (controls['experience'].value) {
+      selectedKeys.push('experience');
+    }
+    if (controls['country'].value) {
+      selectedKeys.push('experience');
+    }
+    if (controls['city'].value) {
+      selectedKeys.push('experience');
+    }
+    if (controls['lookingBand'].value) {
       selectedKeys.push('experience');
     }
 
