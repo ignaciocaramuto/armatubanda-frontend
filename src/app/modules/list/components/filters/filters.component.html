@@ -19,6 +19,7 @@
     <div class="divider"></div>
     <form [formGroup]="formGroup">
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="userTypes"
         formControlName="userType"
         placeholder="Musico o Banda"
@@ -49,6 +50,7 @@
       >
       </app-input-select>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="experienceTypes"
         formControlName="experience"
         placeholder="Experiencia"

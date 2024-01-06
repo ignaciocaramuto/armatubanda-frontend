@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -21,7 +22,7 @@ import { InstrumentService } from 'src/app/core/services/instrument.service';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { InputSelectComponent } from '../../../../core/components/input-select/input-select.component';
 import { MatIconModule } from '@angular/material/icon';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -35,6 +36,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatChipsModule,
     NgFor,
+    NgIf,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
@@ -43,6 +45,7 @@ import { MatButtonModule } from '@angular/material/button';
   ],
 })
 export class FiltersComponent implements OnInit {
+  @Input() isMusiciansList: boolean = true;
   @Output() filterSelected = new EventEmitter<any>();
   readonly experienceTypes = [
     { name: ExperienceType.Novice },
