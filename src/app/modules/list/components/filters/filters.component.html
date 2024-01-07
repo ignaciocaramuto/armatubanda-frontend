@@ -72,6 +72,7 @@
       >
       </app-input-select>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="lookingBand"
         formControlName="lookingBand"
         placeholder="Busca banda"
