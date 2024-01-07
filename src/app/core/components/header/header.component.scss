@@ -48,9 +48,14 @@ a {
   gap: 1em;
 }
 
-.profile-options {
+.profile-options,
+.menu-option {
   display: flex;
   align-items: center;
+}
+
+.menu-option {
+  gap: 10px;
 }
 
 span.text-white,
@@ -66,9 +71,5 @@ span.text-white,
   .mat-mdc-outlined-button {
     --mat-mdc-button-persistent-ripple-color: none;
     --mat-mdc-button-ripple-color: none;
-  }
-
-  .mat-mdc-menu-item-text {
-    display: flex !important;
   }
 }

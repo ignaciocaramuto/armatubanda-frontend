@@ -42,16 +42,18 @@
 </mat-menu>
 
 <mat-menu #bandsMenu="matMenu">
-  <button mat-menu-item class="profile-options">
-    <app-profile-image
-      [picByte]="user()?.profileImage?.picByte"
-      [type]="user()?.profileImage?.type"
-      class="small-size"
-    ></app-profile-image>
-    AC/CD
+  <button mat-menu-item>
+    <div class="menu-option">
+      <app-profile-image
+        [picByte]="user()?.profileImage?.picByte"
+        [type]="user()?.profileImage?.type"
+        class="small-size"
+      ></app-profile-image>
+      <span>AC/CD</span>
+    </div>
   </button>
   <mat-divider></mat-divider>
-  <button mat-menu-item class="profile-options">Crear banda</button>
+  <button mat-menu-item>Crear banda</button>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu">
