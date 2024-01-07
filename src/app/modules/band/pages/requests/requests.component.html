@@ -1,18 +1,11 @@
 <div class="requests">
-  <div class="container">
-    <app-profile-image
-      [picByte]="undefined"
-      [type]="undefined"
-      class="large-size"
-    ></app-profile-image>
-    <h2>Guns N Roses</h2>
-    <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis
-      pariatur facere repellat dolorem non eaque aliquid! Eius, neque quis vel
-      totam laudantium unde ab, molestiae perferendis corporis voluptas
-      repellendus necessitatibus.
-    </p>
-  </div>
+  <app-profile-resume
+    [bandInfo]="band.bandInfo"
+    [contactInfo]="band.contactInformation"
+    [profileImage]="band.bandProfileImage"
+    [userId]="band.id"
+    [isMusicianProfile]="false"
+  ></app-profile-resume>
 
   <div class="request-list">
     <ng-container *ngFor="let request of [1, 2, 3, 4]">

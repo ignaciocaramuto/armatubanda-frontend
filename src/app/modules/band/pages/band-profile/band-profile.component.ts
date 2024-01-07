@@ -1,25 +1,25 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
+import { CommonModule } from '@angular/common';
 import { ProfileResumeComponent } from 'src/app/modules/profile/components/profile-resume/profile-resume.component';
+import { ProfileFeedComponent } from 'src/app/modules/profile/components/profile-feed/profile-feed.component';
+import { ProfileReviewsComponent } from 'src/app/modules/profile/components/profile-reviews/profile-reviews.component';
 import { Band } from '../../models/band.interface';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-requests',
-  templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss'],
+  selector: 'app-band-profile',
   standalone: true,
   imports: [
-    ProfileImageComponent,
+    CommonModule,
     ProfileResumeComponent,
-    MatCardModule,
-    MatButtonModule,
-    NgFor,
+    ProfileFeedComponent,
+    ProfileReviewsComponent,
+    MatDialogModule,
   ],
+  templateUrl: './band-profile.component.html',
+  styleUrls: ['./band-profile.component.scss'],
 })
-export class RequestsComponent {
+export class BandProfileComponent {
   band: Band = {
     id: 1,
     bandInfo: {

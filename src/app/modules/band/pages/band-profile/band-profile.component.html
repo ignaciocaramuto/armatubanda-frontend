@@ -1,0 +1,9 @@
+<app-profile-resume
+  [bandInfo]="band.bandInfo"
+  [contactInfo]="band.contactInformation"
+  [profileImage]="band.bandProfileImage"
+  [userId]="band.id"
+  [isMusicianProfile]="false"
+></app-profile-resume>
+<app-profile-feed [userId]="band.id"></app-profile-feed>
+<app-profile-reviews [userId]="band.id"></app-profile-reviews>

@@ -4,10 +4,18 @@
     [type]="profileImage?.type"
     class="large-size"
   ></app-profile-image>
-  <h2>{{ personalInfo.name }} {{ personalInfo.lastname }}</h2>
-  <p>{{ biographyInfo.bio }}</p>
-  <div class="actions">
+  <ng-container *ngIf="isMusicianProfile; else band">
+    <h2>{{ personalInfo.name }} {{ personalInfo.lastname }}</h2>
+    <p>{{ biographyInfo.bio }}</p>
+  </ng-container>
+
+  <div *ngIf="isMusicianProfile" class="actions">
     <app-button label="Invitar" icon="person_add" class="larger"></app-button>
     <app-button label="+ Info" class="larger" (click)="goToInfo()"></app-button>
   </div>
 </div>
+
+<ng-template #band>
+  <h2>{{ bandInfo.name }}</h2>
+  <p>{{ bandInfo.description }}</p>
+</ng-template>
