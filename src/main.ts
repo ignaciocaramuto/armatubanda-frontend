@@ -71,7 +71,7 @@ bootstrapApplication(AppComponent, {
         canMatch: [canMatchGuard],
       },
       {
-        path: 'band/:id',
+        path: 'band',
         loadChildren: () =>
           import(`./app/modules/band/band.routes`).then((r) => r.BAND_ROUTES),
       },
