@@ -136,13 +136,13 @@ export class FiltersComponent implements OnInit {
       selectedKeys.push('experience');
     }
     if (controls['country'].value) {
-      selectedKeys.push('experience');
+      selectedKeys.push('country');
     }
     if (controls['city'].value) {
-      selectedKeys.push('experience');
+      selectedKeys.push('city');
     }
     if (controls['lookingBand'].value) {
-      selectedKeys.push('experience');
+      selectedKeys.push('lookingBand');
     }
 
     return selectedKeys;
