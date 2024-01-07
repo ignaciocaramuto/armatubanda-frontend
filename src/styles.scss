@@ -92,11 +92,11 @@ $armatubanda-frontend-theme: mat.define-light-theme(
 
 html,
 body {
-  height: 100%;
   font-family: "Inter", sans-serif;
 }
 body {
   margin: 0;
+  height: auto;
 }
 
 .material-symbols-outlined {
