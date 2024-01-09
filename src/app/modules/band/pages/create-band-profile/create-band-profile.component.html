@@ -1,1 +1,100 @@
-<p>create-band-profile works!</p>
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="bandInfoFormGroup">
+    <form [formGroup]="bandInfoFormGroup">
+      <ng-template matStepLabel>Información de la banda</ng-template>
+      <div class="band-info-content">
+        <div class="band-info-inputs">
+          <!-- Name -->
+          <app-input-text
+            appearance="outline"
+            formControlName="name"
+            type="text"
+            placeholder="Nombre"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+
+          <!-- Country -->
+          <app-input-text
+            appearance="outline"
+            formControlName="country"
+            type="text"
+            placeholder="País"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+
+          <!-- City -->
+          <app-input-text
+            appearance="outline"
+            formControlName="city"
+            type="text"
+            placeholder="Ciudad"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+
+          <!-- Phone number -->
+          <app-input-text
+            appearance="outline"
+            formControlName="phoneNumber"
+            type="text"
+            placeholder="Número de télefono"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+
+          <!-- Web Site -->
+          <app-input-text
+            appearance="outline"
+            formControlName="webSite"
+            type="text"
+            placeholder="Sitio web"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+
+          <!-- Social Media -->
+          <app-input-text
+            appearance="outline"
+            formControlName="socialMedia"
+            type="text"
+            placeholder="Red social"
+            class="textinput"
+            [width]="300"
+            [required]="true"
+          >
+          </app-input-text>
+        </div>
+
+        <!-- Description -->
+        <mat-form-field
+          appearance="outline"
+          style="width: 100%; margin-top: 1em"
+        >
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            rows="4"
+            cols="200"
+            formControlName="description"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>

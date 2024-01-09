@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.band-info-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
