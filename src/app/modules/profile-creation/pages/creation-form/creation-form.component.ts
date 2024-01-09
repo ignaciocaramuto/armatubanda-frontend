@@ -152,7 +152,9 @@ export class CreationFormComponent implements OnInit {
           socialMediaLink: this.personalformGroup.get('socialMediaLink')?.value,
         },
         skillsInformation: {
-          instrumentExperience: this.skills.value,
+          instrumentExperience: this.getInstrumentExperienceFormatted(
+            this.skills.value
+          ),
           genres: [
             {
               name: 'Rock',
@@ -178,8 +180,6 @@ export class CreationFormComponent implements OnInit {
           available: true,
         },
       };
-
-      console.log(musician);
 
       const form = new FormData();
       form.append(
@@ -264,5 +264,14 @@ export class CreationFormComponent implements OnInit {
 
   deleteStudy(studyIndex: number): void {
     this.academics.removeAt(studyIndex);
+  }
+
+  private getInstrumentExperienceFormatted(skills: any[]): any {
+    return skills.map((skill) => {
+      return {
+        experience: skill.experience,
+        instrument: { name: skill.instrument },
+      };
+    });
   }
 }
