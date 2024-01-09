@@ -1,3 +1,12 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+  width: 1000px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -8,4 +17,11 @@ form {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: 100%;
+}
+
+.stepper-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
 }
