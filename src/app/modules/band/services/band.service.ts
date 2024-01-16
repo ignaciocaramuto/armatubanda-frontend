@@ -9,6 +9,6 @@ import { Band } from '../models/band.interface';
 })
 export class BandService extends CrudService<Band> {
   constructor(http: HttpClient) {
-    super(http, `${environment.apiUrl}/musician`);
+    super(http, `${environment.apiUrl}/bands`);
   }
 }

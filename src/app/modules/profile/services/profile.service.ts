@@ -17,8 +17,6 @@ import { Post } from '../models/post.interface';
   providedIn: 'root',
 })
 export class ProfileService extends CrudService<Musician> {
-  private _logMessageService = inject(LogMessageService);
-
   constructor(http: HttpClient) {
     super(http, `${environment.apiUrl}/musician`);
   }

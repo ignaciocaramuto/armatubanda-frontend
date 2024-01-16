@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -15,6 +16,8 @@ import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { BandService } from '../../services/band.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-band-profile',
@@ -30,6 +33,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
     DragAndDropComponent,
     ButtonComponent,
     MatButtonModule,
+    FormsModule,
   ],
   templateUrl: './create-band-profile.component.html',
   styleUrls: ['./create-band-profile.component.scss'],
@@ -38,6 +42,8 @@ export class CreateBandProfileComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private user = this.authService.currentUser();
+  private bandService = inject(BandService);
+  private router = inject(Router);
 
   bandInfoFormGroup: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -75,7 +81,7 @@ export class CreateBandProfileComponent {
           socialMedia: this.bandInfoFormGroup.get('socialMedia')?.value,
         },
         leaderName: this.user()?.firstName,
-        genres: '',
+        bandGenres: [{ id: 4, name: 'Rock' }],
       };
 
       const form = new FormData();
@@ -88,10 +94,16 @@ export class CreateBandProfileComponent {
 
       if (this.profileImageformGroup.get('bandProfileImage')?.value) {
         form.append(
-          'bandProfileImage',
+          'bandImageFile',
           this.profileImageformGroup.get('bandProfileImage')?.value
         );
       }
+
+      this.bandService
+        .create(form)
+        .subscribe((result) =>
+          this.router.navigateByUrl(`../profile/${result.id}`)
+        );
     }
   }
 }
