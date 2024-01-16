@@ -63,6 +63,15 @@ span.text-white,
   color: $white;
 }
 
+.no-bands {
+  display: flex;
+  flex-wrap: wrap;
+  width: 150px;
+  font-size: 14px;
+  text-align: center;
+  color: $text-grey;
+}
+
 :host::ng-deep {
   .mat-mdc-button .mdc-button__label + .mat-icon {
     margin-left: 2px;

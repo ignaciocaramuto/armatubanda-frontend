@@ -42,18 +42,22 @@
 </mat-menu>
 
 <mat-menu #bandsMenu="matMenu">
-  <button mat-menu-item>
-    <div class="menu-option">
-      <app-profile-image
-        [picByte]="user()?.profileImage?.picByte"
-        [type]="user()?.profileImage?.type"
-        class="small-size"
-      ></app-profile-image>
-      <span>AC/CD</span>
-    </div>
-  </button>
+  <ng-container *ngIf="musicianBands.length > 0; else noBands">
+    <button mat-menu-item *ngFor="let band of musicianBands">
+      <div class="menu-option">
+        <app-profile-image
+          [picByte]="band.bandImage.picByte"
+          [type]="band.bandImage.type"
+          class="small-size"
+        ></app-profile-image>
+        <span>{{ band.bandName }}</span>
+      </div>
+    </button>
+  </ng-container>
   <mat-divider></mat-divider>
-  <button mat-menu-item routerLink="/band/create">Crear banda</button>
+  <button class="create-band" mat-menu-item routerLink="/band/create">
+    Crear banda
+  </button>
 </mat-menu>
 
 <mat-menu #userMenu="matMenu">
@@ -64,3 +68,7 @@
     Cerrar sesión
   </button>
 </mat-menu>
+
+<ng-template #noBands>
+  <span class="no-bands"> No eres miembro de ninguna banda</span>
+</ng-template>
