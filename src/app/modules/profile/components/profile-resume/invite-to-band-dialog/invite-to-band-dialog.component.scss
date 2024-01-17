@@ -1,4 +1,9 @@
-.band {
+mat-list-option:nth-child(n) {
+  height: 80px;
+}
+
+.band-name {
   display: flex;
   align-items: center;
+  gap: 10px;
 }

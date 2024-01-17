@@ -3,14 +3,18 @@
   title="Elige una banda a la cual invitar al músico"
   (confirmDialog)="confirmBandInvitation()"
 >
-  <div *ngFor="let band of bands">
-    <div class="band">
-      <app-profile-image
-        [picByte]="band.bandImage.picByte"
-        [type]="band.bandImage.type"
-        class="medium-size"
-      ></app-profile-image>
-      <span>{{ band.bandName }}</span>
-    </div>
-  </div>
+  <mat-selection-list #shoes [multiple]="false" color="primary">
+    <ng-container *ngFor="let band of bands">
+      <mat-list-option [value]="band">
+        <div class="band-name">
+          <app-profile-image
+            [picByte]="band.bandImage.picByte"
+            [type]="band.bandImage.type"
+            class="medium-size"
+          ></app-profile-image>
+          <span>{{ band.bandName }}</span>
+        </div>
+      </mat-list-option>
+    </ng-container>
+  </mat-selection-list>
 </app-dialog>
