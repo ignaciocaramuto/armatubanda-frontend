@@ -95,8 +95,6 @@ export class CreateBandProfileComponent implements OnInit {
         bandGenres: this.bandInfoFormGroup.get('bandGenres')?.value,
       };
 
-      console.log(band);
-
       const form = new FormData();
       form.append(
         'band',
