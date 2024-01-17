@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { ProfileImageComponent } from '../profile-image/profile-image.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MusicianBands } from '../../models/musicianBands.interface';
-import { MusicianBandsService } from '../../services/musician-bands.service';
 
 @Component({
   standalone: true,
@@ -28,7 +27,6 @@ import { MusicianBandsService } from '../../services/musician-bands.service';
   ],
 })
 export class HeaderComponent implements OnInit {
-  musicianBandsService = inject(MusicianBandsService);
   authService = inject(AuthService);
   user = this.authService.currentUser();
   status = this.authService.authStatus();
@@ -36,10 +34,5 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.checkAuthentication().subscribe();
-    if (this.user()?.id) {
-      this.musicianBandsService
-        .getMusicianBands(this.user()?.id)
-        .subscribe((result) => (this.musicianBands = result));
-    }
   }
 }

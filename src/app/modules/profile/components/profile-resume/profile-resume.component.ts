@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   BiographyInformation,
   ContactInformation,
@@ -10,6 +10,9 @@ import { ButtonComponent } from '../../../../core/components/button/button.compo
 import { ProfileImageComponent } from '../../../../core/components/profile-image/profile-image.component';
 import { BandInfo } from 'src/app/modules/band/models/band.interface';
 import { NgIf } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { InviteToBandDialogComponent } from './invite-to-band-dialog/invite-to-band-dialog.component';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-profile-resume',
@@ -28,6 +31,9 @@ export class ProfileResumeComponent {
   @Input() isMusicianProfile: boolean = true;
 
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private authService = inject(AuthService);
+  user = this.authService.currentUser();
 
   redirectToUserWebsite(): void {
     window.open(this.contactInfo.webSite, '_blank');
@@ -35,5 +41,15 @@ export class ProfileResumeComponent {
 
   goToInfo(): void {
     this.router.navigateByUrl(`profile/info/${this.userId}`);
+  }
+
+  inviteToBand(): void {
+    const dialogRef = this.dialog.open(InviteToBandDialogComponent, {
+      width: '600px',
+      height: '520px',
+      disableClose: true,
+      data: this.user()?.id,
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }

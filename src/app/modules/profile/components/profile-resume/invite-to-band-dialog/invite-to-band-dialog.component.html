@@ -1,0 +1,16 @@
+<app-dialog
+  icon="person_add"
+  title="Elige una banda a la cual invitar al músico"
+  (confirmDialog)="confirmBandInvitation()"
+>
+  <div *ngFor="let band of bands">
+    <div class="band">
+      <app-profile-image
+        [picByte]="band.bandImage.picByte"
+        [type]="band.bandImage.type"
+        class="medium-size"
+      ></app-profile-image>
+      <span>{{ band.bandName }}</span>
+    </div>
+  </div>
+</app-dialog>
