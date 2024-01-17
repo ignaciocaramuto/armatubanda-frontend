@@ -27,6 +27,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Genre } from 'src/app/core/models/genre.interface';
+import { GenreService } from 'src/app/core/services/genre.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-creation-form',
@@ -63,8 +65,11 @@ export class CreationFormComponent implements OnInit {
   private instrumentService = inject(InstrumentService);
   private http = inject(HttpClient);
   private _logMessageService = inject(LogMessageService);
+  private genreService = inject(GenreService);
 
   instruments: Instrument[] = [];
+  genres: Genre[] = [];
+
   readonly experienceTypes = [
     { name: ExperienceType.Novice },
     { name: ExperienceType.Advanced },
@@ -81,6 +86,7 @@ export class CreationFormComponent implements OnInit {
     birthday: ['', Validators.required],
     webSite: ['asd'],
     socialMediaLink: ['asd'],
+    genres: ['', Validators.required],
   });
 
   bioformGroup: FormGroup = this.fb.group({
@@ -129,6 +135,7 @@ export class CreationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInstruments();
+    this.getGenres();
   }
 
   onSubmit(): void {
@@ -154,14 +161,7 @@ export class CreationFormComponent implements OnInit {
           instrumentExperience: this.getInstrumentExperienceFormatted(
             this.skills.value
           ),
-          genres: [
-            {
-              name: 'Rock',
-            },
-            {
-              name: 'Jazz',
-            },
-          ],
+          genres: this.getGenresFormatted(this.personalformGroup.value.genres),
           generalExperience: 'NOVICE',
         },
         educationInformation: {
@@ -214,6 +214,13 @@ export class CreationFormComponent implements OnInit {
     this.instrumentService
       .getInstruments()
       .subscribe((result) => (this.instruments = result));
+  }
+
+  getGenres(): void {
+    this.genreService
+      .getGenres()
+      .pipe(tap((res) => (this.genres = res)))
+      .subscribe();
   }
 
   setSelectedFile(event: any) {
@@ -272,9 +279,9 @@ export class CreationFormComponent implements OnInit {
     }));
   }
 
-  // private getGenresFormatted(genres: Genre[]): Genre[] {
-  //   return genres.map((genre) => ({
-  //     name: genre,
-  //   }));
-  // }
+  private getGenresFormatted(genres: string[]): any[] {
+    return genres.map((genre) => ({
+      name: genre,
+    }));
+  }
 }

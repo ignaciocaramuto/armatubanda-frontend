@@ -112,17 +112,18 @@
         >
         </app-input-text>
 
-        <!-- New field -->
-        <app-input-text
+        <!-- Genres -->
+        <app-input-select
           appearance="outline"
-          formControlName="socialMediaLink"
-          type="text"
-          placeholder="Sexo? deberiamos agregar este campo?"
-          class="textinput"
-          [width]="400"
           [required]="true"
+          [items]="genres"
+          formControlName="genres"
+          placeholder="Géneros"
+          [multiple]="true"
+          [width]="400"
+          class="textinput"
         >
-        </app-input-text>
+        </app-input-select>
       </div>
     </form>
     <div class="stepper-buttons">
