@@ -17,7 +17,6 @@ import { ProfileImageComponent } from 'src/app/core/components/profile-image/pro
   imports: [NgFor, DialogComponent, ProfileImageComponent],
   templateUrl: './invite-to-band-dialog.component.html',
   styleUrls: ['./invite-to-band-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InviteToBandDialogComponent implements OnInit {
   bands: MusicianBands[] = [];
