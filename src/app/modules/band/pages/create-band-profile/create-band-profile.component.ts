@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +18,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { BandService } from '../../services/band.service';
 import { Router } from '@angular/router';
+import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
+import { Genre } from 'src/app/core/models/genre.interface';
+import { GenreService } from 'src/app/core/services/genre.service';
 
 @Component({
   selector: 'app-create-band-profile',
@@ -34,16 +37,20 @@ import { Router } from '@angular/router';
     ButtonComponent,
     MatButtonModule,
     FormsModule,
+    InputSelectComponent,
   ],
   templateUrl: './create-band-profile.component.html',
   styleUrls: ['./create-band-profile.component.scss'],
 })
-export class CreateBandProfileComponent {
+export class CreateBandProfileComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private user = this.authService.currentUser();
   private bandService = inject(BandService);
   private router = inject(Router);
+  private genreService = inject(GenreService);
+
+  genres: Genre[] = [];
 
   bandInfoFormGroup: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -53,12 +60,16 @@ export class CreateBandProfileComponent {
     phoneNumber: [''],
     webSite: [''],
     socialMedia: [''],
-    creationDate: [''],
+    bandGenres: [''],
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
     bandProfileImage: [],
   });
+
+  ngOnInit(): void {
+    this.genreService.getAll().subscribe((result) => (this.genres = result));
+  }
 
   setSelectedFile(event: any) {
     this.profileImageformGroup
@@ -81,8 +92,10 @@ export class CreateBandProfileComponent {
           socialMedia: this.bandInfoFormGroup.get('socialMedia')?.value,
         },
         leaderName: this.user()?.firstName,
-        bandGenres: [{ id: 4, name: 'Rock' }],
+        bandGenres: this.bandInfoFormGroup.get('bandGenres')?.value,
       };
+
+      console.log(band);
 
       const form = new FormData();
       form.append(
