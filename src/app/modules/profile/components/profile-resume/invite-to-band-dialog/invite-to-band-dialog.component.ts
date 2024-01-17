@@ -27,10 +27,7 @@ export class InviteToBandDialogComponent implements OnInit {
   ngOnInit(): void {
     this.musicianService
       .getMusicianLeaderBands(this.userId)
-      .subscribe((result) => {
-        this.bands = result;
-        console.log(this.bands);
-      });
+      .subscribe((result) => (this.bands = result));
   }
   confirmBandInvitation(): void {}
 }
