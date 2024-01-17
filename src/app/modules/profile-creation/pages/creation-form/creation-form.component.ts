@@ -1,4 +1,4 @@
-import { Component, OnInit, forwardRef, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -9,11 +9,9 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BasicProfile } from '../../interfaces/profile-creation.interface';
 import { environment } from 'src/environments/environment.local';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { InstrumentService } from 'src/app/core/services/instrument.service';
-import { tap } from 'rxjs';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
@@ -28,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { Genre } from 'src/app/core/models/genre.interface';
 
 @Component({
   selector: 'app-creation-form',
@@ -267,11 +266,15 @@ export class CreationFormComponent implements OnInit {
   }
 
   private getInstrumentExperienceFormatted(skills: any[]): any {
-    return skills.map((skill) => {
-      return {
-        experience: skill.experience,
-        instrument: { name: skill.instrument },
-      };
-    });
+    return skills.map((skill) => ({
+      experience: skill.experience,
+      instrument: { name: skill.instrument },
+    }));
   }
+
+  // private getGenresFormatted(genres: Genre[]): Genre[] {
+  //   return genres.map((genre) => ({
+  //     name: genre,
+  //   }));
+  // }
 }
