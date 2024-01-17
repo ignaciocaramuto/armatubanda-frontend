@@ -60,7 +60,7 @@ export class CreateBandProfileComponent implements OnInit {
     phoneNumber: [''],
     webSite: [''],
     socialMedia: [''],
-    bandGenres: [''],
+    bandGenres: ['', Validators.required],
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
