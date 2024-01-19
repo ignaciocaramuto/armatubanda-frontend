@@ -3,7 +3,11 @@
   title="Elige una banda a la cual invitar al músico"
   (confirmDialog)="confirmBandInvitation()"
 >
-  <mat-selection-list #shoes [multiple]="false" color="primary">
+  <mat-selection-list
+    [multiple]="false"
+    color="primary"
+    [(ngModel)]="selectedBands"
+  >
     <ng-container *ngFor="let band of bands">
       <mat-list-option [value]="band">
         <div class="band-name">

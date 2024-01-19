@@ -48,7 +48,7 @@ export class ProfileResumeComponent {
       width: '600px',
       height: '520px',
       disableClose: true,
-      data: this.user()?.id,
+      data: { userId: this.user()?.id, musicianToInviteId: this.userId },
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
