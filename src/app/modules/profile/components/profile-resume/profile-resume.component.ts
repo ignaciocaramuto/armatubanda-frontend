@@ -13,15 +13,27 @@ import { NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteToBandDialogComponent } from './invite-to-band-dialog/invite-to-band-dialog.component';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { InvitationService } from '../../services/invitation.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ProfileService } from '../../services/profile.service';
+import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
+import { InvitationRequest } from '../../models/invitation.interface';
 
 @Component({
   selector: 'app-profile-resume',
   templateUrl: './profile-resume.component.html',
   styleUrls: ['./profile-resume.component.scss'],
   standalone: true,
-  imports: [ProfileImageComponent, ButtonComponent, NgIf],
+  imports: [
+    ProfileImageComponent,
+    ButtonComponent,
+    NgIf,
+    MatIconModule,
+    MatButtonModule,
+  ],
 })
-export class ProfileResumeComponent {
+export class ProfileResumeComponent implements OnInit {
   @Input() biographyInfo!: BiographyInformation;
   @Input() contactInfo!: ContactInformation;
   @Input() personalInfo!: PersonalInformation;
@@ -33,7 +45,20 @@ export class ProfileResumeComponent {
   private router = inject(Router);
   private dialog = inject(MatDialog);
   private authService = inject(AuthService);
+  private invitationService = inject(InvitationService);
+  private musicianService = inject(ProfileService);
   user = this.authService.currentUser();
+  hasBeenInvitedToAllBands: boolean = false;
+  bands: MusicianBands[] = [];
+
+  ngOnInit(): void {
+    this.musicianService
+      .getMusicianLeaderBands(this.user()?.id)
+      .subscribe((result) => {
+        this.bands = result;
+        // this.hasBeenInvitedToAllBands = !this.bands.some(({status}) => status === 'No invitado');
+      });
+  }
 
   redirectToUserWebsite(): void {
     window.open(this.contactInfo.webSite, '_blank');
@@ -48,8 +73,24 @@ export class ProfileResumeComponent {
       width: '600px',
       height: '520px',
       disableClose: true,
-      data: { userId: this.user()?.id, musicianToInviteId: this.userId },
+      data: this.bands,
     });
-    dialogRef.afterClosed().subscribe((result) => {});
+
+    dialogRef.afterClosed().subscribe((selectedBandId) => {
+      if (selectedBandId) {
+        const invitation: InvitationRequest = {
+          musicianId: this.userId,
+          bandId: selectedBandId,
+        };
+
+        this.invitationService
+          .createInvitation(invitation)
+          .subscribe((result) => {
+            if (result) {
+              this.hasBeenInvitedToAllBands = true;
+            }
+          });
+      }
+    });
   }
 }

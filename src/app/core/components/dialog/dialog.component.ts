@@ -5,6 +5,8 @@ import {
   inject,
   EventEmitter,
   ChangeDetectionStrategy,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
@@ -19,15 +21,26 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogComponent {
+export class DialogComponent implements OnChanges {
   @Input() icon: string = '';
   @Input() title: string = '';
+  @Input() returnsData: boolean = false;
+  @Input() dataToReturn: any;
   @Output() confirmDialog = new EventEmitter<any>();
+
   private dialogRef = inject(MatDialogRef<DialogComponent>);
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dataToReturn']?.currentValue) {
+      this.dialogRef.close(changes['dataToReturn']?.currentValue);
+    }
+  }
 
   onConfirmDialog(): void {
     this.confirmDialog.emit();
-    this.dialogRef.close();
+    if (!this.returnsData) {
+      this.dialogRef.close();
+    }
   }
 
   cancelDialog(): void {

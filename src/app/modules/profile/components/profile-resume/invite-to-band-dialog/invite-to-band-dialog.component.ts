@@ -7,7 +7,6 @@ import { ProfileService } from '../../../services/profile.service';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
-import { InvitationService } from '../../../services/invitation.service';
 import { InvitationRequest } from '../../../models/invitation.interface';
 
 @Component({
@@ -23,24 +22,12 @@ import { InvitationRequest } from '../../../models/invitation.interface';
   templateUrl: './invite-to-band-dialog.component.html',
   styleUrls: ['./invite-to-band-dialog.component.scss'],
 })
-export class InviteToBandDialogComponent implements OnInit {
-  bands: MusicianBands[] = [];
+export class InviteToBandDialogComponent {
   selectedBands: MusicianBands[] = [];
-  private musicianService = inject(ProfileService);
-  private invitationService = inject(InvitationService);
-  private data = inject(MAT_DIALOG_DATA);
-
-  ngOnInit(): void {
-    this.musicianService
-      .getMusicianLeaderBands(this.data.userId)
-      .subscribe((result) => (this.bands = result));
-  }
+  selectedBandId!: number;
+  bands = inject(MAT_DIALOG_DATA);
 
   confirmBandInvitation(): void {
-    const invitation: InvitationRequest = {
-      musicianId: this.data.musicianToInviteId,
-      bandId: this.selectedBands[0].bandId,
-    };
-    this.invitationService.createInvitation(invitation).subscribe();
+    this.selectedBandId = this.selectedBands[0].bandId;
   }
 }

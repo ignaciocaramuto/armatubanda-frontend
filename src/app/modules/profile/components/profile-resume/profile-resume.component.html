@@ -11,12 +11,16 @@
 
   <div *ngIf="isMusicianProfile" class="actions">
     <app-button
-      *ngIf="user()?.id !== userId"
+      *ngIf="user()?.id !== userId && !hasBeenInvitedToAllBands"
       label="Invitar"
       icon="person_add"
       class="larger"
       (click)="inviteToBand()"
     ></app-button>
+    <button mat-stroked-button disabled *ngIf="hasBeenInvitedToAllBands">
+      <mat-icon>person_add</mat-icon>
+      Pendiente
+    </button>
     <app-button label="+ Info" class="larger" (click)="goToInfo()"></app-button>
   </div>
 </div>

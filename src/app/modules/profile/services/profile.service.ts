@@ -57,7 +57,7 @@ export class ProfileService extends CrudService<Musician> {
     return this.http.get<MusicianBands[]>(`${this.apiUrl}/${id}/bands`);
   }
 
-  getMusicianLeaderBands(id: number): Observable<MusicianBands[]> {
+  getMusicianLeaderBands(id?: number): Observable<MusicianBands[]> {
     return this.http.get<MusicianBands[]>(`${this.apiUrl}/${id}/leader/bands`);
   }
 }
