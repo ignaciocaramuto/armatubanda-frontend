@@ -1,8 +1,10 @@
-<div class="header">
-  <mat-icon style="margin-left: 1em">{{ icon }}</mat-icon>
-  <span style="margin-left: 0.5em">{{ title }}</span>
+<div>
+  <div class="header">
+    <mat-icon style="margin-left: 1em">{{ icon }}</mat-icon>
+    <span style="margin-left: 0.5em">{{ title }}</span>
+  </div>
+  <ng-content></ng-content>
 </div>
-<ng-content></ng-content>
 <div class="actions">
   <app-button
     (click)="cancelDialog()"
@@ -14,6 +16,6 @@
     (click)="onConfirmDialog()"
     style="margin-right: 1em"
     type="submit"
-    label="Postear"
+    label="Confirmar"
   ></app-button>
 </div>
