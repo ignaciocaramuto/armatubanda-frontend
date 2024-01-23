@@ -67,14 +67,14 @@ export class BandFiltersComponent {
   }
 
   ngOnInit(): void {
-    let storedData = localStorage.getItem('filter-data');
+    let storedData = localStorage.getItem('band-filter-data');
     if (storedData) {
       this.setFormGroup(JSON.parse(storedData));
     }
     this.getInstruments();
     this.getGenres();
     this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
-      localStorage.setItem('filter-data', JSON.stringify(value));
+      localStorage.setItem('band-filter-data', JSON.stringify(value));
       this.filterSelected.emit(value);
     });
   }
