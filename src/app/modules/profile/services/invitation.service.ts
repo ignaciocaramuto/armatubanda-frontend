@@ -16,4 +16,10 @@ export class InvitationService {
       invitation
     );
   }
+
+  getPendingInvitations(): Observable<Invitation[]> {
+    return this.http.get<Invitation[]>(
+      `${environment.apiUrl}/invitation/musician/pending`
+    );
+  }
 }

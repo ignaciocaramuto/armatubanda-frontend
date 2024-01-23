@@ -63,6 +63,10 @@ span.text-white,
   color: $white;
 }
 
+.no-invitations {
+  padding: 0.5em;
+}
+
 .no-bands {
   display: flex;
   flex-wrap: wrap;
@@ -70,6 +74,34 @@ span.text-white,
   font-size: 14px;
   text-align: center;
   color: $text-grey;
+}
+
+.invitations {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  padding: 0.5em;
+  .invitation {
+    cursor: pointer;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+  span.done {
+    color: $main-color;
+    cursor: pointer;
+  }
+  span.close {
+    color: #dc3545;
+    cursor: pointer;
+  }
+  span.done:hover,
+  span.close:hover {
+    background-color: #fde7bc;
+    border-radius: 50%;
+  }
 }
 
 :host::ng-deep {
@@ -80,5 +112,16 @@ span.text-white,
   .mat-mdc-outlined-button {
     --mat-mdc-button-persistent-ripple-color: none;
     --mat-mdc-button-ripple-color: none;
+  }
+
+  .mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -2px;
+  }
+  .mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    right: -7px;
+  }
+  .mat-badge-medium .mat-badge-content {
+    width: 20px;
+    height: 20px;
   }
 }

@@ -53,7 +53,7 @@ export class ProfileService extends CrudService<Musician> {
     return this.http.get<Post[]>(`${this.apiUrl}/get-post/${id}`);
   }
 
-  getMusicianBands(id?: number): Observable<MusicianBands[]> {
+  getMusicianBands(id: number): Observable<MusicianBands[]> {
     return this.http.get<MusicianBands[]>(`${this.apiUrl}/${id}/bands`);
   }
 

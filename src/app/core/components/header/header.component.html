@@ -7,7 +7,13 @@
       <button mat-button routerLink="/list" class="text-white">
         <span class="text-white">Listado</span>
       </button>
-      <button mat-button [matMenuTriggerFor]="invitationsMenu">
+      <button
+        mat-button
+        [matBadge]="invitations.length"
+        [matBadgeHidden]="!invitations.length"
+        matBadgeColor="warn"
+        [matMenuTriggerFor]="invitationsMenu"
+      >
         <span class="text-white">Mis invitaciones</span>
       </button>
       <button mat-button [matMenuTriggerFor]="bandsMenu">
@@ -38,7 +44,28 @@
 </ng-template>
 
 <mat-menu #invitationsMenu="matMenu">
-  <span>No hay invitaciones</span>
+  <span *ngIf="!invitations.length" class="text no-invitations"
+    >No hay invitaciones</span
+  >
+  <ng-container *ngFor="let invitation of invitations">
+    <div class="invitations">
+      <div
+        class="menu-option invitation"
+        [routerLink]="'/band/profile/' + invitation.bandInvitation.id"
+      >
+        <app-profile-image
+          [picByte]="invitation.bandInvitation.bandProfileImage.picByte"
+          [type]="invitation.bandInvitation.bandProfileImage.type"
+          class="small-size"
+        ></app-profile-image>
+        <span class="text">{{ invitation.bandInvitation.bandInfo.name }}</span>
+      </div>
+      <div class="actions">
+        <span class="material-symbols-rounded done"> done </span>
+        <span class="material-symbols-rounded close"> close </span>
+      </div>
+    </div>
+  </ng-container>
 </mat-menu>
 
 <mat-menu #bandsMenu="matMenu">
