@@ -18,14 +18,6 @@
     </mat-chip-grid>
     <div class="divider"></div>
     <form [formGroup]="formGroup">
-      <app-input-select
-        *ngIf="isMusiciansList"
-        [items]="userTypes"
-        formControlName="userType"
-        placeholder="Musico o Banda"
-        class="filter-input"
-      >
-      </app-input-select>
       <app-input-text
         formControlName="name"
         type="text"

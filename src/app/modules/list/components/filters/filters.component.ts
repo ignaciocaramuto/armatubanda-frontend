@@ -64,7 +64,6 @@ export class FiltersComponent implements OnInit {
     private genreService: GenreService
   ) {
     this.formGroup = this.fb.group({
-      userType: [''],
       name: [''],
       instruments: [''],
       genres: [''],
@@ -78,7 +77,6 @@ export class FiltersComponent implements OnInit {
   get isFilterSelected(): boolean {
     const controls = this.formGroup.controls;
     return (
-      controls['userType'].value ||
       controls['name'].value ||
       controls['instruments'].value.length > 0 ||
       controls['genres'].value.length > 0 ||
@@ -120,9 +118,6 @@ export class FiltersComponent implements OnInit {
     const selectedKeys: string[] = [];
     const controls = this.formGroup.controls;
 
-    if (controls['userType'].value) {
-      selectedKeys.push('userType');
-    }
     if (controls['name'].value) {
       selectedKeys.push('name');
     }
