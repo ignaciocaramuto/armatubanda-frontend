@@ -5,17 +5,23 @@ import { ProfileImageComponent } from '../../../../core/components/profile-image
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-card',
-    templateUrl: './card.component.html',
-    styleUrls: ['./card.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgIf, ProfileImageComponent],
+  selector: 'app-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, ProfileImageComponent],
 })
 export class CardComponent {
   @Input() musician!: Musician;
 
   constructor(private router: Router) {}
+
+  get musicianInstruments(): string {
+    return this.musician.skillsInformation.instrumentExperience
+      .map(({ instrument }) => instrument.name)
+      .join(', ');
+  }
 
   ngOnInit(): void {}
 

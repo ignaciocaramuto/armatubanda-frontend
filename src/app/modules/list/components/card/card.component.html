@@ -14,10 +14,11 @@
   </div>
 
   <div class="rating">
-    <i class="fa fa-star"></i>
-    <span class="margin">4.5</span>
     <p>({{ musician.reviews?.length }} reseñas)</p>
-    <span class="margin">Músico</span>
+    <p>
+      Instrumentos:
+      {{ musicianInstruments }}
+    </p>
   </div>
 
   <p>{{ musician.biographyInformation.bio }}</p>
