@@ -5,22 +5,26 @@ import { PostComponent } from './post/post.component';
 import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-profile-feed',
-    templateUrl: './profile-feed.component.html',
-    styleUrls: ['./profile-feed.component.scss'],
-    standalone: true,
-    imports: [NgFor, PostComponent],
+  selector: 'app-profile-feed',
+  templateUrl: './profile-feed.component.html',
+  styleUrls: ['./profile-feed.component.scss'],
+  standalone: true,
+  imports: [NgFor, PostComponent],
 })
 export class ProfileFeedComponent implements OnInit {
   @Input() userId!: number;
+  @Input() isMusician: boolean = true;
 
   posts: Post[] = [];
 
   private profileService = inject(ProfileService);
 
   ngOnInit(): void {
-    this.profileService
-      .getPosts(this.userId)
-      .subscribe((result: Post[]) => (this.posts = result));
+    if (this.isMusician) {
+      this.profileService
+        .getPosts(this.userId)
+        .subscribe((result: Post[]) => (this.posts = result));
+    } else {
+    }
   }
 }

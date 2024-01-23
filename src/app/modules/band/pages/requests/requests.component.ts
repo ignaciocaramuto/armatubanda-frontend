@@ -20,28 +20,5 @@ import { Band } from '../../models/band.interface';
   ],
 })
 export class RequestsComponent {
-  band: Band = {
-    id: 1,
-    bandInfo: {
-      name: 'AC/DC',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, quidem, modi dignissimos neque obcaecati dolores magni, molestiae ullam odio consequatur rem incidunt itaque. Praesentium porro ipsam ex, minus enim rem?',
-      country: 'Argentina',
-      city: 'Rosario',
-      creationDate: new Date(),
-    },
-    bandGenres: [{ id: 1, name: 'Rock' }],
-    bandProfileImage: {
-      id: 1,
-      name: '',
-      type: '',
-      picByte: '',
-    },
-    contactInformation: {
-      phoneNumber: '',
-      webSite: '',
-      socialMedia: '',
-    },
-    leaderName: 'Ignacio',
-  };
+  band!: Band;
 }
