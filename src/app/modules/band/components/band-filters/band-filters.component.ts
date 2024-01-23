@@ -1,36 +1,24 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
+import { InputTextComponent } from 'src/app/core/components/input-text/input-text.component';
 import { debounceTime, tap } from 'rxjs';
-import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
-import { UserType } from 'src/app/core/enums/userType.enum';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
 import { InstrumentService } from 'src/app/core/services/instrument.service';
-import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
-import { InputSelectComponent } from '../../../../core/components/input-select/input-select.component';
-import { MatIconModule } from '@angular/material/icon';
-import { NgFor, NgIf } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-filters',
-  templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-band-filters',
   standalone: true,
   imports: [
     MatButtonModule,
@@ -43,18 +31,12 @@ import { MatButtonModule } from '@angular/material/button';
     InputSelectComponent,
     InputTextComponent,
   ],
+  templateUrl: './band-filters.component.html',
+  styleUrls: ['./band-filters.component.scss'],
 })
-export class FiltersComponent implements OnInit {
-  @Input() isMusiciansList: boolean = true;
+export class BandFiltersComponent {
   @Output() filterSelected = new EventEmitter<any>();
 
-  readonly experienceTypes = [
-    { name: ExperienceType.Novice },
-    { name: ExperienceType.Advanced },
-    { name: ExperienceType.Expert },
-  ];
-
-  readonly lookingBand = [{ name: 'Sí' }, { name: 'No' }];
   formGroup: FormGroup;
   instruments: Instrument[] = [];
   genres: Genre[] = [];
@@ -68,10 +50,8 @@ export class FiltersComponent implements OnInit {
       name: [''],
       instruments: [''],
       genres: [''],
-      experience: [''],
       country: [''],
       city: [''],
-      lookingBand: [''],
     });
   }
 
@@ -81,10 +61,8 @@ export class FiltersComponent implements OnInit {
       controls['name'].value ||
       controls['instruments'].value.length > 0 ||
       controls['genres'].value.length > 0 ||
-      controls['experience'].value ||
       controls['country'].value ||
-      controls['city'].value ||
-      controls['lookingBand'].value
+      controls['city'].value
     );
   }
 
@@ -128,17 +106,11 @@ export class FiltersComponent implements OnInit {
     if (controls['genres'].value?.length > 0) {
       selectedKeys.push('genres');
     }
-    if (controls['experience'].value) {
-      selectedKeys.push('experience');
-    }
     if (controls['country'].value) {
       selectedKeys.push('country');
     }
     if (controls['city'].value) {
       selectedKeys.push('city');
-    }
-    if (controls['lookingBand'].value) {
-      selectedKeys.push('lookingBand');
     }
 
     return selectedKeys;

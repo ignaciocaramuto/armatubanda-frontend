@@ -1,0 +1,60 @@
+<div class="filter">
+  <div class="filter-container">
+    <div class="filter-header">
+      <h3>Filtros</h3>
+      <button mat-button (click)="removeAllFilters()">Borrar todo</button>
+    </div>
+    <div class="divider"></div>
+    <mat-chip-grid>
+      <mat-chip-row
+        *ngFor="let selectedFilter of getSelectedFilterKeys()"
+        (removed)="removeChip(selectedFilter)"
+      >
+        {{ selectedFilter }}
+        <button matChipRemove [attr.aria-label]="'remove ' + selectedFilter">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+    <div class="divider"></div>
+    <form [formGroup]="formGroup">
+      <app-input-text
+        formControlName="name"
+        type="text"
+        placeholder="Nombre"
+        class="filter-input"
+      >
+      </app-input-text>
+      <app-input-select
+        [items]="instruments"
+        formControlName="instruments"
+        placeholder="Intrumentos"
+        [multiple]="true"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-select
+        [items]="genres"
+        formControlName="genres"
+        placeholder="Géneros"
+        [multiple]="true"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-select
+        [items]="[]"
+        formControlName="country"
+        placeholder="País"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-select
+        [items]="[]"
+        formControlName="city"
+        placeholder="Ciudad"
+        class="filter-input"
+      >
+      </app-input-select>
+    </form>
+  </div>
+</div>

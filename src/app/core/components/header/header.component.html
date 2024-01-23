@@ -4,8 +4,11 @@
   </a>
   <div class="menu-buttons">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
+      <button mat-button routerLink="/band/list" class="text-white">
+        <span class="text-white">Buscar bandas</span>
+      </button>
       <button mat-button routerLink="/list" class="text-white">
-        <span class="text-white">Listado</span>
+        <span class="text-white">Buscar músicos</span>
       </button>
       <button
         mat-button

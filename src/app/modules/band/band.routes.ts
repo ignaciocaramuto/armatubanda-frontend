@@ -6,6 +6,7 @@ import {
 } from '../profile-creation/guards/profile-set.guard';
 import { BandProfileComponent } from './pages/band-profile/band-profile.component';
 import { CreateBandProfileComponent } from './pages/create-band-profile/create-band-profile.component';
+import { BandListComponent } from './pages/band-list/band-list.component';
 
 export const BAND_ROUTES: Routes = [
   {
@@ -23,6 +24,12 @@ export const BAND_ROUTES: Routes = [
   {
     path: 'create',
     component: CreateBandProfileComponent,
+    canActivate: [canActivateGuardProfile],
+    canMatch: [canMatchGuardProfile],
+  },
+  {
+    path: 'list',
+    component: BandListComponent,
     canActivate: [canActivateGuardProfile],
     canMatch: [canMatchGuardProfile],
   },
