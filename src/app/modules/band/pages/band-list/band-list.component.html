@@ -1,3 +1,8 @@
-<app-band-filters></app-band-filters>
-
-<p>band-list works!</p>
+<div class="container">
+  <app-band-filters (filterSelected)="getList($event)"></app-band-filters>
+  <div *ngIf="bands" class="list">
+    <div *ngFor="let band of bands">
+      <app-band-card [band]="band"></app-band-card>
+    </div>
+  </div>
+</div>

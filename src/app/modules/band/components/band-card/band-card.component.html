@@ -1,0 +1,18 @@
+<div class="card" (click)="openProfile()">
+  <div class="pickgradient">
+    <app-profile-image
+      [picByte]="band.bandProfileImage.picByte"
+      [type]="band.bandProfileImage.type"
+      class="list-size"
+    ></app-profile-image>
+    <div class="image-text">
+      <h3>{{ band.bandInfo.name }}</h3>
+    </div>
+  </div>
+
+  <div class="rating">
+    <p>0 reseñas</p>
+  </div>
+
+  <p>{{ band.bandInfo.description }}</p>
+</div>
