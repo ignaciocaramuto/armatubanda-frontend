@@ -7,6 +7,7 @@ import { ProfileReviewsComponent } from '../../components/profile-reviews/profil
 import { ProfileFeedComponent } from '../../components/profile-feed/profile-feed.component';
 import { ProfileResumeComponent } from '../../components/profile-resume/profile-resume.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
@@ -18,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ProfileFeedComponent,
     ProfileReviewsComponent,
     MatDialogModule,
+    NgIf,
   ],
 })
 export class ProfilePageComponent implements OnInit {

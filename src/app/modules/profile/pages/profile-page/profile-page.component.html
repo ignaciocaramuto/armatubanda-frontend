@@ -1,12 +1,14 @@
-<app-profile-resume
-  [biographyInfo]="user.biographyInformation"
-  [contactInfo]="user.contactInformation"
-  [personalInfo]="user.personalInformation"
-  [profileImage]="user.profileImage"
-  [userId]="user.id"
-></app-profile-resume>
-<app-profile-feed [userId]="user.id"></app-profile-feed>
-<app-profile-reviews
-  [userId]="user.id"
-  [reviews]="reviews"
-></app-profile-reviews>
+<ng-container *ngIf="user">
+  <app-profile-resume
+    [biographyInfo]="user.biographyInformation"
+    [contactInfo]="user.contactInformation"
+    [personalInfo]="user.personalInformation"
+    [profileImage]="user.profileImage"
+    [userId]="user.id"
+  ></app-profile-resume>
+  <app-profile-feed [userId]="user.id"></app-profile-feed>
+  <app-profile-reviews
+    [userId]="user.id"
+    [reviews]="reviews"
+  ></app-profile-reviews>
+</ng-container>
