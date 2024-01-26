@@ -5,11 +5,12 @@ import { ContactInformation, Musician } from 'src/app/core/models/musician';
 export interface Band {
   id: number;
   bandInfo: BandInfo;
-  contactInformation: ContactInformation;
+  bandContactInfo: ContactInformation;
   leaderName: string;
   image: Image;
-  bandGenres: Genre[];
+  genres: Genre[];
   musicianLeader: Musician;
+  members: Musician[];
 }
 
 export interface BandInfo {
