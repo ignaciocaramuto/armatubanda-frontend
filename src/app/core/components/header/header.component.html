@@ -57,8 +57,8 @@
         [routerLink]="'/band/profile/' + invitation.bandInvitation.id"
       >
         <app-profile-image
-          [picByte]="invitation.bandInvitation.bandProfileImage.picByte"
-          [type]="invitation.bandInvitation.bandProfileImage.type"
+          [picByte]="invitation.bandInvitation.image.picByte"
+          [type]="invitation.bandInvitation.image.type"
           class="small-size"
         ></app-profile-image>
         <span class="text">{{ invitation.bandInvitation.bandInfo.name }}</span>
@@ -76,11 +76,11 @@
     <button mat-menu-item *ngFor="let band of musicianBands">
       <div class="menu-option">
         <app-profile-image
-          [picByte]="band.bandImage.picByte"
-          [type]="band.bandImage.type"
+          [picByte]="band.musicianBandsDto.bandImage.picByte"
+          [type]="band.musicianBandsDto.bandImage.type"
           class="small-size"
         ></app-profile-image>
-        <span>{{ band.bandName }}</span>
+        <span>{{ band.musicianBandsDto.bandName }}</span>
       </div>
     </button>
   </ng-container>

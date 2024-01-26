@@ -49,6 +49,7 @@ export class ProfileResumeComponent implements OnInit {
   private musicianService = inject(ProfileService);
   user = this.authService.currentUser();
   hasBeenInvitedToAllBands: boolean = false;
+  isMemberOfAllBands: boolean = false;
   bands: MusicianBands[] = [];
 
   ngOnInit(): void {
@@ -56,7 +57,12 @@ export class ProfileResumeComponent implements OnInit {
       .getMusicianLeaderBands(this.user()?.id)
       .subscribe((result) => {
         this.bands = result;
-        // this.hasBeenInvitedToAllBands = !this.bands.some(({status}) => status === 'No invitado');
+        this.hasBeenInvitedToAllBands = this.bands.every(
+          ({ status }) => status === 'PENDING'
+        );
+        this.isMemberOfAllBands = this.bands.every(
+          ({ status }) => status === 'MEMBER'
+        );
       });
   }
 

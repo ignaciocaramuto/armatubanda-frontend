@@ -6,19 +6,27 @@
   [returnsData]="true"
 >
   <mat-selection-list
+    *ngIf="bands"
     [multiple]="false"
     color="primary"
     [(ngModel)]="selectedBands"
   >
     <ng-container *ngFor="let band of bands">
-      <mat-list-option [value]="band">
+      <mat-list-option
+        [value]="band"
+        [disabled]="band.status === 'MEMBER' || band.status === 'PENDING'"
+      >
         <div class="band-name">
           <app-profile-image
-            [picByte]="band.bandImage.picByte"
-            [type]="band.bandImage.type"
+            [picByte]="band.musicianBandsDto.bandImage.picByte"
+            [type]="band.musicianBandsDto.bandImage.type"
             class="medium-size"
           ></app-profile-image>
-          <span>{{ band.bandName }}</span>
+          <span>{{ band.musicianBandsDto.bandName }}</span>
+          <span *ngIf="band.status === 'MEMBER'"
+            >(Ya pertenece a esta banda)
+          </span>
+          <span *ngIf="band.status === 'PENDING'">(Invitación pendiente)</span>
         </div>
       </mat-list-option>
     </ng-container>
