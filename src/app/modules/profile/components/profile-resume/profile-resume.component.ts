@@ -8,8 +8,8 @@ import { Image } from 'src/app/core/models/image.interface';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { ProfileImageComponent } from '../../../../core/components/profile-image/profile-image.component';
-import { BandInfo } from 'src/app/modules/band/models/band.interface';
-import { NgIf } from '@angular/common';
+import { Band } from 'src/app/modules/band/models/band.interface';
+import { NgFor, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteToBandDialogComponent } from './invite-to-band-dialog/invite-to-band-dialog.component';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
@@ -31,6 +31,7 @@ import { InvitationRequest } from '../../models/invitation.interface';
     NgIf,
     MatIconModule,
     MatButtonModule,
+    NgFor,
   ],
 })
 export class ProfileResumeComponent implements OnInit {
@@ -39,7 +40,7 @@ export class ProfileResumeComponent implements OnInit {
   @Input() personalInfo!: PersonalInformation;
   @Input() profileImage?: Image;
   @Input() userId!: number;
-  @Input() bandInfo!: BandInfo;
+  @Input() bandInfo!: Band;
   @Input() isMusicianProfile: boolean = true;
 
   private router = inject(Router);
@@ -51,6 +52,7 @@ export class ProfileResumeComponent implements OnInit {
   hasBeenInvitedToAllBands: boolean = false;
   isMemberOfAllBands: boolean = false;
   bands: MusicianBands[] = [];
+  profileBandsMember: MusicianBands[] = [];
 
   ngOnInit(): void {
     this.musicianService
