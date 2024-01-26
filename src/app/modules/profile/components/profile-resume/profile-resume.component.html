@@ -10,7 +10,7 @@
   </ng-container>
 
   <div *ngIf="isMusicianProfile" class="actions">
-    <ng-container *ngIf="!isMemberOfAllBands">
+    <ng-container *ngIf="user()?.id !== userId && !isMemberOfAllBands">
       <app-button
         *ngIf="user()?.id !== userId && !hasBeenInvitedToAllBands"
         label="Invitar"
