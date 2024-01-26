@@ -14,9 +14,5 @@ mat-form-field {
 .reviewer {
   display: flex;
   align-items: center;
-}
-
-.stars span {
-  font-size: 40px;
-  color: $main-color;
+  gap: 10px;
 }
