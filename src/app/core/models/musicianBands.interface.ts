@@ -4,5 +4,4 @@ export interface MusicianBands {
   bandId: number;
   bandName: string;
   bandImage: Image;
-  status: string;
 }

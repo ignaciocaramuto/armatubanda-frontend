@@ -17,8 +17,9 @@ import { InvitationService } from '../../services/invitation.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileService } from '../../services/profile.service';
-import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { InvitationRequest } from '../../models/invitation.interface';
+import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
+import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
 
 @Component({
   selector: 'app-profile-resume',
@@ -51,8 +52,8 @@ export class ProfileResumeComponent implements OnInit {
   user = this.authService.currentUser();
   hasBeenInvitedToAllBands: boolean = false;
   isMemberOfAllBands: boolean = false;
-  bands: MusicianBands[] = [];
-  profileBandsMember: MusicianBands[] = [];
+  bands: MusicianBandsStatus[] = [];
+  profileBandsMember: MusicianBandsStatus[] = [];
 
   ngOnInit(): void {
     this.musicianService
@@ -60,10 +61,10 @@ export class ProfileResumeComponent implements OnInit {
       .subscribe((result) => {
         this.bands = result;
         this.hasBeenInvitedToAllBands = this.bands.every(
-          ({ status }) => status === 'PENDING'
+          ({ status }) => status === MusicianStatusBand.Pending
         );
         this.isMemberOfAllBands = this.bands.every(
-          ({ status }) => status === 'MEMBER'
+          ({ status }) => status === MusicianStatusBand.Member
         );
       });
   }
@@ -85,6 +86,8 @@ export class ProfileResumeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((selectedBandId) => {
+      console.log(selectedBandId);
+
       if (selectedBandId) {
         const invitation: InvitationRequest = {
           musicianId: this.userId,

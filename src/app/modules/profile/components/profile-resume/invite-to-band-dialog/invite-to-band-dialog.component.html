@@ -14,7 +14,10 @@
     <ng-container *ngFor="let band of bands">
       <mat-list-option
         [value]="band"
-        [disabled]="band.status === 'MEMBER' || band.status === 'PENDING'"
+        [disabled]="
+          band.status === MusicianStatusBand.Member ||
+          band.status === MusicianStatusBand.Pending
+        "
       >
         <div class="band-name">
           <app-profile-image
@@ -23,10 +26,12 @@
             class="medium-size"
           ></app-profile-image>
           <span>{{ band.musicianBandsDto.bandName }}</span>
-          <span *ngIf="band.status === 'MEMBER'"
+          <span *ngIf="band.status === MusicianStatusBand.Member"
             >(Ya pertenece a esta banda)
           </span>
-          <span *ngIf="band.status === 'PENDING'">(Invitación pendiente)</span>
+          <span *ngIf="band.status === MusicianStatusBand.Pending"
+            >(Invitación pendiente)</span
+          >
         </div>
       </mat-list-option>
     </ng-container>

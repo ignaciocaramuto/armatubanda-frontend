@@ -11,6 +11,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
+import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
+import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 
 @Component({
   selector: 'app-invite-to-band-dialog',
@@ -28,11 +30,12 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InviteToBandDialogComponent {
-  selectedBands: MusicianBands[] = [];
+  selectedBands: MusicianBandsStatus[] = [];
   selectedBandId!: number;
   bands = inject(MAT_DIALOG_DATA);
+  readonly MusicianStatusBand = MusicianStatusBand;
 
   confirmBandInvitation(): void {
-    this.selectedBandId = this.selectedBands[0].bandId;
+    this.selectedBandId = this.selectedBands[0].musicianBandsDto.bandId;
   }
 }

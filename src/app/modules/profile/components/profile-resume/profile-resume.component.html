@@ -12,8 +12,8 @@
       <div class="bands">
         <ng-container *ngFor="let band of profileBandsMember">
           <app-profile-image
-            [picByte]="band.bandImage.picByte"
-            [type]="band.bandImage.type"
+            [picByte]="band.musicianBandsDto.bandImage.picByte"
+            [type]="band.musicianBandsDto.bandImage.type"
             class="small-size"
           ></app-profile-image>
         </ng-container>
