@@ -96,6 +96,9 @@
   <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
     Ver perfil
   </button>
+  <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
+    Editar perfil
+  </button>
   <button mat-menu-item routerLink="/auth/login" (click)="authService.logout()">
     Cerrar sesión
   </button>

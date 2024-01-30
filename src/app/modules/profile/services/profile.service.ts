@@ -20,7 +20,7 @@ export class ProfileService extends CrudService<Musician> {
   postReview(review: Review): Observable<Review[]> {
     return this.http.put<Review[]>(`${this.apiUrl}/upload-review`, review).pipe(
       tap(() =>
-        this._logMessageService.logConfirm('¡Tu reseña ha sido añadida!')
+        this._logMessageService.logConfirm('¡Tu comentario ha sido añadido!')
       ),
       catchError((res: HttpErrorResponse) =>
         throwError(() =>
