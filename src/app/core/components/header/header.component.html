@@ -73,16 +73,18 @@
 
 <mat-menu #bandsMenu="matMenu">
   <ng-container *ngIf="musicianBands.length > 0; else noBands">
-    <button mat-menu-item *ngFor="let band of musicianBands">
-      <div class="menu-option">
-        <app-profile-image
-          [picByte]="band.musicianBandsDto.bandImage.picByte"
-          [type]="band.musicianBandsDto.bandImage.type"
-          class="small-size"
-        ></app-profile-image>
-        <span>{{ band.musicianBandsDto.bandName }}</span>
-      </div>
-    </button>
+    <ng-container *ngFor="let band of musicianBands">
+      <button mat-menu-item [routerLink]="'band/profile/' + band.bandId">
+        <div class="menu-option">
+          <app-profile-image
+            [picByte]="band.bandImage.picByte"
+            [type]="band.bandImage.type"
+            class="small-size"
+          ></app-profile-image>
+          <span>{{ band.bandName }}</span>
+        </div>
+      </button>
+    </ng-container>
   </ng-container>
   <mat-divider></mat-divider>
   <button class="create-band" mat-menu-item routerLink="/band/create">
