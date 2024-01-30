@@ -13,6 +13,12 @@
   margin: 2em 0;
 }
 
+.band-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .reviews {
   overflow-y: scroll;
   height: 80vh;

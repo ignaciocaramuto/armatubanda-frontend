@@ -23,12 +23,20 @@
     <ng-container
       *ngIf="band && user()?.id === band.leaderId; else reviewButton"
     >
-      <app-button
-        (click)="openAddPostDialog()"
-        class="larger"
-        label="Subir post"
-        icon="add_a_photo"
-      ></app-button>
+      <div class="band-buttons">
+        <app-button
+          (click)="openAddPostDialog()"
+          class="larger"
+          label="Subir post"
+          icon="add_a_photo"
+        ></app-button>
+
+        <app-button
+          class="larger"
+          label="Publicar aviso"
+          icon="lyrics"
+        ></app-button>
+      </div>
     </ng-container>
   </div>
   <div class="reviews">
