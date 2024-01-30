@@ -25,6 +25,7 @@ export class ProfileFeedComponent implements OnInit {
         .getPosts(this.userId)
         .subscribe((result: Post[]) => (this.posts = result));
     } else {
+      // TODO: Band posts request
     }
   }
 }

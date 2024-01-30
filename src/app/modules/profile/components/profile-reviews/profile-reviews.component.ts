@@ -7,22 +7,20 @@ import { Review } from 'src/app/core/models/review.interface';
 import { ReviewComponent } from './review/review.component';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { NgIf, NgFor } from '@angular/common';
+import { Band } from 'src/app/modules/band/models/band.interface';
 
 @Component({
-    selector: 'app-profile-reviews',
-    templateUrl: './profile-reviews.component.html',
-    styleUrls: ['./profile-reviews.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        ButtonComponent,
-        NgFor,
-        ReviewComponent,
-    ],
+  selector: 'app-profile-reviews',
+  templateUrl: './profile-reviews.component.html',
+  styleUrls: ['./profile-reviews.component.scss'],
+  standalone: true,
+  imports: [NgIf, ButtonComponent, NgFor, ReviewComponent],
 })
 export class ProfileReviewsComponent {
   @Input() userId!: number;
   @Input() reviews: Review[] = [];
+  @Input() band!: Band;
+  @Input() isMusicianProfile: boolean = true;
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
   user = this.authService.currentUser();
@@ -32,9 +30,11 @@ export class ProfileReviewsComponent {
       width: '600px',
       height: '520px',
       disableClose: true,
+      data: this.isMusicianProfile,
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(() => {
+      // TODO: if isMusicianProfile emit event to get musician posts
+      // TODO: if !isMusicianProfile emit event to get band posts
     });
   }
 

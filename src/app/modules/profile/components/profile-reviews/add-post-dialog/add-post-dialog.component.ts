@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DialogComponent } from 'src/app/core/components/dialog/dialog.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +6,7 @@ import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag
 import { InputTextComponent } from 'src/app/core/components/input-text/input-text.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProfileService } from '../../../services/profile.service';
-import { Post } from '../../../models/post.interface';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-post-dialog',
@@ -31,11 +24,9 @@ import { Post } from '../../../models/post.interface';
   ],
 })
 export class AddPostDialogComponent {
-  @Input() userId!: number;
-  @Output() posts = new EventEmitter<Post[]>();
-
   private fb = inject(FormBuilder);
   private profileService = inject(ProfileService);
+  private isMusicianProfile = inject(MAT_DIALOG_DATA);
 
   formGroup: FormGroup = this.fb.group({
     urlVideo: [],
@@ -43,18 +34,23 @@ export class AddPostDialogComponent {
   });
 
   addPost(): void {
-    if (this.formGroup.valid) {
-      const formData = new FormData();
-      if (this.formGroup.get('urlVideo')?.value) {
-        formData.append('videoUrl', this.formGroup.get('urlVideo')?.value);
-      } else if (this.formGroup.get('image')?.value) {
-        formData.append('image', this.formGroup.get('image')?.value);
-      }
+    if (!this.formGroup.valid) {
+      return;
+    }
+
+    const formData = new FormData();
+    if (this.formGroup.get('urlVideo')?.value) {
+      formData.append('videoUrl', this.formGroup.get('urlVideo')?.value);
+    } else if (this.formGroup.get('image')?.value) {
+      formData.append('image', this.formGroup.get('image')?.value);
+    }
+
+    if (this.isMusicianProfile) {
       this.profileService.addPost(formData).subscribe((res) => {
-        if (res) {
-          window.location.reload();
-        }
+        // TODO: reload posts
       });
+    } else {
+      // TODO: Post for bands
     }
   }
 

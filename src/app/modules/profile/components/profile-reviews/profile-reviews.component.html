@@ -1,6 +1,28 @@
 <div class="container">
+  <ng-container *ngIf="isMusicianProfile; else bandProfile">
+    <div class="button">
+      <ng-container *ngIf="user()?.id === userId; else reviewButton">
+        <app-button
+          (click)="openAddPostDialog()"
+          class="larger"
+          label="Subir post"
+          icon="add_a_photo"
+        ></app-button>
+      </ng-container>
+    </div>
+    <div class="reviews">
+      <div *ngFor="let review of reviews">
+        <app-review [review]="review"></app-review>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #bandProfile>
   <div class="button">
-    <ng-container *ngIf="user()?.id === userId; else reviewButton">
+    <ng-container
+      *ngIf="band && user()?.id === band.musicianLeader.id; else reviewButton"
+    >
       <app-button
         (click)="openAddPostDialog()"
         class="larger"
@@ -10,11 +32,11 @@
     </ng-container>
   </div>
   <div class="reviews">
-    <div *ngFor="let review of reviews">
+    <div *ngFor="let review of band.reviews">
       <app-review [review]="review"></app-review>
     </div>
   </div>
-</div>
+</ng-template>
 
 <ng-template #reviewButton>
   <app-button

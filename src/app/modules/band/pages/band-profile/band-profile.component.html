@@ -1,9 +1,11 @@
-<app-profile-resume
-  [bandInfo]="band"
-  [contactInfo]="band.bandContactInfo"
-  [profileImage]="band.image"
-  [userId]="band.musicianLeader.id"
-  [isMusicianProfile]="false"
-></app-profile-resume>
-<app-profile-feed [userId]="band.id" [isMusician]="false"></app-profile-feed>
-<app-profile-reviews [userId]="band.musicianLeader.id"></app-profile-reviews>
+<ng-container *ngIf="band">
+  <app-profile-resume
+    [bandInfo]="band"
+    [contactInfo]="band.bandContactInfo"
+    [profileImage]="band.image"
+    [userId]="band.musicianLeader.id"
+    [isMusicianProfile]="false"
+  ></app-profile-resume>
+  <app-profile-feed [userId]="band.id" [isMusician]="false"></app-profile-feed>
+  <app-profile-reviews [userId]="band.musicianLeader.id"></app-profile-reviews>
+</ng-container>

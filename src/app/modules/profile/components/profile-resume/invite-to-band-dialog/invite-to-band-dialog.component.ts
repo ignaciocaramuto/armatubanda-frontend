@@ -33,6 +33,6 @@ export class InviteToBandDialogComponent {
   bands = inject(MAT_DIALOG_DATA);
 
   confirmBandInvitation(): void {
-    this.selectedBandId = this.selectedBands[0].musicianBandsDto.bandId;
+    this.selectedBandId = this.selectedBands[0].bandId;
   }
 }
