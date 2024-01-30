@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnInit,
+  effect,
 } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -47,7 +48,8 @@ export class HeaderComponent implements OnInit {
   invitations: Invitation[] = [];
 
   ngOnInit(): void {
-    this.authService.checkAuthentication().subscribe(() => {
+    this.authService.checkAuthentication().subscribe();
+    this.authService.$user.subscribe(() => {
       if (this.user()?.id) {
         forkJoin({
           musicianBands: this.profileService.getMusicianBands(this.user()!.id),

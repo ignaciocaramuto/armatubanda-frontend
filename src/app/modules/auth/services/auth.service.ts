@@ -3,7 +3,15 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from 'src/environments/environment.local';
 import { AuthUser, AuthStatus } from 'src/app/modules/auth/interfaces/index';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  map,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 
 @Injectable({ providedIn: 'root' })
@@ -17,6 +25,7 @@ export class AuthService {
   // devuelve una señal de solo lectura
   public currentUser = computed(() => this._currentUser);
   public authStatus = computed(() => this._authStatus);
+  public $user = new Subject<void>();
 
   login(email: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/auth/authenticate`;
@@ -28,6 +37,7 @@ export class AuthService {
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('token', user.token);
         localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
+        this.$user.next();
       }),
       map(() => true),
 
@@ -69,6 +79,7 @@ export class AuthService {
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
+        this.$user.next();
       }),
       map((user) => !!user),
       catchError((res: HttpErrorResponse) =>
