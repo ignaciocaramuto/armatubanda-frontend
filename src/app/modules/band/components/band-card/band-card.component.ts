@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Band } from '../../models/band.interface';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { Router } from '@angular/router';
+import { BandProfile } from '../../models/bandProfile.interface';
 
 @Component({
   selector: 'app-band-card',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./band-card.component.scss'],
 })
 export class BandCardComponent {
-  @Input() band!: Band;
+  @Input() band!: BandProfile;
 
   constructor(private router: Router) {}
 

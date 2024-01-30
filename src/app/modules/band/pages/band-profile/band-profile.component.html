@@ -1,11 +1,12 @@
 <ng-container *ngIf="band">
   <app-profile-resume
-    [bandInfo]="band"
+    [bandInfo]="band.bandInfo"
     [contactInfo]="band.bandContactInfo"
-    [profileImage]="band.image"
-    [userId]="band.musicianLeader.id"
+    [profileImage]="band.bandProfileImage"
+    [userId]="band.leaderId"
+    [members]="band.members"
     [isMusicianProfile]="false"
   ></app-profile-resume>
-  <app-profile-feed [userId]="band.id" [isMusician]="false"></app-profile-feed>
-  <app-profile-reviews [userId]="band.musicianLeader.id"></app-profile-reviews>
+  <app-profile-feed [userId]="bandId" [isMusician]="false"></app-profile-feed>
+  <app-profile-reviews [userId]="band.leaderId"></app-profile-reviews>
 </ng-container>

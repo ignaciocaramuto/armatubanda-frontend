@@ -7,6 +7,7 @@ import { Band } from '../../models/band.interface';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BandService } from '../../services/band.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { BandProfile } from '../../models/bandProfile.interface';
 
 @Component({
   selector: 'app-band-profile',
@@ -23,7 +24,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class BandProfileComponent implements OnInit {
   bandId!: number;
-  band!: Band;
+  band!: BandProfile;
 
   constructor(
     private route: ActivatedRoute,

@@ -41,12 +41,12 @@
 </div>
 
 <ng-template #band>
-  <h2>{{ bandInfo.bandInfo.name }}</h2>
-  <p>{{ bandInfo.bandInfo.description }}</p>
-  <ng-container *ngIf="!isMusicianProfile && !!bandInfo.members.length">
+  <h2>{{ bandInfo.name }}</h2>
+  <p>{{ bandInfo.description }}</p>
+  <ng-container *ngIf="!isMusicianProfile && !!members?.length">
     <h4 class="bands-text">Miembros:</h4>
     <div class="bands">
-      <ng-container *ngFor="let member of bandInfo.members">
+      <ng-container *ngFor="let member of members">
         <app-profile-image
           [picByte]="member.profileImage?.picByte"
           [type]="member.profileImage?.type"

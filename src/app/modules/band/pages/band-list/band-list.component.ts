@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { BandService } from '../../services/band.service';
 import { Band } from '../../models/band.interface';
 import { BandCardComponent } from '../../components/band-card/band-card.component';
+import { BandProfile } from '../../models/bandProfile.interface';
 
 @Component({
   selector: 'app-band-list',
@@ -14,7 +15,7 @@ import { BandCardComponent } from '../../components/band-card/band-card.componen
   styleUrls: ['./band-list.component.scss'],
 })
 export class BandListComponent implements OnInit {
-  bands: Band[] = [];
+  bands: BandProfile[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +43,7 @@ export class BandListComponent implements OnInit {
   }
 
   getList(filters?: any): void {
-    this.bandService.getAll(filters).subscribe((data: Band[]) => {
+    this.bandService.getAll(filters).subscribe((data: BandProfile[]) => {
       this.bands = data;
     });
   }
