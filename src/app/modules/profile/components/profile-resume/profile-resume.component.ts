@@ -5,7 +5,7 @@ import {
   PersonalInformation,
 } from 'src/app/core/models/musician';
 import { Image } from 'src/app/core/models/image.interface';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { ProfileImageComponent } from '../../../../core/components/profile-image/profile-image.component';
 import { Band, BandInfo } from 'src/app/modules/band/models/band.interface';
@@ -33,6 +33,7 @@ import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
     MatIconModule,
     MatButtonModule,
     NgFor,
+    RouterModule,
   ],
 })
 export class ProfileResumeComponent implements OnInit {
@@ -42,6 +43,7 @@ export class ProfileResumeComponent implements OnInit {
   @Input() profileImage?: Image;
   @Input() userId!: number;
   @Input() bandInfo!: BandInfo;
+  @Input() leaderProfileImage!: Image;
   @Input() members: any[] = [];
   @Input() isMusicianProfile: boolean = true;
 

@@ -7,7 +7,7 @@ import { Review } from 'src/app/core/models/review.interface';
 import { ReviewComponent } from './review/review.component';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { NgIf, NgFor } from '@angular/common';
-import { Band } from 'src/app/modules/band/models/band.interface';
+import { BandProfile } from 'src/app/modules/band/models/bandProfile.interface';
 
 @Component({
   selector: 'app-profile-reviews',
@@ -19,7 +19,7 @@ import { Band } from 'src/app/modules/band/models/band.interface';
 export class ProfileReviewsComponent {
   @Input() userId!: number;
   @Input() reviews: Review[] = [];
-  @Input() band!: Band;
+  @Input() band!: BandProfile;
   @Input() isMusicianProfile: boolean = true;
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);

@@ -21,7 +21,7 @@
 <ng-template #bandProfile>
   <div class="button">
     <ng-container
-      *ngIf="band && user()?.id === band.musicianLeader.id; else reviewButton"
+      *ngIf="band && user()?.id === band.leaderId; else reviewButton"
     >
       <app-button
         (click)="openAddPostDialog()"
@@ -32,8 +32,8 @@
     </ng-container>
   </div>
   <div class="reviews">
-    <div *ngFor="let review of band.reviews">
-      <app-review [review]="review"></app-review>
+    <div *ngFor="let comment of band.comments">
+      <app-review [review]="comment"></app-review>
     </div>
   </div>
 </ng-template>

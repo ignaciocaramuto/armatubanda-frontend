@@ -5,8 +5,12 @@
     [profileImage]="band.bandProfileImage"
     [userId]="band.leaderId"
     [members]="band.members"
+    [leaderProfileImage]="band.leaderProfileImage"
     [isMusicianProfile]="false"
   ></app-profile-resume>
   <app-profile-feed [userId]="bandId" [isMusician]="false"></app-profile-feed>
-  <app-profile-reviews [userId]="band.leaderId"></app-profile-reviews>
+  <app-profile-reviews
+    [band]="band"
+    [isMusicianProfile]="false"
+  ></app-profile-reviews>
 </ng-container>

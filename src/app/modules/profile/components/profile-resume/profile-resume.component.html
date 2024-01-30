@@ -43,7 +43,15 @@
 <ng-template #band>
   <h2>{{ bandInfo.name }}</h2>
   <p>{{ bandInfo.description }}</p>
-  <ng-container *ngIf="!isMusicianProfile && !!members?.length">
+  <h4 class="bands-text">Líder:</h4>
+  <a class="bands-text" [routerLink]="'/profile/' + userId">
+    <app-profile-image
+      [picByte]="leaderProfileImage.picByte"
+      [type]="leaderProfileImage.type"
+      class="small-size"
+    ></app-profile-image>
+  </a>
+  <ng-container *ngIf="!!members?.length">
     <h4 class="bands-text">Miembros:</h4>
     <div class="bands">
       <ng-container *ngFor="let member of members">
