@@ -18,6 +18,6 @@ export class BandCardComponent {
   constructor(private router: Router) {}
 
   openProfile(): void {
-    this.router.navigate(['/band/profile', this.band.id]);
+    this.router.navigate(['/band/profile', this.band.bandId]);
   }
 }

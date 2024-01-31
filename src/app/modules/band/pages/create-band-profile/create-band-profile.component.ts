@@ -113,7 +113,7 @@ export class CreateBandProfileComponent implements OnInit {
       this.bandService
         .create(form)
         .subscribe((result) =>
-          this.router.navigateByUrl(`../profile/${result.id}`)
+          this.router.navigateByUrl(`../profile/${result.bandId}`)
         );
     }
   }

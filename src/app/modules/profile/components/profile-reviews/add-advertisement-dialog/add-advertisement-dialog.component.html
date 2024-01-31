@@ -1,0 +1,39 @@
+<app-dialog
+  icon="lyrics"
+  title="Publicar aviso"
+  (confirmDialog)="publishAdvertisement()"
+>
+  <form [formGroup]="formGroup">
+    <div class="input-selects">
+      <app-input-select
+        [items]="genres"
+        formControlName="genres"
+        placeholder="Géneros"
+        [multiple]="true"
+      >
+      </app-input-select>
+      <div class="divider"></div>
+      <app-input-select
+        [items]="instruments"
+        formControlName="instruments"
+        placeholder="Instrumentos"
+        [multiple]="true"
+      >
+      </app-input-select>
+    </div>
+    <mat-form-field>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="8"
+        cdkAutosizeMaxRows="8"
+        formControlName="description"
+        placeholder="Escribe la descripción del aviso"
+      >
+      </textarea>
+      <mat-error *ngIf="formGroup.get('description')?.hasError('required')">
+        La descripción es requerida.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</app-dialog>

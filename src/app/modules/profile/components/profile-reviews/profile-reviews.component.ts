@@ -8,6 +8,7 @@ import { ReviewComponent } from './review/review.component';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { NgIf, NgFor } from '@angular/common';
 import { BandProfile } from 'src/app/modules/band/models/bandProfile.interface';
+import { AddAdvertisementDialogComponent } from './add-advertisement-dialog/add-advertisement-dialog.component';
 
 @Component({
   selector: 'app-profile-reviews',
@@ -49,6 +50,15 @@ export class ProfileReviewsComponent {
       if (result) {
         this.reviews = result;
       }
+    });
+  }
+
+  openAdvertisementDialog(): void {
+    this.dialog.open(AddAdvertisementDialogComponent, {
+      width: '600px',
+      height: '400px',
+      disableClose: true,
+      data: this.band.bandId,
     });
   }
 }

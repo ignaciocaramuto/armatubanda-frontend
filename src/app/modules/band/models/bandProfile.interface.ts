@@ -5,7 +5,7 @@ import { Post } from '../../profile/models/post.interface';
 import { Review } from 'src/app/core/models/review.interface';
 
 export interface BandProfile {
-  id: number;
+  bandId: number;
   bandInfo: BandInfo;
   bandContactInfo: ContactInformation;
   leader: BandMember;
