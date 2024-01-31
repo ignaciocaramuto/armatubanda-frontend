@@ -13,4 +13,7 @@
       {{ item[namePropertyName] }}
     </mat-option>
   </mat-select>
+  <mat-error *ngIf="control.hasError('required')">
+    El campo es requerido.
+  </mat-error>
 </mat-form-field>
