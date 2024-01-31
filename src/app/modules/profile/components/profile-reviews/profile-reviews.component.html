@@ -21,7 +21,7 @@
 <ng-template #bandProfile>
   <div class="button">
     <ng-container
-      *ngIf="band && user()?.id === band.leaderId; else reviewButton"
+      *ngIf="band && user()?.id === band.leader.musicianId; else reviewButton"
     >
       <div class="band-buttons">
         <app-button

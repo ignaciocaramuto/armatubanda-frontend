@@ -8,13 +8,17 @@ export interface BandProfile {
   id: number;
   bandInfo: BandInfo;
   bandContactInfo: ContactInformation;
-  leaderId: number;
-  leaderName: string;
-  leaderLastname: string;
-  leaderProfileImage: Image;
+  leader: BandMember;
   bandProfileImage: Image;
   bandGenres: string[];
   posts: Post[];
   comments: Review[];
-  members: any[];
+  bandMembersList: BandMember[];
+}
+
+export interface BandMember {
+  musicianId: number;
+  musicianName: string;
+  musicianLastName: string;
+  musicianProfileImage: Image;
 }

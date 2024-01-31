@@ -20,6 +20,7 @@ import { ProfileService } from '../../services/profile.service';
 import { InvitationRequest } from '../../models/invitation.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
+import { BandMember } from 'src/app/modules/band/models/bandProfile.interface';
 
 @Component({
   selector: 'app-profile-resume',
@@ -44,7 +45,7 @@ export class ProfileResumeComponent implements OnInit {
   @Input() userId!: number;
   @Input() bandInfo!: BandInfo;
   @Input() leaderProfileImage!: Image;
-  @Input() members: any[] = [];
+  @Input() members: BandMember[] = [];
   @Input() isMusicianProfile: boolean = true;
 
   private router = inject(Router);

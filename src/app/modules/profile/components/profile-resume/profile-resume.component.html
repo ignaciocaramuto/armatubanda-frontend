@@ -56,8 +56,8 @@
     <div class="bands">
       <ng-container *ngFor="let member of members">
         <app-profile-image
-          [picByte]="member.profileImage?.picByte"
-          [type]="member.profileImage?.type"
+          [picByte]="member.musicianProfileImage.picByte"
+          [type]="member.musicianProfileImage.type"
           class="small-size"
         ></app-profile-image>
       </ng-container>
