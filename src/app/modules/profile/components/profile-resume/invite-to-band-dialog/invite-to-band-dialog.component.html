@@ -2,8 +2,6 @@
   icon="person_add"
   title="Elige una banda a la cual invitar al músico"
   (confirmDialog)="confirmBandInvitation()"
-  [dataToReturn]="selectedBandId"
-  [returnsData]="true"
 >
   <mat-selection-list
     *ngIf="bands"

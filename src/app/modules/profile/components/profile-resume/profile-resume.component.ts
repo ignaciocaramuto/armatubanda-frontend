@@ -8,7 +8,7 @@ import { Image } from 'src/app/core/models/image.interface';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { ProfileImageComponent } from '../../../../core/components/profile-image/profile-image.component';
-import { Band, BandInfo } from 'src/app/modules/band/models/band.interface';
+import { BandInfo } from 'src/app/modules/band/models/band.interface';
 import { NgFor, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteToBandDialogComponent } from './invite-to-band-dialog/invite-to-band-dialog.component';
@@ -90,8 +90,6 @@ export class ProfileResumeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((selectedBandId) => {
-      console.log(selectedBandId);
-
       if (selectedBandId) {
         const invitation: InvitationRequest = {
           musicianId: this.userId,

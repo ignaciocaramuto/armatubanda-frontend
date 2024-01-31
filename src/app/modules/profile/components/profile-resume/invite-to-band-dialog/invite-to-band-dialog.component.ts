@@ -1,13 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DialogComponent } from 'src/app/core/components/dialog/dialog.component';
-import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
@@ -31,11 +25,14 @@ import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.int
 })
 export class InviteToBandDialogComponent {
   selectedBands: MusicianBandsStatus[] = [];
-  selectedBandId!: number;
+  private dialogRef = inject(MatDialogRef<InviteToBandDialogComponent>);
   bands = inject(MAT_DIALOG_DATA);
   readonly MusicianStatusBand = MusicianStatusBand;
 
   confirmBandInvitation(): void {
-    this.selectedBandId = this.selectedBands[0].musicianBandsDto.bandId;
+    const selectedBandId = this.selectedBands[0].musicianBandsDto.bandId;
+    if (selectedBandId) {
+      this.dialogRef.close(selectedBandId);
+    }
   }
 }
