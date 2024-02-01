@@ -29,7 +29,7 @@ export class CrudService<T> {
     return this.http.get<T>(`${this.apiUrl}/${id}`);
   }
 
-  create(data: T | FormData): Observable<T> {
+  create(data: T | FormData | Partial<any>): Observable<T> {
     return this.http.post<T>(this.apiUrl, data).pipe(
       tap(() =>
         this._logMessageService.logConfirm('¡Entidad creada correctamente!')

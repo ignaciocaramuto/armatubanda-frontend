@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { ProfileResumeComponent } from 'src/app/modules/profile/components/profile-resume/profile-resume.component';
-import { Band } from '../../models/band.interface';
 import { BandProfile } from '../../models/bandProfile.interface';
 
 @Component({

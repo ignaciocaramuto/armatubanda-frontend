@@ -1,22 +1,38 @@
-<app-filters [isMusiciansList]="false"></app-filters>
-<ng-container *ngFor="let request of [1, 2, 3, 4]">
+<app-filters
+  [isMusiciansList]="false"
+  (filterSelected)="getList($event)"
+></app-filters>
+<ng-container *ngFor="let advertisement of advertisements">
   <mat-card class="card-content">
     <div class="card-info">
-      <app-profile-image
-        [picByte]="undefined"
-        [type]="undefined"
-        class="medium-size"
-      ></app-profile-image>
-      <h3>AC/DC</h3>
+      <a [routerLink]="'../band/profile/' + advertisement.bandId">
+        <app-profile-image
+          [picByte]="advertisement.bandImage.picByte"
+          [type]="advertisement.bandImage.type"
+          class="medium-size"
+        ></app-profile-image>
+      </a>
+
+      <h3>{{ advertisement.bandId }}</h3>
+      <!-- TODO: Change with band name -->
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. In consequatur
-        omnis adipisci quod sunt repudiandae itaque, architecto ad eveniet
-        aliquid, rerum accusamus nihil temporibus error sequi totam placeat
-        dolore nesciunt!
+        {{ advertisement.description }}
       </p>
     </div>
     <div class="card-actions">
-      <button mat-stroked-button color="primary">Enviar solicitud</button>
+      <ng-container *ngIf="isMember(advertisement.bandId); else member">
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="openApplicationDialog(advertisement.adId)"
+        >
+          Enviar solicitud
+        </button>
+      </ng-container>
     </div>
   </mat-card>
 </ng-container>
+
+<ng-template #member>
+  <button mat-stroked-button disabled>Ya eres miembro</button>
+</ng-template>

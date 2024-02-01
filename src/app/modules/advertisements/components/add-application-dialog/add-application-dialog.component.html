@@ -1,0 +1,29 @@
+<app-dialog
+  icon="person_add"
+  title="Solicitud de miembro"
+  (confirmDialog)="confirmApplication()"
+>
+  <form [formGroup]="applicationFormGroup">
+    <mat-form-field>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="8"
+        cdkAutosizeMaxRows="8"
+        formControlName="message"
+        placeholder="Escribe un mensaje de solicitud"
+      >
+      </textarea>
+      <mat-error
+        *ngIf="applicationFormGroup.get('message')?.hasError('required')"
+      >
+        El mensaje es requerido.
+      </mat-error>
+      <mat-error
+        *ngIf="applicationFormGroup.get('message')?.hasError('maxlength')"
+      >
+        Máximo 200 caracteres.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</app-dialog>
