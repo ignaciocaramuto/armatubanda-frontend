@@ -60,8 +60,12 @@ export class ProfileResumeComponent implements OnInit {
   profileBandsMember: MusicianBandsStatus[] = [];
 
   ngOnInit(): void {
+    if (!this.isMusicianProfile) {
+      return;
+    }
+
     this.musicianService
-      .getMusicianLeaderBands(this.user()?.id)
+      .getMusicianLeaderBands(this.userId)
       .subscribe((result) => {
         this.bands = result;
         this.hasBeenInvitedToAllBands = this.bands.every(
