@@ -34,4 +34,8 @@ export class AdvertisementService extends CrudService<Advertisement> {
         )
       );
   }
+
+  getAds(bandId: number): Observable<Advertisement[]> {
+    return this.http.get<Advertisement[]>(`${environment.apiUrl}/ad/${bandId}`);
+  }
 }

@@ -73,7 +73,7 @@ export class RequestsComponent implements OnInit {
 
     this.formGroup.get('bandId')?.valueChanges.subscribe((bandId) => {
       if (bandId) {
-        this.advertisementService.getAll(bandId).subscribe((ads) => {
+        this.advertisementService.getAds(bandId).subscribe((ads) => {
           this.advertisements = ads.map((ad) => ({
             id: ad.adId,
             name: ad.adName,
