@@ -64,7 +64,7 @@ export class CreateBandProfileComponent implements OnInit {
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
-    bandProfileImage: [],
+    bandProfileImage: ['', Validators.required],
   });
 
   ngOnInit(): void {
