@@ -25,7 +25,7 @@ export class AuthService {
   // devuelve una señal de solo lectura
   public currentUser = computed(() => this._currentUser);
   public authStatus = computed(() => this._authStatus);
-  public $user = new Subject<void>();
+  public user$ = new Subject<void>();
 
   login(email: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/auth/authenticate`;
@@ -37,7 +37,7 @@ export class AuthService {
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('token', user.token);
         localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
-        this.$user.next();
+        this.user$.next();
       }),
       map(() => true),
 
@@ -68,6 +68,7 @@ export class AuthService {
     this._authStatus.set(AuthStatus.notAuthenticated);
     localStorage.removeItem('token');
     localStorage.removeItem('isProfileSet');
+    this.user$.next();
   }
 
   checkAuthentication(): Observable<boolean> {
@@ -79,7 +80,7 @@ export class AuthService {
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
-        this.$user.next();
+        this.user$.next();
       }),
       map((user) => !!user),
       catchError((res: HttpErrorResponse) =>

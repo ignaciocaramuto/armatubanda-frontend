@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.checkAuthentication().subscribe();
-    this.authService.$user.subscribe(() => {
+    this.authService.user$.subscribe(() => {
       if (this.user()?.id) {
         forkJoin({
           musicianBands: this.profileService.getMusicianBands(this.user()!.id),
@@ -57,9 +57,12 @@ export class HeaderComponent implements OnInit {
         }).subscribe(({ musicianBands, invitations }) => {
           this.musicianBands = musicianBands;
           this.invitations = invitations;
-          this.cd.detectChanges();
         });
+      } else {
+        this.musicianBands = [];
+        this.invitations = [];
       }
+      this.cd.detectChanges();
     });
   }
 }
