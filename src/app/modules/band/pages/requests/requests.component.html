@@ -1,5 +1,12 @@
 <div class="requests" *ngIf="band">
   <div class="container">
+    <app-profile-image
+      [picByte]="band.bandProfileImage.picByte"
+      [type]="band.bandProfileImage.type"
+      class="large-size"
+    ></app-profile-image>
+    <h2 style="margin-bottom: 1.5rem">{{ band.bandInfo.name }}</h2>
+
     <form [formGroup]="formGroup">
       <app-input-select
         appearance="outline"
@@ -19,13 +26,6 @@
       >
       </app-input-select>
     </form>
-
-    <app-profile-image
-      [picByte]="band.bandProfileImage.picByte"
-      [type]="band.bandProfileImage.type"
-      class="large-size"
-    ></app-profile-image>
-    <h2>{{ band.bandInfo.name }}</h2>
   </div>
 
   <div class="request-list">
