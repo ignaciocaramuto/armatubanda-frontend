@@ -50,19 +50,20 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.checkAuthentication().subscribe();
     this.authService.user$.subscribe(() => {
-      if (this.user()?.id) {
-        forkJoin({
-          musicianBands: this.profileService.getMusicianBands(this.user()!.id),
-          invitations: this.invitationService.getPendingInvitations(),
-        }).subscribe(({ musicianBands, invitations }) => {
-          this.musicianBands = musicianBands;
-          this.invitations = invitations;
-        });
-      } else {
+      if (!this.user()?.id) {
         this.musicianBands = [];
         this.invitations = [];
+        return;
       }
-      this.cd.detectChanges();
+
+      forkJoin({
+        musicianBands: this.profileService.getMusicianBands(this.user()!.id),
+        invitations: this.invitationService.getPendingInvitations(),
+      }).subscribe(({ musicianBands, invitations }) => {
+        this.musicianBands = musicianBands;
+        this.invitations = invitations;
+        this.cd.detectChanges();
+      });
     });
   }
 }
