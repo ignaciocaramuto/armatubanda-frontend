@@ -43,6 +43,15 @@
 <ng-template #band>
   <h2>{{ bandInfo.name }}</h2>
   <p>{{ bandInfo.description }}</p>
+  <ng-container *ngIf="user()?.id === userId">
+    <app-button
+      label="Solicitudes"
+      class="medium"
+      [routerLink]="'/band/requests/' + bandId"
+    ></app-button>
+    <app-button label="Editar" class="medium"></app-button>
+  </ng-container>
+
   <h4 class="bands-text">Líder:</h4>
   <a class="bands-text" [routerLink]="'/profile/' + userId">
     <app-profile-image

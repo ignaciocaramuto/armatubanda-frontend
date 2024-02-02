@@ -47,6 +47,7 @@ export class ProfileResumeComponent implements OnInit {
   @Input() leaderProfileImage!: Image;
   @Input() members: BandMember[] = [];
   @Input() isMusicianProfile: boolean = true;
+  @Input() bandId!: number;
 
   private router = inject(Router);
   private dialog = inject(MatDialog);

@@ -9,7 +9,7 @@
     [multiple]="multiple"
     [required]="required"
   >
-    <mat-option *ngFor="let item of items" [value]="item[namePropertyName]">
+    <mat-option *ngFor="let item of items" [value]="item[propToReturn]">
       {{ item[namePropertyName] }}
     </mat-option>
   </mat-select>

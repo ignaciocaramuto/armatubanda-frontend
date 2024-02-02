@@ -29,6 +29,7 @@ export class InputSelectComponent extends FormControlValueAccessorConnector {
   @Input() items: any[] = [];
   @Input() idPropertyName: string = 'id';
   @Input() namePropertyName: string = 'name';
+  @Input() propToReturn: string = 'name';
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
   @Input() multiple: boolean = false;

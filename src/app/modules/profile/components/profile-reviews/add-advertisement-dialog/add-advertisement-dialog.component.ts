@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { forkJoin } from 'rxjs';
 import { DialogComponent } from 'src/app/core/components/dialog/dialog.component';
 import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
+import { InputTextComponent } from 'src/app/core/components/input-text/input-text.component';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
@@ -33,6 +34,7 @@ import { AdvertisementService } from 'src/app/modules/advertisements/services/ad
     MatFormFieldModule,
     MatInputModule,
     InputSelectComponent,
+    InputTextComponent,
   ],
   templateUrl: './add-advertisement-dialog.component.html',
   styleUrls: ['./add-advertisement-dialog.component.scss'],
@@ -50,6 +52,7 @@ export class AddAdvertisementDialogComponent implements OnInit {
   instruments: Instrument[] = [];
   formGroup: FormGroup = this.fb.group({
     bandId: [],
+    // TODO: Add advertisement name
     description: ['', Validators.required],
     genres: ['', Validators.required],
     instruments: ['', Validators.required],

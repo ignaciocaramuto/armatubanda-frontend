@@ -1,27 +1,61 @@
-<div class="requests">
-  <app-profile-resume
-    [bandInfo]="band.bandInfo"
-    [contactInfo]="band.bandContactInfo"
-    [profileImage]="band.bandProfileImage"
-    [userId]="band.bandId"
-    [isMusicianProfile]="false"
-  ></app-profile-resume>
+<div class="requests" *ngIf="band">
+  <div class="container">
+    <form [formGroup]="formGroup">
+      <app-input-select
+        appearance="outline"
+        [items]="leaderBands"
+        propToReturn="id"
+        formControlName="bandId"
+        placeholder="Tus bandas"
+      >
+      </app-input-select>
+
+      <app-input-select
+        appearance="outline"
+        [items]="advertisements"
+        propToReturn="id"
+        formControlName="adId"
+        placeholder="Avisos"
+      >
+      </app-input-select>
+    </form>
+
+    <app-profile-image
+      [picByte]="band.bandProfileImage.picByte"
+      [type]="band.bandProfileImage.type"
+      class="large-size"
+    ></app-profile-image>
+    <h2>{{ band.bandInfo.name }}</h2>
+  </div>
 
   <div class="request-list">
-    <ng-container *ngFor="let request of [1, 2, 3, 4]">
+    <ng-container *ngFor="let application of applications">
       <mat-card class="card-content">
         <div class="card-info">
           <app-profile-image
-            [picByte]="undefined"
-            [type]="undefined"
+            [picByte]="application.musicianImage.picByte"
+            [type]="application.musicianImage.type"
             class="medium-size"
           ></app-profile-image>
-          <h3>Luciano</h3>
-          <p>Quiere unirse a tu banda</p>
+          <h3>{{ application.musicianName }}</h3>
+          <p>Quiere unirse a tu banda:</p>
+          <p>{{ application.applicationMessage }}</p>
         </div>
         <div class="card-actions">
-          <button mat-stroked-button color="primary">Aceptar</button>
-          <button mat-stroked-button color="warn">Rechazar</button>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="applicationChange(application.applicationId, true)"
+          >
+            Aceptar
+          </button>
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="applicationChange(application.applicationId, false)"
+          >
+            Rechazar
+          </button>
         </div>
       </mat-card>
     </ng-container>
