@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
-import { ProfileResumeComponent } from 'src/app/modules/profile/components/profile-resume/profile-resume.component';
 import { BandProfile } from '../../models/bandProfile.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -59,9 +58,7 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.bandId = params['id'];
-      this.bandService.getById(this.bandId).subscribe((res) => {
-        this.band = res;
-      });
+      this.getBand(this.bandId, true);
     });
 
     this.profileService.getMusicianLeaderBands(2132131).subscribe((bands) => {
@@ -73,6 +70,7 @@ export class RequestsComponent implements OnInit {
 
     this.formGroup.get('bandId')?.valueChanges.subscribe((bandId) => {
       if (bandId) {
+        this.getBand(bandId, false);
         this.advertisementService.getAds(bandId).subscribe((ads) => {
           this.advertisements = ads.map((ad) => ({
             id: ad.adId,
@@ -114,6 +112,16 @@ export class RequestsComponent implements OnInit {
             });
         }
       });
+  }
+
+  private getBand(id: number, setValue: boolean): void {
+    this.bandService.getById(id).subscribe((res) => {
+      this.band = res;
+
+      if (setValue) {
+        this.formGroup.get('bandId')?.setValue(this.band.bandId);
+      }
+    });
   }
 
   private getApplications(adId: number): void {
