@@ -82,7 +82,7 @@ export class AdvertisementsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // TODO: Pending request
+        this.getList();
       }
     });
   }
