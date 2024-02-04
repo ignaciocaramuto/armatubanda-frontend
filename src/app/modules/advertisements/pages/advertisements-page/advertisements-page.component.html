@@ -20,19 +20,14 @@
       </p>
     </div>
     <div class="card-actions">
-      <ng-container *ngIf="isMember(advertisement.bandId); else member">
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="openApplicationDialog(advertisement.adId)"
-        >
-          Enviar solicitud
-        </button>
-      </ng-container>
+      <button
+        mat-stroked-button
+        color="primary"
+        [disabled]="advertisement.status !== advertisementStatus.Eligible"
+        (click)="openApplicationDialog(advertisement.adId)"
+      >
+        {{ getButtonLabel(advertisement.status) }}
+      </button>
     </div>
   </mat-card>
 </ng-container>
-
-<ng-template #member>
-  <button mat-stroked-button disabled>Ya eres miembro</button>
-</ng-template>

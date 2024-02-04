@@ -12,6 +12,7 @@ import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddApplicationDialogComponent } from '../../components/add-application-dialog/add-application-dialog.component';
+import { AdvertisementStatus } from '../../enums/advertisementStatus.enum';
 
 @Component({
   selector: 'app-advertisements-page',
@@ -32,6 +33,7 @@ export class AdvertisementsPageComponent implements OnInit {
   advertisements: Advertisement[] = [];
   musicianBands: MusicianBands[] = [];
   user = this.authService.currentUser();
+  readonly advertisementStatus = AdvertisementStatus;
 
   constructor(
     private advertisementService: AdvertisementService,
@@ -55,8 +57,19 @@ export class AdvertisementsPageComponent implements OnInit {
       });
   }
 
-  isMember(id: number): boolean {
-    return !this.musicianBands.some(({ bandId }) => bandId === id);
+  getButtonLabel(status: AdvertisementStatus): string {
+    switch (status) {
+      case this.advertisementStatus.Eligible:
+        return 'Enviar solicitud';
+      case this.advertisementStatus.Invited:
+        return 'Invitación pendiente';
+      case this.advertisementStatus.Member:
+        return 'Ya eres miembro';
+      case this.advertisementStatus.Pending:
+        return 'Solicitud pendiente';
+      default:
+        return '';
+    }
   }
 
   openApplicationDialog(adId: number): void {
