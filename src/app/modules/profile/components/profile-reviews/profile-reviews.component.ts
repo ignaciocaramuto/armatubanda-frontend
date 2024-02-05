@@ -36,7 +36,7 @@ export class ProfileReviewsComponent {
       disableClose: true,
       data: {
         isMusicianProfile: this.isMusicianProfile,
-        bandId: this.band.bandId,
+        bandId: this.band?.bandId,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
