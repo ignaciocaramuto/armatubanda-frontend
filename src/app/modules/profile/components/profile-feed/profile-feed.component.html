@@ -1,5 +1,10 @@
-<div class="container">
-  <div class="post" *ngFor="let post of posts">
-    <app-post [post]="post"></app-post>
-  </div>
-</div>
+<ng-container *ngIf="!!posts.length; else noPostsMesssage">
+  <div class="container">
+    <div class="post" *ngFor="let post of posts">
+      <app-post [post]="post"></app-post>
+    </div></div
+></ng-container>
+
+<ng-template #noPostsMesssage>
+  <p class="no-posts">Aún no hay publicaciones</p>
+</ng-template>
