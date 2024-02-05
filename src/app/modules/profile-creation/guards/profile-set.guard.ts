@@ -18,7 +18,7 @@ const checkProfileSet = (): Observable<boolean> | boolean => {
   return authService.checkProfileSet().pipe(
     tap((isProfileSet) => {
       if (!isProfileSet) {
-        router.navigateByUrl('/new-profile');
+        router.navigateByUrl('/musician/create');
       }
     })
   );

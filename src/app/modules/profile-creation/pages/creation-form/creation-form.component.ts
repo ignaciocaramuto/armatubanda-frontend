@@ -140,7 +140,7 @@ export class CreationFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.personalformGroup.valid && this.bioformGroup.valid) {
-      const urlPut = `${this.baseUrl}/musician/create-profile`;
+      const urlPut = `${this.baseUrl}/musician`;
 
       const musician = {
         personalInformation: {

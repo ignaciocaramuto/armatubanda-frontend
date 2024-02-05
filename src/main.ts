@@ -62,13 +62,11 @@ bootstrapApplication(AppComponent, {
           ),
       },
       {
-        path: 'new-profile',
-        loadComponent: () =>
-          import(
-            `./app/modules/profile-creation/pages/creation-form/creation-form.component`
-          ).then((c) => c.CreationFormComponent),
-        canActivate: [canActivateGuard],
-        canMatch: [canMatchGuard],
+        path: 'musician',
+        loadChildren: () =>
+          import(`./app/modules/profile-creation/profile-creation.routes`).then(
+            (r) => r.PROFILE_CREATION_ROUTES
+          ),
       },
       {
         path: 'band',
