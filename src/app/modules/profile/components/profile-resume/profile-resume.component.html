@@ -64,11 +64,13 @@
     <h4 class="bands-text">Miembros:</h4>
     <div class="bands">
       <ng-container *ngFor="let member of members">
-        <app-profile-image
-          [picByte]="member.musicianProfileImage.picByte"
-          [type]="member.musicianProfileImage.type"
-          class="small-size"
-        ></app-profile-image>
+        <a class="bands-text" [routerLink]="'/profile/' + member.musicianId">
+          <app-profile-image
+            [picByte]="member.musicianProfileImage.picByte"
+            [type]="member.musicianProfileImage.type"
+            class="small-size"
+          ></app-profile-image>
+        </a>
       </ng-container>
     </div>
   </ng-container>
