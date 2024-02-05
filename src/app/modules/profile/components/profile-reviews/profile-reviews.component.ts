@@ -56,9 +56,7 @@ export class ProfileReviewsComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.reviews = [];
-
         this.reviews = result;
-        console.log(this.reviews);
       }
     });
   }
