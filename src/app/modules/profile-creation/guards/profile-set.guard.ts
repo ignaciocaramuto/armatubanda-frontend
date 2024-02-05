@@ -37,3 +37,13 @@ export const canActivateGuardProfile: CanActivateFn = (
 ) => {
   return checkProfileSet();
 };
+
+export const canEditProfile: CanActivateFn = (
+  route: ActivatedRouteSnapshot
+) => {
+  const authService: AuthService = inject(AuthService);
+  const musicianId = route.params['id'];
+  const user = authService.currentUser();
+
+  return user()?.id.toString() === musicianId;
+};
