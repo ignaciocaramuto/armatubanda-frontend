@@ -8,7 +8,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.local';
 import { HttpClient } from '@angular/common/http';
 import { InstrumentService } from 'src/app/core/services/instrument.service';
@@ -29,6 +29,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
 import { tap } from 'rxjs';
+import { ProfileService } from 'src/app/modules/profile/services/profile.service';
+import { Musician } from 'src/app/core/models/musician';
 
 @Component({
   selector: 'app-creation-form',
@@ -66,9 +68,12 @@ export class CreationFormComponent implements OnInit {
   private http = inject(HttpClient);
   private _logMessageService = inject(LogMessageService);
   private genreService = inject(GenreService);
+  private route = inject(ActivatedRoute);
+  private profileService = inject(ProfileService);
 
   instruments: Instrument[] = [];
   genres: Genre[] = [];
+  musician!: Musician;
 
   readonly experienceTypes = [
     { name: ExperienceType.Novice },
@@ -77,15 +82,15 @@ export class CreationFormComponent implements OnInit {
   ];
 
   personalformGroup: FormGroup = this.fb.group({
-    firstName: ['asd', Validators.required],
-    lastName: ['asd', Validators.required],
-    stageName: ['asd', Validators.required],
-    country: ['asd', Validators.required],
-    city: ['asd', Validators.required],
-    phoneNumber: ['asd', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    stageName: ['', Validators.required],
+    country: ['', Validators.required],
+    city: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
     birthday: ['', Validators.required],
-    webSite: ['asd'],
-    socialMediaLink: ['asd'],
+    webSite: [''],
+    socialMediaLink: [''],
     genres: ['', Validators.required],
   });
 
@@ -134,6 +139,16 @@ export class CreationFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      const id = params['id'];
+      if (id) {
+        this.profileService.getById(id).subscribe((result) => {
+          this.musician = result;
+          this.setFormGroupValues(this.musician);
+        });
+      }
+    });
+
     this.getInstruments();
     this.getGenres();
   }
@@ -283,5 +298,55 @@ export class CreationFormComponent implements OnInit {
     return genres.map((genre) => ({
       name: genre,
     }));
+  }
+
+  private setFormGroupValues(musician: Musician): void {
+    // Personal
+    this.personalformGroup
+      .get('firstName')
+      ?.setValue(musician.personalInformation.name);
+    this.personalformGroup
+      .get('lastName')
+      ?.setValue(musician.personalInformation.lastname);
+    this.personalformGroup
+      .get('stageName')
+      ?.setValue(musician.personalInformation.stageName);
+    this.personalformGroup
+      .get('city')
+      ?.setValue(musician.personalInformation.city);
+    this.personalformGroup
+      .get('country')
+      ?.setValue(musician.personalInformation.country);
+    this.personalformGroup
+      .get('phoneNumber')
+      ?.setValue(musician.contactInformation.phoneNumber);
+    this.personalformGroup
+      .get('birthday')
+      ?.setValue(musician.personalInformation.birthday);
+    this.personalformGroup
+      .get('webSite')
+      ?.setValue(musician.contactInformation.webSite);
+    this.personalformGroup
+      .get('socialMediaLink')
+      ?.setValue(musician.contactInformation.socialMedia);
+    this.personalformGroup
+      .get('genres')
+      ?.setValue(musician.skillsInformation.genres.map(({ name }) => name));
+
+    // Instruments
+    musician.skillsInformation.instrumentExperience.forEach(
+      (instrumentExperience) => {
+        const instrument = this.fb.group({
+          instrument: instrumentExperience.instrument.name,
+          experience: instrumentExperience.experience,
+        });
+        this.skills.push(instrument);
+      }
+    );
+
+    // Bio
+    this.bioformGroup.get('bio')?.setValue(musician.biographyInformation.bio);
+
+    // Academic history
   }
 }
