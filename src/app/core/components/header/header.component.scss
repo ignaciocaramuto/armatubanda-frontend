@@ -89,6 +89,7 @@ span.text-white,
 .actions {
   display: flex;
   gap: 5px;
+  align-items: center;
   span.done {
     color: $main-color;
     cursor: pointer;

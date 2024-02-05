@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnInit,
-  effect,
 } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -19,6 +18,9 @@ import { InvitationService } from 'src/app/modules/profile/services/invitation.s
 import { forkJoin } from 'rxjs';
 import { Invitation } from 'src/app/modules/profile/models/invitation.interface';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { InvitationStatusDto } from 'src/app/modules/profile/models/InvitationStatusDto.interface';
 
 @Component({
   standalone: true,
@@ -35,12 +37,14 @@ import { MatBadgeModule } from '@angular/material/badge';
     ProfileImageComponent,
     MatDividerModule,
     MatBadgeModule,
+    MatDialogModule,
   ],
 })
 export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
   profileService = inject(ProfileService);
   invitationService = inject(InvitationService);
+  dialog = inject(MatDialog);
   cd = inject(ChangeDetectorRef);
   user = this.authService.currentUser();
   status = this.authService.authStatus();
@@ -56,14 +60,47 @@ export class HeaderComponent implements OnInit {
         return;
       }
 
-      forkJoin({
-        musicianBands: this.profileService.getMusicianBands(this.user()!.id),
-        invitations: this.invitationService.getPendingInvitations(),
-      }).subscribe(({ musicianBands, invitations }) => {
-        this.musicianBands = musicianBands;
-        this.invitations = invitations;
-        this.cd.detectChanges();
+      this.getMusicianData();
+    });
+  }
+
+  invitationChange(invitation: Invitation, status: boolean): void {
+    const confirmText = status
+      ? '¿Estás seguro que quieres aceptar esta invitación?'
+      : '¿Estás seguro que quieres rechazar esta invitación?';
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: confirmText,
+      })
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
+          const invitationStatus: InvitationStatusDto = {
+            invitationId: invitation.id,
+            musicianId: invitation.musicianInvited.id,
+            bandId: invitation.bandInvitation.id,
+            status: status,
+          };
+
+          this.invitationService
+            .changeInvitationStatus(invitationStatus)
+            .subscribe((result) => {
+              if (result) {
+                this.getMusicianData();
+              }
+            });
+        }
       });
+  }
+
+  private getMusicianData(): void {
+    forkJoin({
+      musicianBands: this.profileService.getMusicianBands(this.user()!.id),
+      invitations: this.invitationService.getPendingInvitations(),
+    }).subscribe(({ musicianBands, invitations }) => {
+      this.musicianBands = musicianBands;
+      this.invitations = invitations;
+      this.cd.detectChanges();
     });
   }
 }

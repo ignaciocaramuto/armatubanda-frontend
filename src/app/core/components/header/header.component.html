@@ -67,8 +67,18 @@
         <span class="text">{{ invitation.bandInvitation.bandInfo.name }}</span>
       </div>
       <div class="actions">
-        <span class="material-symbols-rounded done"> done </span>
-        <span class="material-symbols-rounded close"> close </span>
+        <span
+          class="material-symbols-rounded done"
+          (click)="invitationChange(invitation, true)"
+        >
+          done
+        </span>
+        <span
+          class="material-symbols-rounded close"
+          (click)="invitationChange(invitation, false)"
+        >
+          close
+        </span>
       </div>
     </div>
   </ng-container>
