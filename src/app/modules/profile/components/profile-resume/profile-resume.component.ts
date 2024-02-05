@@ -65,17 +65,7 @@ export class ProfileResumeComponent implements OnInit {
       return;
     }
 
-    this.musicianService
-      .getMusicianLeaderBands(this.userId)
-      .subscribe((result) => {
-        this.bands = result;
-        this.hasBeenInvitedToAllBands = this.bands.every(
-          ({ status }) => status === MusicianStatusBand.Pending
-        );
-        this.isMemberOfAllBands = this.bands.every(
-          ({ status }) => status === MusicianStatusBand.Member
-        );
-      });
+    this.getMusicianLeaders();
   }
 
   redirectToUserWebsite(): void {
@@ -105,10 +95,24 @@ export class ProfileResumeComponent implements OnInit {
           .createInvitation(invitation)
           .subscribe((result) => {
             if (result) {
-              this.hasBeenInvitedToAllBands = true;
+              this.getMusicianLeaders();
             }
           });
       }
     });
+  }
+
+  private getMusicianLeaders(): void {
+    this.musicianService
+      .getMusicianLeaderBands(this.userId)
+      .subscribe((result) => {
+        this.bands = result;
+        this.hasBeenInvitedToAllBands = this.bands.every(
+          ({ status }) => status === MusicianStatusBand.Pending
+        );
+        this.isMemberOfAllBands = this.bands.every(
+          ({ status }) => status === MusicianStatusBand.Member
+        );
+      });
   }
 }
