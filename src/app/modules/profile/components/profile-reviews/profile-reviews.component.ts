@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
@@ -22,6 +22,9 @@ export class ProfileReviewsComponent {
   @Input() reviews: Review[] = [];
   @Input() band!: BandProfile;
   @Input() isMusicianProfile: boolean = true;
+
+  @Output() onPostChange = new EventEmitter<void>();
+
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
   user = this.authService.currentUser();
@@ -31,11 +34,15 @@ export class ProfileReviewsComponent {
       width: '600px',
       height: '520px',
       disableClose: true,
-      data: this.isMusicianProfile,
+      data: {
+        isMusicianProfile: this.isMusicianProfile,
+        bandId: this.band.bandId,
+      },
     });
-    dialogRef.afterClosed().subscribe(() => {
-      // TODO: if isMusicianProfile emit event to get musician posts
-      // TODO: if !isMusicianProfile emit event to get band posts
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.onPostChange.emit();
+      }
     });
   }
 

@@ -9,9 +9,10 @@
     [isMusicianProfile]="false"
     [bandId]="band.bandId"
   ></app-profile-resume>
-  <app-profile-feed [userId]="bandId" [isMusician]="false"></app-profile-feed>
+  <app-profile-feed [posts]="posts"></app-profile-feed>
   <app-profile-reviews
     [band]="band"
     [isMusicianProfile]="false"
+    (onPostChange)="getPosts()"
   ></app-profile-reviews>
 </ng-container>

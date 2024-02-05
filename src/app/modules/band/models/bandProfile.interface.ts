@@ -11,8 +11,8 @@ export interface BandProfile {
   leader: BandMember;
   bandProfileImage: Image;
   bandGenres: string[];
-  posts: Post[];
-  comments: Review[];
+  postList: Post[];
+  reviewsList: Review[];
   bandMembersList: BandMember[];
 }
 

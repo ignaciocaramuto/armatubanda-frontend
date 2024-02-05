@@ -8,6 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BandService } from '../../services/band.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { BandProfile } from '../../models/bandProfile.interface';
+import { Post } from 'src/app/modules/profile/models/post.interface';
 
 @Component({
   selector: 'app-band-profile',
@@ -25,6 +26,7 @@ import { BandProfile } from '../../models/bandProfile.interface';
 export class BandProfileComponent implements OnInit {
   bandId!: number;
   band!: BandProfile;
+  posts: Post[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,9 +36,20 @@ export class BandProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.bandId = params['id'];
-      this.bandService.getById(this.bandId).subscribe((res) => {
-        this.band = res;
-      });
+      this.getById();
+      this.getPosts();
     });
+  }
+
+  getById(): void {
+    this.bandService.getById(this.bandId).subscribe((res) => {
+      this.band = res;
+    });
+  }
+
+  getPosts(): void {
+    this.bandService
+      .getPosts(this.bandId)
+      .subscribe((result: Post[]) => (this.posts = result));
   }
 }

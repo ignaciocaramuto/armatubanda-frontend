@@ -8,6 +8,7 @@ import { ProfileFeedComponent } from '../../components/profile-feed/profile-feed
 import { ProfileResumeComponent } from '../../components/profile-resume/profile-resume.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgIf } from '@angular/common';
+import { Post } from '../../models/post.interface';
 
 @Component({
   selector: 'app-profile-page',
@@ -26,6 +27,7 @@ export class ProfilePageComponent implements OnInit {
   userId!: number;
   user!: Musician;
   reviews: Review[] = [];
+  posts: Post[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,10 +37,21 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.userId = params['id'];
-      this.profileService.getById(this.userId).subscribe((res) => {
-        this.user = res;
-        this.reviews = this.user.reviews ?? [];
-      });
+      this.getById();
+      this.getPosts();
     });
+  }
+
+  getById(): void {
+    this.profileService.getById(this.userId).subscribe((res) => {
+      this.user = res;
+      this.reviews = this.user.reviews ?? [];
+    });
+  }
+
+  getPosts(): void {
+    this.profileService
+      .getPosts(this.userId)
+      .subscribe((result: Post[]) => (this.posts = result));
   }
 }

@@ -41,8 +41,8 @@
     </ng-container>
   </div>
   <div class="reviews">
-    <div *ngFor="let comment of band.comments">
-      <app-review [review]="comment"></app-review>
+    <div *ngFor="let review of band.reviewsList">
+      <app-review [review]="review"></app-review>
     </div>
   </div>
 </ng-template>

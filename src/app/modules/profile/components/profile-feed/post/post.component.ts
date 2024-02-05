@@ -2,14 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Post } from '../../../models/post.interface';
 import { SanitizeImagePipe } from '../../../../../core/pipes/sanitize-image.pipe';
-import { NgIf } from '@angular/common';
+import { JsonPipe, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-post',
-    templateUrl: './post.component.html',
-    styleUrls: ['./post.component.scss'],
-    standalone: true,
-    imports: [NgIf, SanitizeImagePipe],
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.scss'],
+  standalone: true,
+  imports: [NgIf, SanitizeImagePipe, JsonPipe],
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
@@ -19,9 +19,9 @@ export class PostComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    if (this.post.urlVideo) {
+    if (this.post.videoUrl) {
       this.srcSafeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.getEmbedUrlVideo(this.post.urlVideo)
+        this.getEmbedUrlVideo(this.post.videoUrl)
       );
     }
   }
