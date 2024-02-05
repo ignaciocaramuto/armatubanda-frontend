@@ -125,7 +125,11 @@ export class RequestsComponent implements OnInit {
   }
 
   private getApplications(adId: number): void {
-    this.applicationService.getAll(adId).subscribe((result) => {
+    const ad = {
+      adId,
+    };
+
+    this.applicationService.getAll(ad).subscribe((result) => {
       this.applications = result;
     });
   }

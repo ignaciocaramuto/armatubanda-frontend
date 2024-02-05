@@ -14,6 +14,9 @@ export class ApplicationService extends CrudService<Application> {
   }
 
   changeApplicationStatus(data: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl, data);
+    const queryParams = this.buildQueryParams(data);
+    return this.http.put<any>(`${this.apiUrl}/status`, data, {
+      params: queryParams,
+    });
   }
 }
