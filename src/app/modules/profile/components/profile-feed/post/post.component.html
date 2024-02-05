@@ -3,8 +3,5 @@
 </ng-container>
 
 <ng-template #image>
-  <img
-    [src]="post.image.picByte | sanitizeImage : post.image.type"
-    alt="asdsad"
-  />
+  <img [src]="post.image.picByte | sanitizeImage : post.image.type" alt="" />
 </ng-template>
