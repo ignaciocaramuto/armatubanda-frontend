@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment.local';
 import { BandProfile } from '../models/bandProfile.interface';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { Post } from '../../profile/models/post.interface';
+import { Review } from 'src/app/core/models/review.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,18 @@ export class BandService extends CrudService<BandProfile> {
 
   getPosts(id: number): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.apiUrl}/get-post/${id}`);
+  }
+
+  postReview(review: Review): Observable<Review[]> {
+    return this.http.put<Review[]>(`${this.apiUrl}/upload-review`, review).pipe(
+      tap(() =>
+        this._logMessageService.logConfirm('¡Tu comentario ha sido añadido!')
+      ),
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
+        )
+      )
+    );
   }
 }

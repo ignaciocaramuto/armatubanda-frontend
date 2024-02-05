@@ -51,11 +51,14 @@ export class ProfileReviewsComponent {
       width: '600px',
       height: '400px',
       disableClose: true,
-      data: { userId: this.userId },
+      data: { userId: this.userId, bandId: this.band?.bandId },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.reviews = [];
+
         this.reviews = result;
+        console.log(this.reviews);
       }
     });
   }
