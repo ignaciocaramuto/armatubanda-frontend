@@ -113,7 +113,17 @@
             (fileSelected)="setSelectedFile($event)"
           ></app-drag-and-drop>
           <div class="stepper-buttons">
-            <app-button type="submit" label="Crear perfil"></app-button>
+            <app-button
+              *ngIf="!band"
+              type="submit"
+              label="Crear perfil"
+            ></app-button>
+            <app-button
+              *ngIf="band"
+              type="button"
+              label="Confirmar edición"
+              (click)="onSubmit(true)"
+            ></app-button>
           </div>
         </form>
       </mat-step>

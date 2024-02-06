@@ -17,10 +17,12 @@ import { ButtonComponent } from 'src/app/core/components/button/button.component
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { BandService } from '../../services/band.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
+import { BandProfile } from '../../models/bandProfile.interface';
+import { LogMessageService } from 'src/app/core/services/log-message.service';
 
 @Component({
   selector: 'app-create-band-profile',
@@ -49,8 +51,11 @@ export class CreateBandProfileComponent implements OnInit {
   private bandService = inject(BandService);
   private router = inject(Router);
   private genreService = inject(GenreService);
+  private route = inject(ActivatedRoute);
+  private _logMessageService = inject(LogMessageService);
 
   genres: Genre[] = [];
+  band!: BandProfile;
 
   bandInfoFormGroup: FormGroup = this.fb.group({
     name: ['', Validators.required],
@@ -68,6 +73,15 @@ export class CreateBandProfileComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      const id = params['id'];
+      if (id) {
+        this.bandService.getById(id).subscribe((result) => {
+          this.band = result;
+          this.setFormGroupValues(this.band);
+        });
+      }
+    });
     this.genreService.getAll().subscribe((result) => (this.genres = result));
   }
 
@@ -77,9 +91,10 @@ export class CreateBandProfileComponent implements OnInit {
       ?.setValue(event?.target.files[0]);
   }
 
-  onSubmit(): void {
+  onSubmit(edition?: true): void {
     if (this.bandInfoFormGroup.valid && this.profileImageformGroup.valid) {
       const band = {
+        bandId: this.band?.bandId,
         bandInfo: {
           name: this.bandInfoFormGroup.get('name')?.value,
           description: this.bandInfoFormGroup.get('description')?.value,
@@ -110,11 +125,48 @@ export class CreateBandProfileComponent implements OnInit {
         );
       }
 
-      this.bandService
-        .create(form)
-        .subscribe((result) =>
-          this.router.navigateByUrl(`band/profile/${result.bandId}`)
-        );
+      if (edition) {
+        this.bandService.editProfile(form).subscribe((result) => {
+          if (result) {
+            this.navigateToBandProfile(true, result.bandId);
+          }
+        });
+      } else {
+        this.bandService.create(form).subscribe((result) => {
+          if (result) {
+            this.navigateToBandProfile(false, result.bandId);
+          }
+        });
+      }
     }
+  }
+
+  private setFormGroupValues(band: BandProfile): void {
+    this.bandInfoFormGroup.get('name')?.setValue(band.bandInfo.name);
+    this.bandInfoFormGroup
+      .get('description')
+      ?.setValue(band.bandInfo.description);
+    this.bandInfoFormGroup.get('country')?.setValue(band.bandInfo.country);
+    this.bandInfoFormGroup.get('city')?.setValue(band.bandInfo.city);
+    this.bandInfoFormGroup
+      .get('phoneNumber')
+      ?.setValue(band.bandContactInfo.phoneNumber);
+    this.bandInfoFormGroup
+      .get('webSite')
+      ?.setValue(band.bandContactInfo.webSite);
+    this.bandInfoFormGroup
+      .get('socialMedia')
+      ?.setValue(band.bandContactInfo.socialMedia);
+    this.bandInfoFormGroup.get('bandGenres')?.setValue(band.bandGenres);
+
+    // TODO: Set profile band form
+  }
+
+  private navigateToBandProfile(edition: boolean, bandId: number): void {
+    this.router.navigateByUrl(`band/profile/${bandId}`).then(() => {
+      this._logMessageService.logConfirm(
+        edition ? 'Banda editada exitosamente!' : '¡Banda creada exitosamente!'
+      );
+    });
   }
 }

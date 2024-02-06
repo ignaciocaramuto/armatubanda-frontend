@@ -44,4 +44,8 @@ export class BandService extends CrudService<BandProfile> {
       )
     );
   }
+
+  editProfile(data: FormData): Observable<BandProfile> {
+    return this.http.put<BandProfile>(`${this.apiUrl}/edit`, data);
+  }
 }
