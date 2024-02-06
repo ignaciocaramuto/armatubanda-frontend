@@ -19,7 +19,7 @@ import { DragAndDropComponent } from '../../../../core/components/drag-and-drop/
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { InputSelectComponent } from '../../../../core/components/input-select/input-select.component';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -58,6 +58,7 @@ import { Musician } from 'src/app/core/models/musician';
     MatIconModule,
     ButtonComponent,
     DragAndDropComponent,
+    NgIf,
   ],
 })
 export class CreationFormComponent implements OnInit {
@@ -100,7 +101,7 @@ export class CreationFormComponent implements OnInit {
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
-    profileImage: [],
+    profileImage: ['', Validators.required],
   });
 
   skillsFormGroup: FormGroup = this.fb.group({
@@ -153,11 +154,14 @@ export class CreationFormComponent implements OnInit {
     this.getGenres();
   }
 
-  onSubmit(): void {
+  onSubmit(edition?: boolean): void {
     if (this.personalformGroup.valid && this.bioformGroup.valid) {
-      const urlPut = `${this.baseUrl}/musician`;
+      const urlPut = !edition
+        ? `${this.baseUrl}/musician`
+        : `${this.baseUrl}/musician/edit`;
 
       const musician = {
+        musicianId: this.musician?.id,
         personalInformation: {
           name: this.personalformGroup.get('firstName')?.value,
           lastname: this.personalformGroup.get('lastName')?.value,
@@ -214,9 +218,10 @@ export class CreationFormComponent implements OnInit {
         next: (resp) => {
           if (resp) {
             this.router.navigateByUrl('/list').then(() => {
-              window.location.reload();
               this._logMessageService.logConfirm(
-                '¡Perfil creado exitosamente!'
+                edition
+                  ? '¡Perfil editado exitosamente!'
+                  : '¡Perfil creado exitosamente!'
               );
             });
           }
@@ -336,17 +341,42 @@ export class CreationFormComponent implements OnInit {
     // Instruments
     musician.skillsInformation.instrumentExperience.forEach(
       (instrumentExperience) => {
-        const instrument = this.fb.group({
+        const instrumentForm = this.fb.group({
           instrument: instrumentExperience.instrument.name,
           experience: instrumentExperience.experience,
         });
-        this.skills.push(instrument);
+        this.skills.push(instrumentForm);
       }
     );
 
     // Bio
     this.bioformGroup.get('bio')?.setValue(musician.biographyInformation.bio);
 
+    // Carreer
+    this.musician.careerInformation.careerHistory.forEach((carrer) => {
+      const carrerForm = this.fb.group({
+        name: carrer.name,
+        description: carrer.description,
+        startDate: carrer.startDate,
+        endDate: carrer.endDate,
+      });
+      this.career.push(carrerForm);
+    });
+
     // Academic history
+    this.musician.educationInformation.educationHistory.forEach((education) => {
+      const educationForm = this.fb.group({
+        name: education.name,
+        description: education.description,
+        startDate: education.startDate,
+        endDate: education.endDate,
+      });
+      this.academics.push(educationForm);
+    });
+
+    // Profile image
+    this.profileImageformGroup
+      .get('profileImage')
+      ?.setValue(musician.profileImage);
   }
 }
