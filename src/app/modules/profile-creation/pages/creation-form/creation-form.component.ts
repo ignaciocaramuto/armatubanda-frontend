@@ -193,6 +193,7 @@ export class CreationFormComponent implements OnInit {
           bio: this.bioformGroup.get('bio')?.value,
         },
         preferenceInformation: {
+          // TODO: Remove hardcode
           lookingBands: true,
           lookingMusician: false,
           available: true,
