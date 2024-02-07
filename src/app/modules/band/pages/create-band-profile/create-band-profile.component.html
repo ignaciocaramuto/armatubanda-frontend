@@ -110,6 +110,7 @@
         <form (submit)="onSubmit()">
           <ng-template matStepLabel>Imagen de perfil</ng-template>
           <app-drag-and-drop
+            [image]="band.bandProfileImage"
             (fileSelected)="setSelectedFile($event)"
           ></app-drag-and-drop>
           <div class="stepper-buttons">

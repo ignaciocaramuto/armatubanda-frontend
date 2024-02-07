@@ -23,6 +23,7 @@ import { Genre } from 'src/app/core/models/genre.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
 import { BandProfile } from '../../models/bandProfile.interface';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
+import { ConvertImageToFilePipe } from 'src/app/core/pipes/convert-image-to-file.pipe';
 
 @Component({
   selector: 'app-create-band-profile',
@@ -43,6 +44,7 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
   ],
   templateUrl: './create-band-profile.component.html',
   styleUrls: ['./create-band-profile.component.scss'],
+  providers: [ConvertImageToFilePipe],
 })
 export class CreateBandProfileComponent implements OnInit {
   private fb = inject(FormBuilder);
@@ -53,6 +55,7 @@ export class CreateBandProfileComponent implements OnInit {
   private genreService = inject(GenreService);
   private route = inject(ActivatedRoute);
   private _logMessageService = inject(LogMessageService);
+  private fileConverterPipe = inject(ConvertImageToFilePipe);
 
   genres: Genre[] = [];
   band!: BandProfile;
@@ -159,7 +162,9 @@ export class CreateBandProfileComponent implements OnInit {
       ?.setValue(band.bandContactInfo.socialMedia);
     this.bandInfoFormGroup.get('bandGenres')?.setValue(band.bandGenres);
 
-    // TODO: Set profile band form
+    this.profileImageformGroup
+      .get('bandProfileImage')
+      ?.setValue(this.fileConverterPipe.transform(band.bandProfileImage));
   }
 
   private navigateToBandProfile(edition: boolean, bandId: number): void {
