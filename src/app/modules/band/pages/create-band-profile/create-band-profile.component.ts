@@ -169,9 +169,10 @@ export class CreateBandProfileComponent implements OnInit {
 
   private navigateToBandProfile(edition: boolean, bandId: number): void {
     this.router.navigateByUrl(`band/profile/${bandId}`).then(() => {
-      this._logMessageService.logConfirm(
-        edition ? 'Banda editada exitosamente!' : '¡Banda creada exitosamente!'
-      );
+      window.location.reload();
+      // this._logMessageService.logConfirm(
+      //   edition ? 'Banda editada exitosamente!' : '¡Banda creada exitosamente!'
+      // );
     });
   }
 }
