@@ -364,7 +364,12 @@
     >
       <ng-template matStepLabel>Subir foto de perfil</ng-template>
       <app-drag-and-drop
+        *ngIf="musician"
         [image]="musician.profileImage"
+        (fileSelected)="setSelectedFile($event)"
+      ></app-drag-and-drop>
+      <app-drag-and-drop
+        *ngIf="!musician"
         (fileSelected)="setSelectedFile($event)"
       ></app-drag-and-drop>
       <div class="stepper-buttons">
