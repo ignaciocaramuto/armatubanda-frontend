@@ -32,10 +32,12 @@
   justify-content: center;
 }
 
-.instruments-inputs {
+.instruments-inputs,
+.preferences {
   display: flex;
   justify-content: center;
   gap: 1em;
+  margin-top: 1em;
 }
 
 mat-icon {

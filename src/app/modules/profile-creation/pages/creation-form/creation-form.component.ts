@@ -81,6 +81,7 @@ export class CreationFormComponent implements OnInit {
     { name: ExperienceType.Advanced },
     { name: ExperienceType.Expert },
   ];
+  readonly lookingBand = [{ name: 'Sí' }, { name: 'No' }];
 
   personalformGroup: FormGroup = this.fb.group({
     firstName: ['', Validators.required],
@@ -110,6 +111,11 @@ export class CreationFormComponent implements OnInit {
 
   academicHistoryFormGroup: FormGroup = this.fb.group({
     academics: this.fb.array([]),
+  });
+
+  preferencesFormGroup: FormGroup = this.fb.group({
+    lookingBands: ['', Validators.required],
+    available: ['', Validators.required],
   });
 
   get skills(): FormArray {
@@ -193,10 +199,9 @@ export class CreationFormComponent implements OnInit {
           bio: this.bioformGroup.get('bio')?.value,
         },
         preferenceInformation: {
-          // TODO: Remove hardcode
-          lookingBands: true,
+          lookingBands: this.preferencesFormGroup.get('lookingBands')?.value,
           lookingMusician: false,
-          available: true,
+          available: this.preferencesFormGroup.get('available')?.value,
         },
       };
 

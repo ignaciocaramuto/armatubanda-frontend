@@ -328,6 +328,34 @@
     </div>
   </mat-step>
 
+  <mat-step [stepControl]="preferencesFormGroup">
+    <form [formGroup]="preferencesFormGroup">
+      <ng-template matStepLabel>Preferencias</ng-template>
+      <div class="preferences">
+        <app-input-select
+          appearance="outline"
+          [items]="lookingBand"
+          formControlName="lookingBands"
+          placeholder="Busca banda"
+          [required]="true"
+        >
+        </app-input-select>
+        <app-input-select
+          appearance="outline"
+          [items]="lookingBand"
+          formControlName="available"
+          placeholder="¿Disponible?"
+          [required]="true"
+        >
+        </app-input-select>
+      </div>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-button matStepperPrevious>Volver</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+
   <mat-step [stepControl]="profileImageformGroup">
     <form
       [formGroup]="profileImageformGroup"
@@ -336,6 +364,7 @@
     >
       <ng-template matStepLabel>Subir foto de perfil</ng-template>
       <app-drag-and-drop
+        [image]="musician.profileImage"
         (fileSelected)="setSelectedFile($event)"
       ></app-drag-and-drop>
       <div class="stepper-buttons">
