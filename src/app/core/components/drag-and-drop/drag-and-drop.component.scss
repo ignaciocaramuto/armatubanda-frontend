@@ -1,3 +1,5 @@
+@import "themes";
+
 .dropzone {
   width: 450px;
   height: 200px;
@@ -17,4 +19,32 @@
     font-weight: 600;
     color: #38424c;
   }
+}
+
+.image-preview-card {
+  width: 515px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 1em;
+}
+
+.image-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+}
+
+mat-icon {
+  color: $text-grey;
 }

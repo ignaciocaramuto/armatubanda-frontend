@@ -31,6 +31,7 @@ import { GenreService } from 'src/app/core/services/genre.service';
 import { tap } from 'rxjs';
 import { ProfileService } from 'src/app/modules/profile/services/profile.service';
 import { Musician } from 'src/app/core/models/musician';
+import { ConvertImageToFilePipe } from 'src/app/core/pipes/convert-image-to-file.pipe';
 
 @Component({
   selector: 'app-creation-form',
@@ -42,6 +43,7 @@ import { Musician } from 'src/app/core/models/musician';
       useExisting: CreationFormComponent,
       multi: true,
     },
+    ConvertImageToFilePipe,
   ],
   standalone: true,
   imports: [
@@ -71,6 +73,7 @@ export class CreationFormComponent implements OnInit {
   private genreService = inject(GenreService);
   private route = inject(ActivatedRoute);
   private profileService = inject(ProfileService);
+  private fileConverterPipe = inject(ConvertImageToFilePipe);
 
   instruments: Instrument[] = [];
   genres: Genre[] = [];
@@ -161,7 +164,11 @@ export class CreationFormComponent implements OnInit {
   }
 
   onSubmit(edition?: boolean): void {
-    if (this.personalformGroup.valid && this.bioformGroup.valid) {
+    if (
+      this.personalformGroup.valid &&
+      this.bioformGroup.valid &&
+      this.profileImageformGroup.valid
+    ) {
       const urlPut = !edition
         ? `${this.baseUrl}/musician`
         : `${this.baseUrl}/musician/edit`;
@@ -199,9 +206,15 @@ export class CreationFormComponent implements OnInit {
           bio: this.bioformGroup.get('bio')?.value,
         },
         preferenceInformation: {
-          lookingBands: this.preferencesFormGroup.get('lookingBands')?.value,
+          lookingBands:
+            this.preferencesFormGroup.get('lookingBands')?.value === 'Sí'
+              ? true
+              : false,
           lookingMusician: false,
-          available: this.preferencesFormGroup.get('available')?.value,
+          available:
+            this.preferencesFormGroup.get('available')?.value === 'Sí'
+              ? true
+              : false,
         },
       };
 
@@ -250,6 +263,10 @@ export class CreationFormComponent implements OnInit {
   }
 
   setSelectedFile(event: any) {
+    if (!event) {
+      this.profileImageformGroup.get('profileImage')?.setValue(null);
+      return;
+    }
     this.profileImageformGroup
       .get('profileImage')
       ?.setValue(event?.target.files[0]);
@@ -380,9 +397,19 @@ export class CreationFormComponent implements OnInit {
       this.academics.push(educationForm);
     });
 
+    // Preferences
+    this.preferencesFormGroup
+      .get('lookingBands')
+      ?.setValue(musician.preferenceInformation.lookingBands ? 'Sí' : 'No');
+    this.preferencesFormGroup
+      .get('available')
+      ?.setValue(musician.preferenceInformation.available ? 'Sí' : 'No');
+
     // Profile image
-    this.profileImageformGroup
-      .get('profileImage')
-      ?.setValue(musician.profileImage);
+    if (musician.profileImage) {
+      this.profileImageformGroup
+        .get('profileImage')
+        ?.setValue(this.fileConverterPipe.transform(musician.profileImage));
+    }
   }
 }

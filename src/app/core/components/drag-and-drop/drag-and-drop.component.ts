@@ -4,8 +4,6 @@ import {
   Output,
   EventEmitter,
   Input,
-  OnChanges,
-  SimpleChanges,
   ChangeDetectorRef,
   OnInit,
 } from '@angular/core';
@@ -13,26 +11,43 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { DndDirective } from '../../directives/dnd.directive';
 import { Image } from '../../models/image.interface';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { ConvertImageToFilePipe } from '../../pipes/convert-image-to-file.pipe';
 
 @Component({
   selector: 'app-drag-and-drop',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, DndDirective],
+  imports: [
+    CommonModule,
+    ButtonComponent,
+    DndDirective,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
   templateUrl: './drag-and-drop.component.html',
   styleUrls: ['./drag-and-drop.component.scss'],
+  providers: [ConvertImageToFilePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DragAndDropComponent implements OnInit {
   @Input() image!: Image | undefined;
-  @Output() fileSelected = new EventEmitter<Event>();
+  @Output() fileSelected = new EventEmitter<Event | null>();
 
   imageSrc!: string | ArrayBuffer | null;
+  fileName!: string;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private fileConverterPipe: ConvertImageToFilePipe
+  ) {}
 
   ngOnInit(): void {
     if (this.image) {
-      this.convertObjectToBlobAndShowPreview(this.image);
+      const file = this.fileConverterPipe.transform(this.image);
+      this.readURL(file);
     }
   }
 
@@ -43,33 +58,18 @@ export class DragAndDropComponent implements OnInit {
     this.fileSelected.emit(event);
   }
 
+  deleteFile(): void {
+    this.imageSrc = null;
+    this.fileSelected.emit(null);
+  }
+
   private readURL(file: File): void {
+    this.fileName = file.name;
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = () => {
       this.imageSrc = reader.result;
       this.cdr.detectChanges();
     };
     reader.readAsDataURL(file);
-  }
-
-  private convertToBlob(base64String: string, contentType: string): Blob {
-    const byteCharacters = atob(base64String);
-    const byteNumbers = new Array(byteCharacters.length);
-
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-
-    const byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], { type: contentType });
-  }
-
-  private convertObjectToBlobAndShowPreview(image: Image) {
-    const base64String = image.picByte;
-    const contentType = image.type;
-    const fileName = image.name;
-
-    const blob = this.convertToBlob(base64String, contentType);
-    this.readURL(new File([blob], fileName, { type: contentType }));
   }
 }
