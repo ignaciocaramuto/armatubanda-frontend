@@ -238,11 +238,11 @@ export class CreationFormComponent implements OnInit {
           if (resp) {
             this.router.navigateByUrl('/list').then(() => {
               window.location.reload();
-              // this._logMessageService.logConfirm(
-              //   edition
-              //     ? '¡Perfil editado exitosamente!'
-              //     : '¡Perfil creado exitosamente!'
-              // );
+              this._logMessageService.logConfirm(
+                edition
+                  ? '¡Perfil editado exitosamente!'
+                  : '¡Perfil creado exitosamente!'
+              );
             });
           }
         },
