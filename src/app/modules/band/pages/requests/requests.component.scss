@@ -1,5 +1,10 @@
 @import "themes";
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   width: 23vw;
   height: 100%;
