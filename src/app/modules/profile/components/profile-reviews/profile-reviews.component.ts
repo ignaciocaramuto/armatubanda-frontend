@@ -31,8 +31,8 @@ export class ProfileReviewsComponent {
 
   openAddPostDialog(): void {
     const dialogRef = this.dialog.open(AddPostDialogComponent, {
-      width: '600px',
-      height: '520px',
+      width: '700px',
+      height: '605px',
       disableClose: true,
       data: {
         isMusicianProfile: this.isMusicianProfile,
