@@ -18,6 +18,7 @@
       </app-input-select>
 
       <app-input-select
+        *ngIf="!!advertisements.length"
         appearance="outline"
         [items]="advertisements"
         propToReturn="id"
@@ -25,6 +26,8 @@
         placeholder="Avisos"
       >
       </app-input-select>
+
+      <span *ngIf="!advertisements.length">Aún no has publicado avisos</span>
     </form>
   </div>
 
