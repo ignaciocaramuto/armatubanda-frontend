@@ -7,16 +7,11 @@ import { NgIf, NgFor } from '@angular/common';
 import { FiltersComponent } from '../../components/filters/filters.component';
 
 @Component({
-    selector: 'app-list-page',
-    templateUrl: './list-page.component.html',
-    styleUrls: ['./list-page.component.scss'],
-    standalone: true,
-    imports: [
-        FiltersComponent,
-        NgIf,
-        NgFor,
-        CardComponent,
-    ],
+  selector: 'app-list-page',
+  templateUrl: './list-page.component.html',
+  styleUrls: ['./list-page.component.scss'],
+  standalone: true,
+  imports: [FiltersComponent, NgIf, NgFor, CardComponent],
 })
 export class ListPageComponent {
   musicians: Musician[] = [];
@@ -47,6 +42,8 @@ export class ListPageComponent {
   }
 
   getList(filters?: any): void {
+    console.log(filters);
+
     this.listService.getAllUsers(filters).subscribe((data: Musician[]) => {
       this.musicians = data;
     });

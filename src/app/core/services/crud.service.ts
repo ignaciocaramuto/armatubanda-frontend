@@ -55,7 +55,7 @@ export class CrudService<T> {
     let params = new HttpParams();
     for (const key in filters) {
       if (filters.hasOwnProperty(key)) {
-        if (filters[key]) {
+        if (filters[key] !== undefined && filters[key] !== null) {
           params = params.set(key, filters[key]);
         }
       }

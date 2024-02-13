@@ -97,6 +97,10 @@ export class FiltersComponent implements OnInit {
     this.getGenres();
     this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
       localStorage.setItem('filter-data', JSON.stringify(value));
+
+      if (value.lookingBand) {
+        value.lookingBand = value.lookingBand === 'Sí' ? true : false;
+      }
       this.filterSelected.emit(value);
     });
   }
