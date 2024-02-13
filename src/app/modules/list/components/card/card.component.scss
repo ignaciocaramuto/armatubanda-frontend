@@ -56,23 +56,6 @@
   font-size: 22px;
 }
 
-.rating {
-  display: flex;
-  align-items: center;
-  margin-left: 0.5em;
-  color: $black;
-  p {
-    font-weight: 400;
-    font-size: 12px;
-    margin: 0;
-    color: $text-light-grey;
-    align-self: center;
-    margin-left: 0.3em;
-    margin-right: 0.5em;
-    margin-top: 4px;
-  }
-}
-
 i {
   color: $main-color;
   margin-top: 0.1em;
@@ -87,6 +70,14 @@ p {
   overflow: hidden;
   font-size: 14px;
   margin-left: 0.5em;
+}
+
+p.coments-instruments {
+  -webkit-line-clamp: 1;
+  margin: 0.5em;
+  font-weight: 400;
+  font-size: 12px;
+  color: $text-light-grey;
 }
 
 span {

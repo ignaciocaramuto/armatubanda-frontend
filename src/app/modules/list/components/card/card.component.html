@@ -12,14 +12,10 @@
       <h3>{{ musician.personalInformation.name }}</h3>
     </div>
   </div>
-
-  <div class="rating">
-    <p>({{ musician.reviews?.length }} comentarios)</p>
-    <p>
-      Instrumentos:
-      {{ musicianInstruments }}
-    </p>
-  </div>
+  <p class="coments-instruments">
+    ({{ musician.reviews?.length }} comentarios)
+    {{ musicianInstruments }}
+  </p>
 
   <p>{{ musician.biographyInformation.bio }}</p>
 </div>
