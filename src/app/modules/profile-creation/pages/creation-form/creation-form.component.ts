@@ -95,7 +95,7 @@ export class CreationFormComponent implements OnInit {
     phoneNumber: ['', Validators.required],
     birthday: ['', Validators.required],
     webSite: [''],
-    socialMediaLink: [''],
+    socialMedia: [''],
     genres: ['', Validators.required],
   });
 
@@ -187,7 +187,7 @@ export class CreationFormComponent implements OnInit {
         contactInformation: {
           phoneNumber: this.personalformGroup.get('phoneNumber')?.value,
           webSite: this.personalformGroup.get('webSite')?.value,
-          socialMediaLink: this.personalformGroup.get('socialMediaLink')?.value,
+          socialMedia: this.personalformGroup.get('socialMedia')?.value,
         },
         skillsInformation: {
           instrumentExperience: this.getInstrumentExperienceFormatted(
@@ -356,7 +356,7 @@ export class CreationFormComponent implements OnInit {
       .get('webSite')
       ?.setValue(musician.contactInformation.webSite);
     this.personalformGroup
-      .get('socialMediaLink')
+      .get('socialMedia')
       ?.setValue(musician.contactInformation.socialMedia);
     this.personalformGroup
       .get('genres')
