@@ -67,4 +67,8 @@ export class ProfileService extends CrudService<Musician> {
   editProfile(data: FormData): Observable<Musician> {
     return this.http.put<Musician>(`${this.apiUrl}/edit`, data);
   }
+
+  deletePost(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete-post/${id}`);
+  }
 }

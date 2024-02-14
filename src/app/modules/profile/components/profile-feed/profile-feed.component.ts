@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Post } from '../../models/post.interface';
 import { PostComponent } from './post/post.component';
 import { NgFor, NgIf } from '@angular/common';
@@ -12,4 +12,6 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class ProfileFeedComponent {
   @Input() posts: Post[] = [];
+  @Input() userId!: number;
+  @Output() postDeleted = new EventEmitter<void>();
 }

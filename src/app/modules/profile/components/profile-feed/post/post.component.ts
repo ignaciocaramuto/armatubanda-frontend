@@ -1,8 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Post } from '../../../models/post.interface';
 import { SanitizeImagePipe } from '../../../../../core/pipes/sanitize-image.pipe';
 import { DatePipe, JsonPipe, NgIf } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
+import { ProfileService } from '../../../services/profile.service';
+import { LogMessageService } from 'src/app/core/services/log-message.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -13,10 +18,20 @@ import { DatePipe, JsonPipe, NgIf } from '@angular/common';
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
+  @Input() userId!: number;
+  @Output() postDeleted = new EventEmitter<void>();
+
+  user = this.authService.currentUser();
 
   srcSafeUrl: SafeUrl = '';
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog,
+    private profileService: ProfileService,
+    private logMessageService: LogMessageService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     if (this.post.videoUrl) {
@@ -24,6 +39,24 @@ export class PostComponent implements OnInit {
         this.getEmbedUrlVideo(this.post.videoUrl)
       );
     }
+  }
+
+  deletePost(): void {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: '¿Estás seguro que quieres eliminar esta publicación?',
+      })
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.profileService.deletePost(this.post.id).subscribe(() => {
+            this.postDeleted.emit();
+            this.logMessageService.logConfirm(
+              '¡Publicación eliminada exitosamente!'
+            );
+          });
+        }
+      });
   }
 
   private getEmbedUrlVideo(url: string): string {
