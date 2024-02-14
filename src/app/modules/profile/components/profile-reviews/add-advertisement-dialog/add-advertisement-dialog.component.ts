@@ -52,7 +52,7 @@ export class AddAdvertisementDialogComponent implements OnInit {
   instruments: Instrument[] = [];
   formGroup: FormGroup = this.fb.group({
     bandId: [],
-    // TODO: Add advertisement name
+    name: ['', Validators.required],
     description: ['', Validators.required],
     genres: ['', Validators.required],
     instruments: ['', Validators.required],
@@ -85,8 +85,6 @@ export class AddAdvertisementDialogComponent implements OnInit {
         .createAdvertisement(this.formGroup.value)
         .subscribe((result) => {
           if (result) {
-            console.log(result);
-
             this.dialogRef.close();
           }
         });

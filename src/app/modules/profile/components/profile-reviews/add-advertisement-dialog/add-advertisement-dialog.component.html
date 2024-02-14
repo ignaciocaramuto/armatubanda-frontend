@@ -5,6 +5,13 @@
 >
   <form [formGroup]="formGroup">
     <div class="input-selects">
+      <app-input-text
+        formControlName="name"
+        type="text"
+        placeholder="Nombre de aviso"
+        [required]="true"
+      >
+      </app-input-text>
       <app-input-select
         [items]="genres"
         formControlName="genres"
