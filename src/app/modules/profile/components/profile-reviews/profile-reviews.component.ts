@@ -63,7 +63,7 @@ export class ProfileReviewsComponent {
 
   openAdvertisementDialog(): void {
     this.dialog.open(AddAdvertisementDialogComponent, {
-      width: '600px',
+      width: '700px',
       height: '400px',
       disableClose: true,
       data: this.band.bandId,
