@@ -2,14 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Post } from '../../../models/post.interface';
 import { SanitizeImagePipe } from '../../../../../core/pipes/sanitize-image.pipe';
-import { JsonPipe, NgIf } from '@angular/common';
+import { DatePipe, JsonPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
   standalone: true,
-  imports: [NgIf, SanitizeImagePipe, JsonPipe],
+  imports: [NgIf, SanitizeImagePipe, JsonPipe, DatePipe],
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
