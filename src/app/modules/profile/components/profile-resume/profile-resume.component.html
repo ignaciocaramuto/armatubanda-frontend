@@ -11,11 +11,14 @@
       <h4 class="bands-text">Bandas:</h4>
       <div class="bands">
         <ng-container *ngFor="let band of profileBandsMember">
-          <app-profile-image
-            [picByte]="band.musicianBandsDto.bandImage.picByte"
-            [type]="band.musicianBandsDto.bandImage.type"
-            class="small-size"
-          ></app-profile-image>
+          <a [routerLink]="'/band/profile/' + band.bandId">
+            <app-profile-image
+              [picByte]="band.bandImage.picByte"
+              [type]="band.bandImage.type"
+              class="small-size"
+            >
+            </app-profile-image>
+          </a>
         </ng-container>
       </div>
     </ng-container>

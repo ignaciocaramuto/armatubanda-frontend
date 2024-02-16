@@ -21,6 +21,7 @@ import { InvitationRequest } from '../../models/invitation.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
 import { BandMember } from 'src/app/modules/band/models/bandProfile.interface';
+import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 
 @Component({
   selector: 'app-profile-resume',
@@ -58,7 +59,7 @@ export class ProfileResumeComponent implements OnInit {
   hasBeenInvitedToAllBands: boolean = false;
   isMemberOfAllBands: boolean = false;
   bands: MusicianBandsStatus[] = [];
-  profileBandsMember: MusicianBandsStatus[] = [];
+  profileBandsMember: MusicianBands[] = [];
 
   ngOnInit(): void {
     if (!this.isMusicianProfile) {
@@ -66,6 +67,7 @@ export class ProfileResumeComponent implements OnInit {
     }
 
     this.getMusicianLeaders();
+    this.getBandsFromMusician();
   }
 
   redirectToUserWebsite(): void {
@@ -114,5 +116,11 @@ export class ProfileResumeComponent implements OnInit {
           ({ status }) => status === MusicianStatusBand.Member
         );
       });
+  }
+
+  private getBandsFromMusician(): void {
+    this.musicianService.getMusicianBands(this.userId).subscribe((result) => {
+      this.profileBandsMember = result;
+    });
   }
 }
