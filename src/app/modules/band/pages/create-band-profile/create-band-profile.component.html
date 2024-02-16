@@ -1,4 +1,6 @@
 <mat-card>
+  <h2 *ngIf="!band">Crear banda</h2>
+  <h2 *ngIf="band">Editar banda</h2>
   <mat-stepper linear #stepper>
     <mat-step [stepControl]="bandInfoFormGroup">
       <form [formGroup]="bandInfoFormGroup">

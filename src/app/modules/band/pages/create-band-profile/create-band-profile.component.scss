@@ -3,7 +3,7 @@
 :host {
   display: flex;
   justify-content: center;
-  margin-top: 10em;
+  margin-top: 5em;
 }
 
 mat-card {
@@ -55,4 +55,8 @@ button:hover {
 
 .mat-mdc-unelevated-button:not(:disabled) {
   color: $white;
+}
+
+h2 {
+  text-align: center;
 }
