@@ -1,70 +1,83 @@
-<div class="container" *ngIf="profileInfo">
-  <h2>Biografía</h2>
-  <hr />
-  <p>{{ profileInfo.biographyInformation.bio }}</p>
+<div class="content">
+  <app-button
+    icon="arrow_back"
+    label="Volver"
+    [routerLink]="'/profile/' + userId"
+  ></app-button>
+  <div class="container" *ngIf="profileInfo">
+    <h2>Biografía</h2>
+    <hr />
+    <p>{{ profileInfo.biographyInformation.bio }}</p>
 
-  <h2>Carrera</h2>
-  <hr />
-  <div
-    *ngFor="let career of profileInfo.careerInformation?.careerHistory"
-    class="career"
-  >
-    <span>
-      Desde {{ career.startDate | date : "dd/MM/yyyy" }} hasta
-      {{ career.endDate | date : "dd/MM/yyyy" }}
-    </span>
-    <h4>{{ career.name }}</h4>
-    <p>{{ career.description }}</p>
-  </div>
-
-  <h2>Educación</h2>
-  <hr />
-  <div
-    *ngFor="let education of profileInfo.educationInformation?.educationHistory"
-    class="career"
-  >
-    <span>
-      Desde {{ education.startDate | date : "dd/MM/yyyy" }} hasta
-      {{ education.endDate | date : "dd/MM/yyyy" }}
-    </span>
-    <h4>{{ education.name }}</h4>
-    <p>{{ education.description }}</p>
-  </div>
-
-  <h2>Habilidades</h2>
-  <hr />
-  <div class="skills">
-    <span
-      >Experiencia General:
-      {{
-        profileInfo.skillsInformation.generalExperience
-          | translateExperienceType
-      }}</span
+    <h2>Carrera</h2>
+    <hr />
+    <div
+      *ngFor="let career of profileInfo.careerInformation?.careerHistory"
+      class="career"
     >
-    <ul class="skills-list">
-      <li
-        *ngFor="
-          let instrument of profileInfo.skillsInformation?.instrumentExperience
-        "
-        class="skill-item"
-      >
-        <span>{{ instrument.instrument.name }}:</span>
-        <span>{{ instrument.experience | translateExperienceType }}</span>
-      </li>
-    </ul>
-  </div>
+      <span>
+        Desde {{ career.startDate | date : "dd/MM/yyyy" }} hasta
+        {{ career.endDate | date : "dd/MM/yyyy" }}
+      </span>
+      <h4>{{ career.name }}</h4>
+      <p>{{ career.description }}</p>
+    </div>
 
-  <h2>Preferencias</h2>
-  <hr />
-  <div class="preferences">
-    <div *ngIf="profileInfo.preferenceInformation.available" class="tag">
-      Disponible
+    <h2>Educación</h2>
+    <hr />
+    <div
+      *ngFor="
+        let education of profileInfo.educationInformation?.educationHistory
+      "
+      class="career"
+    >
+      <span>
+        Desde {{ education.startDate | date : "dd/MM/yyyy" }} hasta
+        {{ education.endDate | date : "dd/MM/yyyy" }}
+      </span>
+      <h4>{{ education.name }}</h4>
+      <p>{{ education.description }}</p>
     </div>
-    <div *ngIf="profileInfo.preferenceInformation.lookingBands" class="tag">
-      Busca banda
+
+    <h2>Habilidades</h2>
+    <hr />
+    <div class="skills">
+      <span
+        >Experiencia General:
+        {{
+          profileInfo.skillsInformation.generalExperience
+            | translateExperienceType
+        }}</span
+      >
+      <ul class="skills-list">
+        <li
+          *ngFor="
+            let instrument of profileInfo.skillsInformation
+              ?.instrumentExperience
+          "
+          class="skill-item"
+        >
+          <span>{{ instrument.instrument.name }}:</span>
+          <span>{{ instrument.experience | translateExperienceType }}</span>
+        </li>
+      </ul>
     </div>
-    <div *ngIf="profileInfo.preferenceInformation.lookingMusician" class="tag">
-      Busca musicos
+
+    <h2>Preferencias</h2>
+    <hr />
+    <div class="preferences">
+      <div *ngIf="profileInfo.preferenceInformation.available" class="tag">
+        Disponible
+      </div>
+      <div *ngIf="profileInfo.preferenceInformation.lookingBands" class="tag">
+        Busca banda
+      </div>
+      <div
+        *ngIf="profileInfo.preferenceInformation.lookingMusician"
+        class="tag"
+      >
+        Busca musicos
+      </div>
     </div>
   </div>
 </div>
