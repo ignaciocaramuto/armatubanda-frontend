@@ -37,10 +37,14 @@ button {
   margin-bottom: 5px;
 }
 
-.bands {
+.bands,
+.member {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.member {
   padding: 0 1.5em;
 }
 

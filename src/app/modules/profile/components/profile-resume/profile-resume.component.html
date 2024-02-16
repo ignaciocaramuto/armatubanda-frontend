@@ -9,7 +9,7 @@
     <p>{{ biographyInfo.bio }}</p>
     <ng-container *ngIf="!!profileBandsMember.length">
       <h4 class="bands-text">Miembro de:</h4>
-      <div class="bands">
+      <div class="member">
         <ng-container *ngFor="let band of profileBandsMember">
           <a [routerLink]="'/band/profile/' + band.bandId">
             <app-profile-image
