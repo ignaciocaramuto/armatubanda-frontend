@@ -10,7 +10,7 @@
     [required]="required"
   >
     <mat-option *ngFor="let item of items" [value]="item[propToReturn]">
-      {{ item[namePropertyName] }}
+      {{ item[namePropertyName] | translate }}
     </mat-option>
   </mat-select>
   <mat-error *ngIf="control.hasError('required')">

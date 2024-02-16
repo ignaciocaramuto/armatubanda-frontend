@@ -9,11 +9,17 @@ import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControlValueAccessorConnector } from '../form-control-value-accessor-connector/form-control-value-accessor-connector';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-input-select',
-  imports: [CommonModule, MatSelectModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
   templateUrl: './input-select.component.html',
   styleUrls: ['./input-select.component.scss'],
   providers: [

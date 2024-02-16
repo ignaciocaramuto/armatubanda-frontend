@@ -9,6 +9,7 @@ import {
   HTTP_INTERCEPTORS,
   withInterceptorsFromDi,
   provideHttpClient,
+  HttpClient,
 } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import {
@@ -23,9 +24,29 @@ import {
   canActivateGuard,
   canMatchGuard,
 } from './app/modules/auth/guards/auth.guard';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateModuleConfig,
+} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+const translateModuleConfig: TranslateModuleConfig = {
+  defaultLanguage: 'es',
+  loader: {
+    provide: TranslateLoader,
+    useFactory: createTranslateLoader,
+    deps: [HttpClient],
+  },
+};
 
 bootstrapApplication(AppComponent, {
   providers: [
+    importProvidersFrom(TranslateModule.forRoot(translateModuleConfig)),
     importProvidersFrom(BrowserModule, MatSnackBarModule, MatNativeDateModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideAnimations(),
