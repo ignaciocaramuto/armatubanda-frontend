@@ -1,4 +1,5 @@
 import {
+  BiographyInformation,
   CareerInformation,
   EducationInformation,
   PreferenceInformation,
@@ -6,6 +7,7 @@ import {
 } from './musician';
 
 export interface ProfileInfo {
+  biographyInformation: BiographyInformation;
   careerInformation: CareerInformation;
   educationInformation: EducationInformation;
   skillsInformation: SkillsInformation;
