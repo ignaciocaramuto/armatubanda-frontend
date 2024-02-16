@@ -102,7 +102,9 @@
         </div>
 
         <div class="stepper-buttons">
-          <button mat-button matStepperNext>Next</button>
+          <button mat-flat-button matStepperNext color="primary">
+            Siguiente
+          </button>
         </div>
       </form>
 
@@ -118,7 +120,10 @@
             *ngIf="!band"
             (fileSelected)="setSelectedFile($event)"
           ></app-drag-and-drop>
-          <div class="stepper-buttons">
+          <div class="stepper-buttons-last-step">
+            <button mat-flat-button matStepperPrevious color="primary">
+              Volver
+            </button>
             <app-button
               *ngIf="!band"
               type="submit"
