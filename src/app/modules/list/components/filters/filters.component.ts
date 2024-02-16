@@ -14,7 +14,6 @@ import {
 } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
 import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
-import { UserType } from 'src/app/core/enums/userType.enum';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
