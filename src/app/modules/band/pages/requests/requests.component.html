@@ -35,11 +35,13 @@
     <ng-container *ngFor="let application of applications">
       <mat-card class="card-content">
         <div class="card-info">
-          <app-profile-image
-            [picByte]="application.musicianImage.picByte"
-            [type]="application.musicianImage.type"
-            class="medium-size"
-          ></app-profile-image>
+          <a [routerLink]="'/profile/' + application.musicianId">
+            <app-profile-image
+              [picByte]="application.musicianImage.picByte"
+              [type]="application.musicianImage.type"
+              class="medium-size"
+            ></app-profile-image>
+          </a>
           <h3>{{ application.musicianName }}</h3>
           <p>Quiere unirse a tu banda:</p>
           <p>{{ application.applicationMessage }}</p>

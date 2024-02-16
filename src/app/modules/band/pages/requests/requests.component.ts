@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { BandProfile } from '../../models/bandProfile.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { BandService } from '../../services/band.service';
 import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,7 @@ import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/c
     NgIf,
     InputSelectComponent,
     ReactiveFormsModule,
+    RouterLink,
   ],
 })
 export class RequestsComponent implements OnInit {
