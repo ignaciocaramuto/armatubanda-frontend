@@ -6,6 +6,7 @@ import { AdvertisementStatus } from '../enums/advertisementStatus.enum';
 export interface Advertisement {
   adId: number;
   adName: string;
+  bandName: string;
   description: string;
   bandId: number;
   genres: Genre[];
