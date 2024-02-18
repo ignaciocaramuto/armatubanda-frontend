@@ -1,5 +1,8 @@
 <div class="container">
-  <app-filters (filterSelected)="getList($event)"></app-filters>
+  <app-filters
+    (filterSelected)="getList($event)"
+    title="Buscar musicos"
+  ></app-filters>
   <div *ngIf="musicians" class="list">
     <div *ngFor="let musician of musicians">
       <app-card [musician]="musician"></app-card>
