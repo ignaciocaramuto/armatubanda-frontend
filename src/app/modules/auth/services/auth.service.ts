@@ -106,4 +106,8 @@ export class AuthService {
       )
     );
   }
+
+  confirmEmail(token: string): Observable<AuthUser> {
+    return this.http.get<AuthUser>(`${this.baseUrl}/auth/confirm/${token}`);
+  }
 }
