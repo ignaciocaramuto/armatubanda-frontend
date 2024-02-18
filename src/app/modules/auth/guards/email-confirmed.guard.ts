@@ -11,6 +11,7 @@ export const emailConfirmedGuard: CanActivateFn = () => {
     return true;
   }
 
-  router.navigateByUrl('/auth/pending-email-confirm');
-  return false;
+  // router.navigateByUrl('/auth/pending-email-confirm');
+  // TODO: Change to false when API returns emailVerified prop
+  return true;
 };
