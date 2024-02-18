@@ -6,6 +6,7 @@ import {
   canMatchGuardPublic,
 } from './guards/public.guard';
 import { ConfirmationEmailPageComponent } from './pages/confirmation-email-page/confirmation-email-page.component';
+import { PendingEmailConfirmPageComponent } from './pages/pending-email-confirm-page/pending-email-confirm-page.component';
 
 export const AUTH_ROUTES: Routes = [
   {
@@ -23,5 +24,9 @@ export const AUTH_ROUTES: Routes = [
   {
     path: 'confirm/:token',
     component: ConfirmationEmailPageComponent,
+  },
+  {
+    path: 'pending-email-confirm',
+    component: PendingEmailConfirmPageComponent,
   },
 ];
