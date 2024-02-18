@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!userCreated">
   <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="register">
       <h2>Registro</h2>
@@ -31,4 +31,10 @@
       <a href="/auth/login">Iniciar sesión</a>
     </div>
   </form>
+</div>
+
+<div class="alert-success-message" *ngIf="userCreated">
+  ¡Registro completado con éxito! Hemos enviado un correo de confirmación a
+  test@example.com. Por favor, verifica tu bandeja de entrada y sigue las
+  instrucciones para activar tu cuenta. ¡Gracias por unirte a nosotros!
 </div>
