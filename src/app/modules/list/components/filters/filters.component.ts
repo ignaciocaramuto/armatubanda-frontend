@@ -36,6 +36,7 @@ import { MatButtonModule } from '@angular/material/button';
   ],
 })
 export class FiltersComponent implements OnInit {
+  @Input() title: string = '';
   @Input() isMusiciansList: boolean = true;
   @Output() filterSelected = new EventEmitter<any>();
 

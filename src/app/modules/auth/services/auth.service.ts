@@ -110,4 +110,8 @@ export class AuthService {
   confirmEmail(token: string): Observable<AuthUser> {
     return this.http.get<AuthUser>(`${this.baseUrl}/auth/confirm/${token}`);
   }
+
+  checkEmailConfirm(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/check-confirmation`);
+  }
 }

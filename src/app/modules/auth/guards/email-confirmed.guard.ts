@@ -5,13 +5,12 @@ import { inject } from '@angular/core';
 export const emailConfirmedGuard: CanActivateFn = () => {
   const authService: AuthService = inject(AuthService);
   const user = authService.currentUser();
-  const router: Router = inject(Router);
+  const router = inject(Router);
 
   if (user()!.emailVerified) {
     return true;
   }
 
-  // router.navigateByUrl('/auth/pending-email-confirm');
-  // TODO: Change to false when API returns emailVerified prop
-  return true;
+  router.navigateByUrl('/auth/pending-email-confirm');
+  return false;
 };
