@@ -8,30 +8,31 @@ import { BandProfileComponent } from './pages/band-profile/band-profile.componen
 import { CreateBandProfileComponent } from './pages/create-band-profile/create-band-profile.component';
 import { BandListComponent } from './pages/band-list/band-list.component';
 import { bandGuard } from './guards/band.guard';
+import { emailConfirmedGuard } from '../auth/guards/email-confirmed.guard';
 
 export const BAND_ROUTES: Routes = [
   {
     path: 'requests/:id',
     component: RequestsComponent,
-    canActivate: [canActivateGuardProfile],
+    canActivate: [canActivateGuardProfile, emailConfirmedGuard],
     canMatch: [canMatchGuardProfile],
   },
   {
     path: 'profile/:id',
     component: BandProfileComponent,
-    canActivate: [canActivateGuardProfile],
+    canActivate: [canActivateGuardProfile, emailConfirmedGuard],
     canMatch: [canMatchGuardProfile],
   },
   {
     path: 'create',
     component: CreateBandProfileComponent,
-    canActivate: [canActivateGuardProfile],
+    canActivate: [canActivateGuardProfile, emailConfirmedGuard],
     canMatch: [canMatchGuardProfile],
   },
   {
     path: 'list',
     component: BandListComponent,
-    canActivate: [canActivateGuardProfile],
+    canActivate: [canActivateGuardProfile, emailConfirmedGuard],
     canMatch: [canMatchGuardProfile],
   },
   {
