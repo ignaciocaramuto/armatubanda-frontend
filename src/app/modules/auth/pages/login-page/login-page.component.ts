@@ -51,12 +51,15 @@ export class LoginPageComponent {
 
   openResetPasswordDialog(): void {
     const dialogRef = this.dialog.open(ResetPasswordDialogComponent, {
-      width: '600px',
+      width: '470px',
       height: '300px',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        this.logMessageService.logConfirm(
+          'Por favor revisa tu correo electrónico para restablecer tu contraseña'
+        );
       }
     });
   }

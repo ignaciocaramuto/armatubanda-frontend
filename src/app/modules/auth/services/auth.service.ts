@@ -111,7 +111,17 @@ export class AuthService {
     return this.http.get<AuthUser>(`${this.baseUrl}/auth/confirm/${token}`);
   }
 
-  checkEmailConfirm(): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}/check-confirmation`);
+  resetPasswordRequest(email: string): Observable<string> {
+    return this.http.post<string>(
+      `${this.baseUrl}/auth/reset-password-request`,
+      email
+    );
+  }
+
+  resetPassword(password: any): Observable<string> {
+    return this.http.post<string>(
+      `${this.baseUrl}/auth/reset-password`,
+      password
+    );
   }
 }
