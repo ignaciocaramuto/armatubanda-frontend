@@ -42,8 +42,6 @@ export class ListPageComponent {
   }
 
   getList(filters?: any): void {
-    console.log(filters);
-
     this.listService.getAllUsers(filters).subscribe((data: Musician[]) => {
       this.musicians = data;
     });
