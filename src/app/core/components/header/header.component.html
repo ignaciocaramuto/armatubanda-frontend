@@ -26,12 +26,10 @@
         <span class="text-white">Mis bandas</span>
       </button>
       <div class="profile-options">
-        <button
-          mat-button
-          [matMenuTriggerFor]="userMenu"
-          *ngIf="user()?.profileSet"
-        >
-          <span class="text-white">{{ user()?.firstName }}</span>
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <span *ngIf="user()?.profileSet" class="text-white">{{
+            user()?.firstName
+          }}</span>
           <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
         <app-profile-image
@@ -106,12 +104,15 @@
 </mat-menu>
 
 <mat-menu #userMenu="matMenu">
-  <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
-    Ver perfil
-  </button>
-  <button mat-menu-item [routerLink]="'/musician/edit/' + user()?.id">
-    Editar perfil
-  </button>
+  <ng-container *ngIf="user()?.profileSet">
+    <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
+      Ver perfil
+    </button>
+    <button mat-menu-item [routerLink]="'/musician/edit/' + user()?.id">
+      Editar perfil
+    </button>
+  </ng-container>
+
   <button mat-menu-item routerLink="/auth/login" (click)="authService.logout()">
     Cerrar sesión
   </button>

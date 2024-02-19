@@ -7,33 +7,48 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/core/services/validators.service';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { NgIf } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InputTextComponent, NgIf],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextComponent,
+    NgIf,
+    MatProgressSpinnerModule,
+  ],
 })
 export class RegisterPageComponent {
   userCreated: boolean = false;
+  loading: boolean = false;
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
-  private router = inject(Router);
   private validatorsService = inject(ValidatorsService);
   private logMessageService = inject(LogMessageService);
 
   public registerForm: FormGroup = this.fb.group(
     {
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      repeatPassword: ['', [Validators.required, Validators.minLength(6)]],
+      email: [
+        { value: '', disabled: this.loading },
+        [Validators.required, Validators.email],
+      ],
+      password: [
+        { value: '', disabled: this.loading },
+        [Validators.required, Validators.minLength(6)],
+      ],
+      repeatPassword: [
+        { value: '', disabled: this.loading },
+        [Validators.required, Validators.minLength(6)],
+      ],
     },
     {
       validators: [
@@ -47,11 +62,13 @@ export class RegisterPageComponent {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
+      this.loading = true;
       const { email, password } = this.registerForm.value;
 
       this.authService.register(email, password).subscribe((result) => {
         if (result) {
           this.userCreated = true;
+          this.loading = false;
         }
       });
     } else {

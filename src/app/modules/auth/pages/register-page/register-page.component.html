@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!userCreated">
+<div class="container" *ngIf="!userCreated" [class.loading]="loading">
   <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="register">
       <h2>Registro</h2>
@@ -26,7 +26,7 @@
         invalidErrorMessage="Las contraseñas no coinciden"
       >
       </app-input-text>
-      <button type="submit">Registrarse</button>
+      <button type="submit" [disabled]="loading">Registrarse</button>
       <p>¿Ya tienes cuenta?</p>
       <a href="/auth/login">Iniciar sesión</a>
     </div>
@@ -35,6 +35,9 @@
 
 <div class="alert-success-message" *ngIf="userCreated">
   ¡Registro completado con éxito! Hemos enviado un correo de confirmación a
-  test@example.com. Por favor, verifica tu bandeja de entrada y sigue las
-  instrucciones para activar tu cuenta. ¡Gracias por unirte a nosotros!
+  {{ registerForm.get("email")?.value }}. Por favor, verifica tu bandeja de
+  entrada y sigue las instrucciones para activar tu cuenta. ¡Gracias por unirte
+  a nosotros!
 </div>
+
+<mat-spinner *ngIf="loading" color="primary"></mat-spinner>

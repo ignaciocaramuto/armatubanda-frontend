@@ -1,12 +1,17 @@
 @import "themes";
 
-.container {
+:host {
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   height: calc(100% - 70px);
   width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
 }
 
 .register {
@@ -49,9 +54,27 @@ button {
 
 .alert-success-message {
   padding: 1em;
+  width: 50%;
+  font-size: 25px;
   color: #1e9b60;
   border-color: #1e9b60;
   background-color: #b0e6cd;
+  border-radius: 15px;
+}
+
+.loading {
+  opacity: 50%;
+
+  h2,
+  p,
+  a,
+  button {
+    cursor: default;
+  }
+}
+
+mat-spinner {
+  position: absolute;
 }
 
 ::ng-deep {
