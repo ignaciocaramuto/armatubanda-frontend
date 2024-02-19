@@ -42,16 +42,18 @@
       >
       </app-input-select>
       <app-input-select
-        [items]="[]"
+        [items]="countries"
         formControlName="country"
         placeholder="País"
+        idPropertyName="name"
         class="filter-input"
       >
       </app-input-select>
       <app-input-select
-        [items]="[]"
+        [items]="cities"
         formControlName="city"
         placeholder="Ciudad"
+        idPropertyName="name"
         class="filter-input"
       >
       </app-input-select>

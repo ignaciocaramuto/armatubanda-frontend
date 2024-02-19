@@ -20,8 +20,9 @@
             </app-input-text>
 
             <!-- Country -->
-            <app-input-text
+            <app-input-select
               appearance="outline"
+              [items]="countries"
               formControlName="country"
               type="text"
               placeholder="País"
@@ -29,11 +30,12 @@
               [width]="300"
               [required]="true"
             >
-            </app-input-text>
+            </app-input-select>
 
             <!-- City -->
-            <app-input-text
+            <app-input-select
               appearance="outline"
+              [items]="cities"
               formControlName="city"
               type="text"
               placeholder="Ciudad"
@@ -41,7 +43,7 @@
               [width]="300"
               [required]="true"
             >
-            </app-input-text>
+            </app-input-select>
 
             <!-- Phone number -->
             <app-input-text

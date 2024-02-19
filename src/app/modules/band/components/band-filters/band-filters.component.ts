@@ -16,6 +16,7 @@ import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
 import { InstrumentService } from 'src/app/core/services/instrument.service';
+import { GeographyService } from 'src/app/core/services/geography.service';
 
 @Component({
   selector: 'app-band-filters',
@@ -40,18 +41,21 @@ export class BandFiltersComponent {
   formGroup: FormGroup;
   instruments: Instrument[] = [];
   genres: Genre[] = [];
+  countries: any[] = [];
+  cities: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private instrumentService: InstrumentService,
-    private genreService: GenreService
+    private genreService: GenreService,
+    private geographyService: GeographyService
   ) {
     this.formGroup = this.fb.group({
       name: [''],
       instruments: [''],
       genres: [''],
       country: [''],
-      city: [''],
+      city: [{ value: '', disabled: true }],
     });
   }
 
@@ -70,12 +74,24 @@ export class BandFiltersComponent {
     let storedData = localStorage.getItem('band-filter-data');
     if (storedData) {
       this.setFormGroup(JSON.parse(storedData));
+      if (this.formGroup.get('country')?.value) {
+        this.getCities(this.formGroup.get('country')?.value);
+        this.formGroup.get('city')?.enable();
+      }
     }
     this.getInstruments();
     this.getGenres();
+    this.getCountries();
     this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
       localStorage.setItem('band-filter-data', JSON.stringify(value));
       this.filterSelected.emit(value);
+    });
+
+    this.formGroup.get('country')?.valueChanges.subscribe((country) => {
+      if (country) {
+        this.getCities(country);
+        this.formGroup.get('city')?.enable();
+      }
     });
   }
 
@@ -129,6 +145,20 @@ export class BandFiltersComponent {
       if (this.formGroup.get(controlName)) {
         this.formGroup.get(controlName)?.setValue(values[controlName]);
       }
+    });
+  }
+
+  private getCountries(): void {
+    this.geographyService.getCountries().subscribe((result) => {
+      this.countries = result.data;
+    });
+  }
+
+  private getCities(country: string): void {
+    this.geographyService.getCities(country).subscribe((result) => {
+      this.cities = result.data.map((city: string) => {
+        return { name: city };
+      });
     });
   }
 }

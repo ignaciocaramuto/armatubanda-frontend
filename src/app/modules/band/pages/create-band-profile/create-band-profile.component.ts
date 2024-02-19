@@ -24,6 +24,7 @@ import { GenreService } from 'src/app/core/services/genre.service';
 import { BandProfile } from '../../models/bandProfile.interface';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { ConvertImageToFilePipe } from 'src/app/core/pipes/convert-image-to-file.pipe';
+import { GeographyService } from 'src/app/core/services/geography.service';
 
 @Component({
   selector: 'app-create-band-profile',
@@ -56,15 +57,18 @@ export class CreateBandProfileComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private _logMessageService = inject(LogMessageService);
   private fileConverterPipe = inject(ConvertImageToFilePipe);
+  private geographyService = inject(GeographyService);
 
   genres: Genre[] = [];
   band!: BandProfile;
+  countries: any[] = [];
+  cities: any[] = [];
 
   bandInfoFormGroup: FormGroup = this.fb.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
     country: ['', Validators.required],
-    city: ['', Validators.required],
+    city: [{ value: '', disabled: true }, Validators.required],
     phoneNumber: [''],
     webSite: [''],
     socialMedia: [''],
@@ -86,6 +90,14 @@ export class CreateBandProfileComponent implements OnInit {
       }
     });
     this.genreService.getAll().subscribe((result) => (this.genres = result));
+    this.getCountries();
+
+    this.bandInfoFormGroup.get('country')?.valueChanges.subscribe((country) => {
+      if (country) {
+        this.getCities(country);
+        this.bandInfoFormGroup.get('city')?.enable();
+      }
+    });
   }
 
   setSelectedFile(event: any) {
@@ -173,6 +185,20 @@ export class CreateBandProfileComponent implements OnInit {
       this._logMessageService.logConfirm(
         edition ? 'Banda editada exitosamente!' : '¡Banda creada exitosamente!'
       );
+    });
+  }
+
+  private getCountries(): void {
+    this.geographyService.getCountries().subscribe((result) => {
+      this.countries = result.data;
+    });
+  }
+
+  private getCities(country: string): void {
+    this.geographyService.getCities(country).subscribe((result) => {
+      this.cities = result.data.map((city: string) => {
+        return { name: city };
+      });
     });
   }
 }
