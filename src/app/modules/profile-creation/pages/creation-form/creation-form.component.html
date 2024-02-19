@@ -40,29 +40,31 @@
         >
         </app-input-text>
 
-        <!-- City -->
-        <app-input-text
-          appearance="outline"
-          formControlName="city"
-          type="text"
-          placeholder="Ciudad"
-          class="textinput"
-          [width]="400"
-          [required]="true"
-        >
-        </app-input-text>
-
         <!-- Country -->
-        <app-input-text
+        <app-input-select
           appearance="outline"
+          [items]="countries"
           formControlName="country"
-          type="text"
           placeholder="País"
+          idPropertyName="name"
           class="textinput"
           [width]="400"
           [required]="true"
         >
-        </app-input-text>
+        </app-input-select>
+
+        <!-- City -->
+        <app-input-select
+          appearance="outline"
+          [items]="cities"
+          formControlName="city"
+          placeholder="Ciudad"
+          idPropertyName="name"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-select>
       </div>
       <div class="personal-inputs">
         <!-- Phone number -->

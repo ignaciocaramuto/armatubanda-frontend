@@ -32,6 +32,7 @@ import { tap } from 'rxjs';
 import { ProfileService } from 'src/app/modules/profile/services/profile.service';
 import { Musician } from 'src/app/core/models/musician';
 import { ConvertImageToFilePipe } from 'src/app/core/pipes/convert-image-to-file.pipe';
+import { GeographyService } from 'src/app/core/services/geography.service';
 
 @Component({
   selector: 'app-creation-form',
@@ -74,10 +75,13 @@ export class CreationFormComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private profileService = inject(ProfileService);
   private fileConverterPipe = inject(ConvertImageToFilePipe);
+  private geographyService = inject(GeographyService);
 
   instruments: Instrument[] = [];
   genres: Genre[] = [];
   musician!: Musician;
+  countries: any[] = [];
+  cities: any[] = [];
 
   readonly experienceTypes = [
     { name: ExperienceType.Novice },
@@ -91,7 +95,7 @@ export class CreationFormComponent implements OnInit {
     lastName: ['', Validators.required],
     stageName: ['', Validators.required],
     country: ['', Validators.required],
-    city: ['', Validators.required],
+    city: [{ value: '', disabled: true }, Validators.required],
     phoneNumber: ['', Validators.required],
     birthday: ['', Validators.required],
     webSite: [''],
@@ -161,6 +165,14 @@ export class CreationFormComponent implements OnInit {
 
     this.getInstruments();
     this.getGenres();
+    this.getCountries();
+
+    this.personalformGroup.get('country')?.valueChanges.subscribe((country) => {
+      if (country) {
+        this.getCities(country);
+        this.personalformGroup.get('city')?.enable();
+      }
+    });
   }
 
   onSubmit(edition?: boolean): void {
@@ -412,5 +424,19 @@ export class CreationFormComponent implements OnInit {
         .get('profileImage')
         ?.setValue(this.fileConverterPipe.transform(musician.profileImage));
     }
+  }
+
+  private getCountries(): void {
+    this.geographyService.getCountries().subscribe((result) => {
+      this.countries = result.data;
+    });
+  }
+
+  private getCities(country: string): void {
+    this.geographyService.getCities(country).subscribe((result) => {
+      this.cities = result.data.map((city: string) => {
+        return { name: city };
+      });
+    });
   }
 }

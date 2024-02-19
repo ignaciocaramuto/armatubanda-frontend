@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
+import { GeographyService } from 'src/app/core/services/geography.service';
 
 @Component({
   selector: 'app-filters',
@@ -50,11 +51,14 @@ export class FiltersComponent implements OnInit {
   formGroup: FormGroup;
   instruments: Instrument[] = [];
   genres: Genre[] = [];
+  countries: any[] = [];
+  cities: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private instrumentService: InstrumentService,
-    private genreService: GenreService
+    private genreService: GenreService,
+    private geographyService: GeographyService
   ) {
     this.formGroup = this.fb.group({
       name: [''],
@@ -62,7 +66,7 @@ export class FiltersComponent implements OnInit {
       genres: [''],
       experience: [''],
       country: [''],
-      city: [''],
+      city: [{ value: '', disabled: true }],
       lookingBand: [''],
     });
   }
@@ -84,9 +88,14 @@ export class FiltersComponent implements OnInit {
     let storedData = localStorage.getItem('filter-data');
     if (storedData) {
       this.setFormGroup(JSON.parse(storedData));
+      if (this.formGroup.get('country')?.value) {
+        this.getCities(this.formGroup.get('country')?.value);
+        this.formGroup.get('city')?.enable();
+      }
     }
     this.getInstruments();
     this.getGenres();
+    this.getCountries();
     this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
       localStorage.setItem('filter-data', JSON.stringify(value));
 
@@ -94,6 +103,13 @@ export class FiltersComponent implements OnInit {
         value.lookingBand = value.lookingBand === 'Sí' ? true : false;
       }
       this.filterSelected.emit(value);
+    });
+
+    this.formGroup.get('country')?.valueChanges.subscribe((country) => {
+      if (country) {
+        this.getCities(country);
+        this.formGroup.get('city')?.enable();
+      }
     });
   }
 
@@ -153,6 +169,20 @@ export class FiltersComponent implements OnInit {
       if (this.formGroup.get(controlName)) {
         this.formGroup.get(controlName)?.setValue(values[controlName]);
       }
+    });
+  }
+
+  getCountries(): void {
+    this.geographyService.getCountries().subscribe((result) => {
+      this.countries = result.data;
+    });
+  }
+
+  getCities(country: string): void {
+    this.geographyService.getCities(country).subscribe((result) => {
+      this.cities = result.data.map((city: string) => {
+        return { name: city };
+      });
     });
   }
 }
