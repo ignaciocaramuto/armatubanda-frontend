@@ -36,9 +36,12 @@ export class LoginPageComponent {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
-      this.authService
-        .login(email, password)
-        .subscribe(() => this.router.navigateByUrl('/list'));
+      this.authService.login(email, password).subscribe((result) => {
+        if (result) {
+          this.authService.checkAuthentication().subscribe();
+          this.router.navigateByUrl('/list');
+        }
+      });
     } else {
       this.logMessageService.logServerError(
         'Por favor completa los campos requeridos.'
