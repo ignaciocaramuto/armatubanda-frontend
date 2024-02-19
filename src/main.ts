@@ -104,6 +104,13 @@ bootstrapApplication(AppComponent, {
         canActivate: [canActivateGuard, emailConfirmedGuard],
         canMatch: [canMatchGuard],
       },
+      {
+        path: 'admin',
+        loadComponent: () =>
+          import(
+            `./app/modules/admin/pages/overview-page/overview-page.component`
+          ).then((c) => c.OverviewPageComponent),
+      },
     ]),
   ],
 }).catch((err) => console.error(err));

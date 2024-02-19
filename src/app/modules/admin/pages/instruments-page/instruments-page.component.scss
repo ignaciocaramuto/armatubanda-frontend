@@ -1,0 +1,16 @@
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-right: 1em;
+}
+
+span {
+  cursor: pointer;
+}
+
+:host::ng-deep {
+  .mat-mdc-unelevated-button:not(:disabled) {
+    color: white;
+  }
+}

@@ -1,0 +1,36 @@
+<div class="container">
+  <h3>Admin</h3>
+  <mat-divider></mat-divider>
+  <div class="navbar">
+    <button
+      mat-flat-button
+      [class.selected]="currentModule === Modules.Instruments"
+      (click)="changeModule(Modules.Instruments)"
+    >
+      Instrumentos
+    </button>
+    <mat-divider></mat-divider>
+    <button
+      mat-flat-button
+      [class.selected]="currentModule === Modules.Genres"
+      (click)="changeModule(Modules.Genres)"
+    >
+      Géneros
+    </button>
+    <mat-divider></mat-divider>
+  </div>
+</div>
+
+<div class="body">
+  <ng-container [ngSwitch]="currentModule">
+    <!-- Instruments -->
+    <ng-container *ngSwitchCase="Modules.Instruments">
+      <app-instruments-page></app-instruments-page>
+    </ng-container>
+
+    <!-- Genres -->
+    <ng-container *ngSwitchCase="Modules.Genres">
+      <app-genres-page></app-genres-page>
+    </ng-container>
+  </ng-container>
+</div>

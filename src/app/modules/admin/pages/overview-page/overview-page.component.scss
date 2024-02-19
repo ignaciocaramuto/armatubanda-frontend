@@ -1,0 +1,35 @@
+@import "themes";
+
+.body {
+  margin-left: 21rem;
+  margin-right: 3rem;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.container {
+  width: 18rem;
+  height: 100%;
+  box-shadow: $box-shadow;
+  background-color: $white;
+  position: fixed;
+  top: 70px;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+button {
+  padding: 2em;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+button.selected {
+  background-color: $main-color;
+  color: $white;
+}
