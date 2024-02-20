@@ -17,11 +17,7 @@ export class GenreService extends CrudService<Genre> {
     return this.getAll();
   }
 
-  addGenre(instrument: Genre): Observable<Genre> {
-    return this.create(instrument);
-  }
-
-  deleteGenre(id: number): Observable<void> {
-    return this.delete(id);
+  addGenre(genre: Genre): Observable<Genre> {
+    return this.create(genre);
   }
 }

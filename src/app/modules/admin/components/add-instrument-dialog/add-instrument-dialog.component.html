@@ -1,0 +1,13 @@
+<app-dialog
+  icon="music_note"
+  title="Agregar instrumento"
+  (confirmDialog)="confirmInstrument()"
+>
+  <app-input-text
+    [formControl]="instrument"
+    type="text"
+    placeholder="Nombre de instrumento"
+    [required]="true"
+  >
+  </app-input-text>
+</app-dialog>
