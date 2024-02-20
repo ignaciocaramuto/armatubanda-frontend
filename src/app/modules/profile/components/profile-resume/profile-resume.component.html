@@ -57,6 +57,12 @@
       class="medium"
       [routerLink]="'/band/edit/' + bandId"
     ></app-button>
+    <app-button
+      label="Borrar"
+      class="medium"
+      color="warn"
+      (click)="deleteBanda()"
+    ></app-button>
   </ng-container>
 
   <h4 class="bands-text">Líder:</h4>

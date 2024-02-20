@@ -12,13 +12,21 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { ResetPasswordDialogComponent } from '../../components/reset-password-dialog/reset-password-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InputTextComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextComponent,
+    MatProgressSpinnerModule,
+    NgIf,
+  ],
 })
 export class LoginPageComponent {
   private fb = inject(FormBuilder);
@@ -31,15 +39,19 @@ export class LoginPageComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
+  loading: boolean = false;
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.loading = true;
       const { email, password } = this.loginForm.value;
+      this.loginForm.disable();
 
       this.authService.login(email, password).subscribe((result) => {
         if (result) {
           this.authService.checkAuthentication().subscribe();
           this.router.navigateByUrl('/list');
+          this.loading = false;
         }
       });
     } else {

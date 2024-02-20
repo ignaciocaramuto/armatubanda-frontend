@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [class.loading]="loading">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="login">
       <h2>Inicio de sesión</h2>
@@ -16,9 +16,11 @@
         [required]="true"
       >
       </app-input-text>
-      <button type="submit">Iniciar sesión</button>
+      <button type="submit" [disabled]="loading">Iniciar sesión</button>
       <a (click)="openResetPasswordDialog()">¿Olvidaste tu contraseña?</a>
       <p>¿No tienes cuenta? <a href="/auth/register">Regístrate</a></p>
     </div>
   </form>
 </div>
+
+<mat-spinner *ngIf="loading" color="primary"></mat-spinner>

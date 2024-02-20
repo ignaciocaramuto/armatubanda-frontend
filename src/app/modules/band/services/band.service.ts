@@ -48,4 +48,17 @@ export class BandService extends CrudService<BandProfile> {
   editProfile(data: FormData): Observable<BandProfile> {
     return this.http.put<BandProfile>(`${this.apiUrl}/edit`, data);
   }
+
+  deleteBand(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/delete/${id}`).pipe(
+      tap(() =>
+        this._logMessageService.logConfirm('¡Banda eliminada correctamente!')
+      ),
+      catchError((res: HttpErrorResponse) =>
+        throwError(() =>
+          this._logMessageService.logServerError(res.error.message)
+        )
+      )
+    );
+  }
 }

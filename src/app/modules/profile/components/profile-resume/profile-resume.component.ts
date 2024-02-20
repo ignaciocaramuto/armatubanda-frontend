@@ -22,6 +22,8 @@ import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.int
 import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
 import { BandMember } from 'src/app/modules/band/models/bandProfile.interface';
 import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
+import { BandService } from 'src/app/modules/band/services/band.service';
+import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-profile-resume',
@@ -36,6 +38,7 @@ import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
     MatButtonModule,
     NgFor,
     RouterModule,
+    ConfirmDialogComponent,
   ],
 })
 export class ProfileResumeComponent implements OnInit {
@@ -55,6 +58,7 @@ export class ProfileResumeComponent implements OnInit {
   private authService = inject(AuthService);
   private invitationService = inject(InvitationService);
   private musicianService = inject(ProfileService);
+  private bandService = inject(BandService);
   user = this.authService.currentUser();
   hasBeenInvitedToAllBands: boolean = false;
   isMemberOfAllBands: boolean = false;
@@ -102,6 +106,24 @@ export class ProfileResumeComponent implements OnInit {
           });
       }
     });
+  }
+
+  deleteBanda(): void {
+    const confirmText = '¿Estás seguro que quieres borrar esta banda?';
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: confirmText,
+      })
+      .afterClosed()
+      .subscribe((confirm: Boolean) => {
+        if (confirm) {
+          this.bandService.deleteBand(this.bandId).subscribe((result) => {
+            if (result) {
+              this.router.navigateByUrl('/band/list');
+            }
+          });
+        }
+      });
   }
 
   private getMusicianLeaders(): void {
