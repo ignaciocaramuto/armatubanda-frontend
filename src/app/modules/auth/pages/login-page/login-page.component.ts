@@ -51,7 +51,6 @@ export class LoginPageComponent {
         if (result) {
           this.authService.checkAuthentication().subscribe();
           this.router.navigateByUrl('/list');
-          this.loading = false;
         }
       });
     } else {
