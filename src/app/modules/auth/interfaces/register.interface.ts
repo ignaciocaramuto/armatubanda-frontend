@@ -8,4 +8,5 @@ export interface AuthUser {
   lastName: string;
   profileImage: Image;
   emailVerified?: boolean;
+  role?: string;
 }
