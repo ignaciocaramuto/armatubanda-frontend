@@ -1,12 +1,17 @@
 @import "themes";
 
-.container {
+:host {
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
   height: calc(100% - 70px);
   width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
 }
 
 .login {
