@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment.local';
@@ -17,7 +17,17 @@ export class GenreService extends CrudService<Genre> {
     return this.getAll();
   }
 
-  addGenre(genre: Genre): Observable<Genre> {
-    return this.create(genre);
+  addGenre(genre: string): Observable<Genre> {
+    return this.http.post<Genre>(`${this.apiUrl}/${genre}`, null).pipe(
+      tap(() =>
+        this._logMessageService.logConfirm('Género agregado correctamente!')
+      ),
+      catchError((res: HttpErrorResponse) =>
+        throwError(() => {
+          if (res.error)
+            this._logMessageService.logServerError(res.error.message);
+        })
+      )
+    );
   }
 }

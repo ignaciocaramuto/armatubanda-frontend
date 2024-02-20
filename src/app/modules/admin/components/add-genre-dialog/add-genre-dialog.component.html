@@ -1,0 +1,13 @@
+<app-dialog
+  icon="music_note"
+  title="Agregar género"
+  (confirmDialog)="confirmGenre()"
+>
+  <app-input-text
+    [formControl]="genre"
+    type="text"
+    placeholder="Nombre de género musical"
+    [required]="true"
+  >
+  </app-input-text>
+</app-dialog>
