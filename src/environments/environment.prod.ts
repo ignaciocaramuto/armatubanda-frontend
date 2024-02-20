@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'rest-armatubanda-production.up.railway.app/api',
+  apiUrl: 'http://rest-armatubanda-production.up.railway.app/api',
 };
