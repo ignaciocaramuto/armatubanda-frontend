@@ -53,6 +53,26 @@ export class GenresPageComponent {
     });
   }
 
+  editGenre(genre: Genre): void {
+    const dialogRef = this.dialog.open(AddGenreDialogComponent, {
+      width: '400px',
+      height: '250px',
+      disableClose: true,
+      data: genre,
+    });
+
+    dialogRef.afterClosed().subscribe((genre: Genre) => {
+      if (genre) {
+        this.genreService.update(genre).subscribe((result) => {
+          if (result) {
+            this.logMessageService.logConfirm('¡Género editado correctamente!');
+            this.getGenres();
+          }
+        });
+      }
+    });
+  }
+
   deleteGenre(id: number): void {
     this.dialog
       .open(ConfirmDialogComponent, {
@@ -64,7 +84,7 @@ export class GenresPageComponent {
           this.genreService.delete(id).subscribe((result) => {
             if (result) {
               this.logMessageService.logConfirm(
-                '¡Instrumento eliminado correctamente!'
+                '¡Género eliminado correctamente!'
               );
               this.getGenres();
             }
