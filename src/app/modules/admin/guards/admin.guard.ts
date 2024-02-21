@@ -6,5 +6,5 @@ export const adminGuard: CanActivateFn = () => {
   const authService: AuthService = inject(AuthService);
   const user = authService.currentUser();
 
-  return user()!.email === 'admin@armatubanda.com';
+  return user()!.role === 'ADMIN';
 };
