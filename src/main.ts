@@ -31,6 +31,7 @@ import {
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { emailConfirmedGuard } from './app/modules/auth/guards/email-confirmed.guard';
+import { adminGuard } from './app/modules/admin/guards/admin.guard';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -110,6 +111,7 @@ bootstrapApplication(AppComponent, {
           import(
             `./app/modules/admin/pages/overview-page/overview-page.component`
           ).then((c) => c.OverviewPageComponent),
+        canActivate: [adminGuard],
       },
     ]),
   ],

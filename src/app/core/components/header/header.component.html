@@ -4,6 +4,14 @@
   </a>
   <div class="menu-buttons">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
+      <button
+        *ngIf="user()?.email === 'admin@armatubanda.com'"
+        mat-button
+        routerLink="/admin"
+        class="text-white"
+      >
+        <span class="text-white">Admin</span>
+      </button>
       <button mat-button routerLink="/band/list" class="text-white">
         <span class="text-white">Buscar bandas</span>
       </button>
