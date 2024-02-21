@@ -5,7 +5,7 @@
   <div class="menu-buttons">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
       <button
-        *ngIf="user()?.email === 'admin@armatubanda.com'"
+        *ngIf="user()?.role === 'ADMIN'"
         mat-button
         routerLink="/admin"
         class="text-white"
