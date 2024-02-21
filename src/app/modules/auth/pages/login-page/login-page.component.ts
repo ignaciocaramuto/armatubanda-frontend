@@ -14,6 +14,7 @@ import { ResetPasswordDialogComponent } from '../../components/reset-password-di
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -47,12 +48,21 @@ export class LoginPageComponent {
       const { email, password } = this.loginForm.value;
       this.loginForm.disable();
 
-      this.authService.login(email, password).subscribe((result) => {
-        if (result) {
-          this.authService.checkAuthentication().subscribe();
-          this.router.navigateByUrl('/list');
-        }
-      });
+      this.authService
+        .login(email, password)
+        .pipe(
+          catchError(() => {
+            this.loginForm.enable();
+            this.loading = false;
+            return of(null);
+          })
+        )
+        .subscribe((result) => {
+          if (result) {
+            this.authService.checkAuthentication().subscribe();
+            this.router.navigateByUrl('/list');
+          }
+        });
     } else {
       this.logMessageService.logServerError(
         'Por favor completa los campos requeridos.'

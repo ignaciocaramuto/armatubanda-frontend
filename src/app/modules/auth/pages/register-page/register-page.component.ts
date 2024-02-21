@@ -12,6 +12,7 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { InputTextComponent } from '../../../../core/components/input-text/input-text.component';
 import { NgIf } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-register-page',
@@ -65,12 +66,21 @@ export class RegisterPageComponent {
       this.loading = true;
       const { email, password } = this.registerForm.value;
 
-      this.authService.register(email, password).subscribe((result) => {
-        if (result) {
-          this.userCreated = true;
-          this.loading = false;
-        }
-      });
+      this.authService
+        .register(email, password)
+        .pipe(
+          catchError(() => {
+            this.registerForm.enable();
+            this.loading = false;
+            return of(null);
+          })
+        )
+        .subscribe((result) => {
+          if (result) {
+            this.userCreated = true;
+            this.loading = false;
+          }
+        });
     } else {
       this.logMessageService.logServerError(
         'Por favor completa los campos requeridos.'
