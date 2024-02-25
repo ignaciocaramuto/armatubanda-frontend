@@ -26,6 +26,7 @@
       >
       </app-input-text>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="instruments"
         formControlName="instruments"
         placeholder="Intrumentos"
@@ -34,6 +35,7 @@
       >
       </app-input-select>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="genres"
         formControlName="genres"
         placeholder="Géneros"
