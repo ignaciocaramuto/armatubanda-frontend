@@ -15,7 +15,6 @@ import { debounceTime, tap } from 'rxjs';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
-import { InstrumentService } from 'src/app/core/services/instrument.service';
 import { GeographyService } from 'src/app/core/services/geography.service';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -49,13 +48,11 @@ export class BandFiltersComponent {
 
   constructor(
     private fb: FormBuilder,
-    private instrumentService: InstrumentService,
     private genreService: GenreService,
     private geographyService: GeographyService
   ) {
     this.formGroup = this.fb.group({
       name: [''],
-      instruments: [''],
       genres: [''],
       country: [''],
       state: [{ value: '', disabled: true }],
@@ -67,7 +64,6 @@ export class BandFiltersComponent {
     const controls = this.formGroup.controls;
     return (
       controls['name'].value ||
-      controls['instruments'].value.length > 0 ||
       controls['genres'].value.length > 0 ||
       controls['country'].value ||
       controls['state'].value ||
@@ -92,7 +88,6 @@ export class BandFiltersComponent {
         }
       }
     }
-    this.getInstruments();
     this.getGenres();
     this.getCountries();
     this.formGroup.valueChanges.pipe(debounceTime(400)).subscribe((value) => {
@@ -115,13 +110,6 @@ export class BandFiltersComponent {
     });
   }
 
-  getInstruments(): void {
-    this.instrumentService
-      .getInstruments()
-      .pipe(tap((res) => (this.instruments = res)))
-      .subscribe();
-  }
-
   getGenres(): void {
     this.genreService
       .getGenres()
@@ -135,9 +123,6 @@ export class BandFiltersComponent {
 
     if (controls['name'].value) {
       selectedKeys.push('name');
-    }
-    if (controls['instruments'].value?.length > 0) {
-      selectedKeys.push('instruments');
     }
     if (controls['genres'].value?.length > 0) {
       selectedKeys.push('genres');
