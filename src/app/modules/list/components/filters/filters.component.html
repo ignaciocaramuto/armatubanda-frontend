@@ -10,7 +10,7 @@
         *ngFor="let selectedFilter of getSelectedFilterKeys()"
         (removed)="removeChip(selectedFilter)"
       >
-        {{ selectedFilter }}
+        {{ selectedFilter | translate }}
         <button matChipRemove [attr.aria-label]="'remove ' + selectedFilter">
           <mat-icon>cancel</mat-icon>
         </button>

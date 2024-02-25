@@ -18,6 +18,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { GeographyService } from 'src/app/core/services/geography.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-filters',
@@ -34,6 +35,7 @@ import { GeographyService } from 'src/app/core/services/geography.service';
     ReactiveFormsModule,
     InputSelectComponent,
     InputTextComponent,
+    TranslateModule,
   ],
 })
 export class FiltersComponent implements OnInit {

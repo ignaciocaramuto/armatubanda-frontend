@@ -1,5 +1,12 @@
 {
   "NOVICE": "Novato",
   "ADVANCED": "Avanzado",
-  "EXPERT": "Experto"
+  "EXPERT": "Experto",
+  "name": "Nombre",
+  "instruments": "Instrumentos",
+  "genres": "Géneros",
+  "experience": "Experiencia",
+  "country": "País",
+  "city": "Ciudad",
+  "lookingBand": "Busca banda"
 }

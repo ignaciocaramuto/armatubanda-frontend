@@ -17,6 +17,7 @@ import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
 import { InstrumentService } from 'src/app/core/services/instrument.service';
 import { GeographyService } from 'src/app/core/services/geography.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-band-filters',
@@ -31,6 +32,7 @@ import { GeographyService } from 'src/app/core/services/geography.service';
     ReactiveFormsModule,
     InputSelectComponent,
     InputTextComponent,
+    TranslateModule,
   ],
   templateUrl: './band-filters.component.html',
   styleUrls: ['./band-filters.component.scss'],
