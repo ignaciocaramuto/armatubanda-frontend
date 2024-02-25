@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  inject,
+} from '@angular/core';
 import {
   BiographyInformation,
   ContactInformation,
@@ -41,7 +47,7 @@ import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/c
     ConfirmDialogComponent,
   ],
 })
-export class ProfileResumeComponent implements OnInit {
+export class ProfileResumeComponent implements OnChanges {
   @Input() biographyInfo!: BiographyInformation;
   @Input() contactInfo!: ContactInformation;
   @Input() personalInfo!: PersonalInformation;
@@ -65,13 +71,12 @@ export class ProfileResumeComponent implements OnInit {
   bands: MusicianBandsStatus[] = [];
   profileBandsMember: MusicianBands[] = [];
 
-  ngOnInit(): void {
-    if (!this.isMusicianProfile) {
-      return;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['userId'].currentValue) {
+      const userId = changes['userId'].currentValue;
+      this.getMusicianLeaders(userId);
+      this.getBandsFromMusician(userId);
     }
-
-    this.getMusicianLeaders();
-    this.getBandsFromMusician();
   }
 
   redirectToUserWebsite(): void {
@@ -101,7 +106,7 @@ export class ProfileResumeComponent implements OnInit {
           .createInvitation(invitation)
           .subscribe((result) => {
             if (result) {
-              this.getMusicianLeaders();
+              this.getMusicianLeaders(this.userId);
             }
           });
       }
@@ -126,22 +131,20 @@ export class ProfileResumeComponent implements OnInit {
       });
   }
 
-  private getMusicianLeaders(): void {
-    this.musicianService
-      .getMusicianLeaderBands(this.userId)
-      .subscribe((result) => {
-        this.bands = result;
-        this.hasBeenInvitedToAllBands = this.bands.every(
-          ({ status }) => status === MusicianStatusBand.Pending
-        );
-        this.isMemberOfAllBands = this.bands.every(
-          ({ status }) => status === MusicianStatusBand.Member
-        );
-      });
+  private getMusicianLeaders(userId: number): void {
+    this.musicianService.getMusicianLeaderBands(userId).subscribe((result) => {
+      this.bands = result;
+      this.hasBeenInvitedToAllBands = this.bands.every(
+        ({ status }) => status === MusicianStatusBand.Pending
+      );
+      this.isMemberOfAllBands = this.bands.every(
+        ({ status }) => status === MusicianStatusBand.Member
+      );
+    });
   }
 
-  private getBandsFromMusician(): void {
-    this.musicianService.getMusicianBands(this.userId).subscribe((result) => {
+  private getBandsFromMusician(userId: number): void {
+    this.musicianService.getMusicianBands(userId).subscribe((result) => {
       this.profileBandsMember = result;
     });
   }
