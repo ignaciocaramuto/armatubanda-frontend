@@ -20,7 +20,25 @@ export class GeographyService {
       );
   }
 
-  getCities(country: string): Observable<any> {
+  getStates(country: string): Observable<any> {
+    return this.http.post<any>(
+      'https://countriesnow.space/api/v0.1/countries/states',
+      {
+        country,
+      }
+    );
+  }
+
+  getCities(country: string, state: string): Observable<any> {
+    return this.http
+      .post<any>('https://countriesnow.space/api/v0.1/countries/state/cities', {
+        country,
+        state,
+      })
+      .pipe(tap((result) => result.data.sort()));
+  }
+
+  getCitiesFromCountry(country: string): Observable<any> {
     return this.http
       .post<any>('https://countriesnow.space/api/v0.1/countries/cities', {
         country,

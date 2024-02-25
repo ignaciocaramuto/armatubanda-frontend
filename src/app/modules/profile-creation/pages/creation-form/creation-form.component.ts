@@ -81,7 +81,9 @@ export class CreationFormComponent implements OnInit {
   genres: Genre[] = [];
   musician!: Musician;
   countries: any[] = [];
+  states: any[] = [];
   cities: any[] = [];
+  hideStates: boolean = false;
 
   readonly experienceTypes = [
     { name: ExperienceType.Novice },
@@ -95,12 +97,12 @@ export class CreationFormComponent implements OnInit {
     lastName: ['', Validators.required],
     stageName: ['', Validators.required],
     country: ['', Validators.required],
+    state: [{ value: '', disabled: true }, Validators.required],
     city: [{ value: '', disabled: true }, Validators.required],
     phoneNumber: ['', Validators.required],
     birthday: ['', Validators.required],
     webSite: [''],
     socialMedia: [''],
-    genres: ['', Validators.required],
   });
 
   bioformGroup: FormGroup = this.fb.group({
@@ -113,6 +115,7 @@ export class CreationFormComponent implements OnInit {
   });
 
   skillsFormGroup: FormGroup = this.fb.group({
+    generalExperience: ['', Validators.required],
     skills: this.fb.array([]),
   });
 
@@ -123,6 +126,10 @@ export class CreationFormComponent implements OnInit {
   preferencesFormGroup: FormGroup = this.fb.group({
     lookingBands: ['', Validators.required],
     available: ['', Validators.required],
+  });
+
+  genresFormGroup: FormGroup = this.fb.group({
+    genres: ['', Validators.required],
   });
 
   get skills(): FormArray {
@@ -169,7 +176,15 @@ export class CreationFormComponent implements OnInit {
 
     this.personalformGroup.get('country')?.valueChanges.subscribe((country) => {
       if (country) {
-        this.getCities(country);
+        this.personalformGroup.get('state')?.reset();
+        this.personalformGroup.get('city')?.reset();
+        this.getStates(country);
+      }
+    });
+
+    this.personalformGroup.get('state')?.valueChanges.subscribe((state) => {
+      if (state) {
+        this.getCities(this.personalformGroup.get('country')?.value, state);
         this.personalformGroup.get('city')?.enable();
       }
     });
@@ -192,6 +207,7 @@ export class CreationFormComponent implements OnInit {
           lastname: this.personalformGroup.get('lastName')?.value,
           stageName: this.personalformGroup.get('stageName')?.value,
           country: this.personalformGroup.get('country')?.value,
+          state: this.personalformGroup.get('state')?.value,
           city: this.personalformGroup.get('city')?.value,
           birthday: this.personalformGroup.get('birthday')?.value,
           gender: 'MALE',
@@ -205,8 +221,9 @@ export class CreationFormComponent implements OnInit {
           instrumentExperience: this.getInstrumentExperienceFormatted(
             this.skills.value
           ),
-          genres: this.getGenresFormatted(this.personalformGroup.value.genres),
-          generalExperience: 'NOVICE',
+          genres: this.getGenresFormatted(this.genresFormGroup.value.genres),
+          generalExperience:
+            this.skillsFormGroup.get('generalExperience')?.value,
         },
         educationInformation: {
           educationHistory: this.academics.value,
@@ -353,11 +370,14 @@ export class CreationFormComponent implements OnInit {
       .get('stageName')
       ?.setValue(musician.personalInformation.stageName);
     this.personalformGroup
-      .get('city')
-      ?.setValue(musician.personalInformation.city);
-    this.personalformGroup
       .get('country')
       ?.setValue(musician.personalInformation.country);
+    this.personalformGroup
+      .get('state')
+      ?.setValue(musician.personalInformation.state);
+    this.personalformGroup
+      .get('city')
+      ?.setValue(musician.personalInformation.city);
     this.personalformGroup
       .get('phoneNumber')
       ?.setValue(musician.contactInformation.phoneNumber);
@@ -370,11 +390,11 @@ export class CreationFormComponent implements OnInit {
     this.personalformGroup
       .get('socialMedia')
       ?.setValue(musician.contactInformation.socialMedia);
-    this.personalformGroup
-      .get('genres')
-      ?.setValue(musician.skillsInformation.genres.map(({ name }) => name));
 
     // Instruments
+    this.skillsFormGroup
+      .get('generalExperience')
+      ?.setValue(musician.skillsInformation.generalExperience);
     musician.skillsInformation.instrumentExperience.forEach(
       (instrumentExperience) => {
         const instrumentForm = this.fb.group({
@@ -384,6 +404,11 @@ export class CreationFormComponent implements OnInit {
         this.skills.push(instrumentForm);
       }
     );
+
+    // Genres
+    this.genresFormGroup
+      .get('genres')
+      ?.setValue(musician.skillsInformation.genres.map(({ name }) => name));
 
     // Bio
     this.bioformGroup.get('bio')?.setValue(musician.biographyInformation.bio);
@@ -432,8 +457,32 @@ export class CreationFormComponent implements OnInit {
     });
   }
 
-  private getCities(country: string): void {
-    this.geographyService.getCities(country).subscribe((result) => {
+  private getStates(country: string): void {
+    this.geographyService.getStates(country).subscribe((result) => {
+      this.states = result.data.states;
+      if (this.states.length === 0) {
+        this.personalformGroup.get('state')?.clearValidators();
+        this.hideStates = true;
+        this.getCitiesFromCountry(country);
+        this.personalformGroup.get('city')?.enable();
+      } else {
+        this.hideStates = false;
+        this.personalformGroup.get('city')?.disable();
+        this.personalformGroup.get('state')?.enable();
+      }
+    });
+  }
+
+  private getCities(country: string, state: string): void {
+    this.geographyService.getCities(country, state).subscribe((result) => {
+      this.cities = result.data.map((city: string) => {
+        return { name: city };
+      });
+    });
+  }
+
+  private getCitiesFromCountry(country: string): void {
+    this.geographyService.getCitiesFromCountry(country).subscribe((result) => {
       this.cities = result.data.map((city: string) => {
         return { name: city };
       });

@@ -28,24 +28,26 @@
         >
         </app-input-text>
 
-        <!-- Stage name -->
-        <app-input-text
-          appearance="outline"
-          formControlName="stageName"
-          type="text"
-          placeholder="Nombre artístico"
-          class="textinput"
-          [width]="400"
-          [required]="true"
-        >
-        </app-input-text>
-
         <!-- Country -->
         <app-input-select
           appearance="outline"
           [items]="countries"
           formControlName="country"
           placeholder="País"
+          idPropertyName="name"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-select>
+
+        <!-- State -->
+        <app-input-select
+          *ngIf="!hideStates"
+          appearance="outline"
+          [items]="states"
+          formControlName="state"
+          placeholder="Provincia/Estado"
           idPropertyName="name"
           class="textinput"
           [width]="400"
@@ -67,6 +69,18 @@
         </app-input-select>
       </div>
       <div class="personal-inputs">
+        <!-- Stage name -->
+        <app-input-text
+          appearance="outline"
+          formControlName="stageName"
+          type="text"
+          placeholder="Nombre artístico"
+          class="textinput"
+          [width]="400"
+          [required]="true"
+        >
+        </app-input-text>
+
         <!-- Phone number -->
         <app-input-text
           appearance="outline"
@@ -111,19 +125,6 @@
           [width]="400"
         >
         </app-input-text>
-
-        <!-- Genres -->
-        <app-input-select
-          appearance="outline"
-          [required]="true"
-          [items]="genres"
-          formControlName="genres"
-          placeholder="Géneros"
-          [multiple]="true"
-          [width]="400"
-          class="textinput"
-        >
-        </app-input-select>
       </div>
     </form>
     <div class="stepper-buttons">
@@ -134,6 +135,17 @@
   <mat-step [stepControl]="skillsFormGroup">
     <form [formGroup]="skillsFormGroup">
       <ng-template matStepLabel>Instrumentos</ng-template>
+      <div class="instruments-inputs">
+        <app-input-select
+          appearance="outline"
+          [items]="experienceTypes"
+          formControlName="generalExperience"
+          placeholder="Experiencia general"
+          [required]="true"
+          [width]="300"
+        >
+        </app-input-select>
+      </div>
 
       <ng-container formArrayName="skills">
         <ng-container
@@ -171,6 +183,30 @@
           label="Agregar"
           (click)="addInstrument()"
         ></app-button>
+      </div>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-flat-button matStepperPrevious color="primary">Volver</button>
+      <button mat-flat-button matStepperNext color="primary">Siguiente</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="genresFormGroup">
+    <form [formGroup]="genresFormGroup">
+      <ng-template matStepLabel>Géneros</ng-template>
+      <!-- Genres -->
+      <div class="instruments-inputs">
+        <app-input-select
+          appearance="outline"
+          [required]="true"
+          [items]="genres"
+          formControlName="genres"
+          placeholder="Géneros"
+          [multiple]="true"
+          [width]="400"
+          class="textinput"
+        >
+        </app-input-select>
       </div>
     </form>
     <div class="stepper-buttons">

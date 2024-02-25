@@ -25,6 +25,7 @@ export interface PersonalInformation {
   gender: string;
   country: string;
   city: string;
+  state: string;
 }
 
 export interface ContactInformation {

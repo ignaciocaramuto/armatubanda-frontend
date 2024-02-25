@@ -44,6 +44,7 @@ export class BandFiltersComponent {
   instruments: Instrument[] = [];
   genres: Genre[] = [];
   countries: any[] = [];
+  states: any[] = [];
   cities: any[] = [];
 
   constructor(
@@ -57,6 +58,7 @@ export class BandFiltersComponent {
       instruments: [''],
       genres: [''],
       country: [''],
+      state: [{ value: '', disabled: true }],
       city: [{ value: '', disabled: true }],
     });
   }
@@ -68,6 +70,7 @@ export class BandFiltersComponent {
       controls['instruments'].value.length > 0 ||
       controls['genres'].value.length > 0 ||
       controls['country'].value ||
+      controls['state'].value ||
       controls['city'].value
     );
   }
@@ -77,8 +80,16 @@ export class BandFiltersComponent {
     if (storedData) {
       this.setFormGroup(JSON.parse(storedData));
       if (this.formGroup.get('country')?.value) {
-        this.getCities(this.formGroup.get('country')?.value);
-        this.formGroup.get('city')?.enable();
+        this.getStates(this.formGroup.get('country')?.value);
+        this.formGroup.get('state')?.enable();
+
+        if (this.formGroup.get('state')?.value) {
+          this.getCities(
+            this.formGroup.get('country')?.value,
+            this.formGroup.get('state')?.value
+          );
+          this.formGroup.get('city')?.enable();
+        }
       }
     }
     this.getInstruments();
@@ -91,7 +102,14 @@ export class BandFiltersComponent {
 
     this.formGroup.get('country')?.valueChanges.subscribe((country) => {
       if (country) {
-        this.getCities(country);
+        this.getStates(country);
+        this.formGroup.get('state')?.enable();
+      }
+    });
+
+    this.formGroup.get('state')?.valueChanges.subscribe((state) => {
+      if (state) {
+        this.getCities(this.formGroup.get('country')?.value, state);
         this.formGroup.get('city')?.enable();
       }
     });
@@ -127,6 +145,9 @@ export class BandFiltersComponent {
     if (controls['country'].value) {
       selectedKeys.push('country');
     }
+    if (controls['state'].value) {
+      selectedKeys.push('state');
+    }
     if (controls['city'].value) {
       selectedKeys.push('city');
     }
@@ -156,8 +177,14 @@ export class BandFiltersComponent {
     });
   }
 
-  private getCities(country: string): void {
-    this.geographyService.getCities(country).subscribe((result) => {
+  private getStates(country: string): void {
+    this.geographyService.getStates(country).subscribe((result) => {
+      this.states = result.data.states;
+    });
+  }
+
+  private getCities(country: string, state: string): void {
+    this.geographyService.getCities(country, state).subscribe((result) => {
       this.cities = result.data.map((city: string) => {
         return { name: city };
       });

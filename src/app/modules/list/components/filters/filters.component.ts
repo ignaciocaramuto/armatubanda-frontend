@@ -54,6 +54,7 @@ export class FiltersComponent implements OnInit {
   instruments: Instrument[] = [];
   genres: Genre[] = [];
   countries: any[] = [];
+  states: any[] = [];
   cities: any[] = [];
 
   constructor(
@@ -68,6 +69,7 @@ export class FiltersComponent implements OnInit {
       genres: [''],
       experience: [''],
       country: [''],
+      state: [{ value: '', disabled: true }],
       city: [{ value: '', disabled: true }],
       lookingBand: [''],
     });
@@ -81,6 +83,7 @@ export class FiltersComponent implements OnInit {
       controls['genres'].value.length > 0 ||
       controls['experience'].value ||
       controls['country'].value ||
+      controls['state'].value ||
       controls['city'].value ||
       controls['lookingBand'].value
     );
@@ -91,8 +94,16 @@ export class FiltersComponent implements OnInit {
     if (storedData) {
       this.setFormGroup(JSON.parse(storedData));
       if (this.formGroup.get('country')?.value) {
-        this.getCities(this.formGroup.get('country')?.value);
-        this.formGroup.get('city')?.enable();
+        this.getStates(this.formGroup.get('country')?.value);
+        this.formGroup.get('state')?.enable();
+
+        if (this.formGroup.get('state')?.value) {
+          this.getCities(
+            this.formGroup.get('country')?.value,
+            this.formGroup.get('state')?.value
+          );
+          this.formGroup.get('city')?.enable();
+        }
       }
     }
     this.getInstruments();
@@ -109,7 +120,17 @@ export class FiltersComponent implements OnInit {
 
     this.formGroup.get('country')?.valueChanges.subscribe((country) => {
       if (country) {
-        this.getCities(country);
+        this.getStates(country);
+        this.formGroup.get('state')?.enable();
+      } else {
+        this.formGroup.get('state')?.disable();
+        this.formGroup.get('city')?.disable();
+      }
+    });
+
+    this.formGroup.get('state')?.valueChanges.subscribe((state) => {
+      if (state) {
+        this.getCities(this.formGroup.get('country')?.value, state);
         this.formGroup.get('city')?.enable();
       }
     });
@@ -148,6 +169,9 @@ export class FiltersComponent implements OnInit {
     if (controls['country'].value) {
       selectedKeys.push('country');
     }
+    if (controls['state'].value) {
+      selectedKeys.push('state');
+    }
     if (controls['city'].value) {
       selectedKeys.push('city');
     }
@@ -180,11 +204,18 @@ export class FiltersComponent implements OnInit {
     });
   }
 
-  getCities(country: string): void {
-    this.geographyService.getCities(country).subscribe((result) => {
-      this.cities = result.data.map((city: string) => {
-        return { name: city };
-      });
+  getStates(country: string): void {
+    this.geographyService.getStates(country).subscribe((result) => {
+      this.states = result.data.states;
     });
+  }
+
+  getCities(country: string, state: string): void {
+    this.geographyService.getCities(country, state).subscribe(
+      (result) =>
+        (this.cities = result.data.map((city: string) => {
+          return { name: city };
+        }))
+    );
   }
 }

@@ -19,5 +19,6 @@ export interface BandInfo {
   description: string;
   country: string;
   city: string;
+  state: string;
   creationDate: Date;
 }

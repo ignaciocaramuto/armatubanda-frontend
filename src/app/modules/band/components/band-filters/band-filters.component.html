@@ -50,6 +50,14 @@
       >
       </app-input-select>
       <app-input-select
+        [items]="states"
+        formControlName="state"
+        placeholder="Provincia/Estado"
+        idPropertyName="name"
+        class="filter-input"
+      >
+      </app-input-select>
+      <app-input-select
         [items]="cities"
         formControlName="city"
         placeholder="Ciudad"

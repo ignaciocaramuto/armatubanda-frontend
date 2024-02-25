@@ -62,12 +62,14 @@ export class CreateBandProfileComponent implements OnInit {
   genres: Genre[] = [];
   band!: BandProfile;
   countries: any[] = [];
+  states: any[] = [];
   cities: any[] = [];
 
   bandInfoFormGroup: FormGroup = this.fb.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
     country: ['', Validators.required],
+    state: [{ value: '', disabled: true }, Validators.required],
     city: [{ value: '', disabled: true }, Validators.required],
     phoneNumber: [''],
     webSite: [''],
@@ -94,7 +96,14 @@ export class CreateBandProfileComponent implements OnInit {
 
     this.bandInfoFormGroup.get('country')?.valueChanges.subscribe((country) => {
       if (country) {
-        this.getCities(country);
+        this.getStates(country);
+        this.bandInfoFormGroup.get('state')?.enable();
+      }
+    });
+
+    this.bandInfoFormGroup.get('state')?.valueChanges.subscribe((state) => {
+      if (state) {
+        this.getCities(this.bandInfoFormGroup.get('country')?.value, state);
         this.bandInfoFormGroup.get('city')?.enable();
       }
     });
@@ -194,8 +203,14 @@ export class CreateBandProfileComponent implements OnInit {
     });
   }
 
-  private getCities(country: string): void {
-    this.geographyService.getCities(country).subscribe((result) => {
+  private getStates(country: string): void {
+    this.geographyService.getStates(country).subscribe((result) => {
+      this.states = result.data.states;
+    });
+  }
+
+  private getCities(country: string, state: string): void {
+    this.geographyService.getCities(country, state).subscribe((result) => {
       this.cities = result.data.map((city: string) => {
         return { name: city };
       });
