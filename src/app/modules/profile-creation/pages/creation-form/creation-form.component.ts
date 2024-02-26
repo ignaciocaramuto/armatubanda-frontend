@@ -98,7 +98,7 @@ export class CreationFormComponent implements OnInit {
     stageName: ['', Validators.required],
     country: ['', Validators.required],
     state: [{ value: '', disabled: true }, Validators.required],
-    city: [{ value: '', disabled: true }, Validators.required],
+    city: [{ value: '', disabled: true }],
     phoneNumber: ['', Validators.required],
     birthday: ['', Validators.required],
     webSite: [''],

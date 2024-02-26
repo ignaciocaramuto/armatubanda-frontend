@@ -70,7 +70,7 @@ export class CreateBandProfileComponent implements OnInit {
     description: ['', Validators.required],
     country: ['', Validators.required],
     state: [{ value: '', disabled: true }, Validators.required],
-    city: [{ value: '', disabled: true }, Validators.required],
+    city: [{ value: '', disabled: true }],
     phoneNumber: [''],
     webSite: [''],
     socialMedia: [''],

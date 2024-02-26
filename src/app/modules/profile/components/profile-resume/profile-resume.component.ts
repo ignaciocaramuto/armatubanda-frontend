@@ -30,6 +30,7 @@ import { BandMember } from 'src/app/modules/band/models/bandProfile.interface';
 import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { BandService } from 'src/app/modules/band/services/band.service';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-resume',
@@ -45,6 +46,7 @@ import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/c
     NgFor,
     RouterModule,
     ConfirmDialogComponent,
+    TranslateModule,
   ],
 })
 export class ProfileResumeComponent implements OnChanges {

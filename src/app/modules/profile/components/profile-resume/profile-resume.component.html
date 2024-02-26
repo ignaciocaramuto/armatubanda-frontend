@@ -60,13 +60,16 @@
   <div class="contact-info">
     <div *ngIf="!isMusicianProfile" class="contact">
       <span class="material-symbols-outlined"> location_on </span>
-      <p>{{ bandInfo.city }}, {{ bandInfo.state }}, {{ bandInfo.country }}</p>
+      <p>
+        {{ bandInfo.city }}, {{ bandInfo.state | translate }},
+        {{ bandInfo.country | translate }}
+      </p>
     </div>
     <div *ngIf="isMusicianProfile" class="contact">
       <span class="material-symbols-outlined"> location_on </span>
       <p>
-        {{ personalInfo.city }}, {{ personalInfo.state }},
-        {{ personalInfo.country }}
+        {{ personalInfo.city }}, {{ personalInfo.state | translate }},
+        {{ personalInfo.country | translate }}
       </p>
     </div>
     <div *ngIf="contactInfo.phoneNumber" class="contact">
