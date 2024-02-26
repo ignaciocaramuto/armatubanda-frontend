@@ -52,6 +52,7 @@
       >
       </app-input-select>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="countries"
         formControlName="country"
         placeholder="País"
@@ -60,6 +61,7 @@
       >
       </app-input-select>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="states"
         formControlName="state"
         placeholder="Provincia/Estado"
@@ -68,6 +70,7 @@
       >
       </app-input-select>
       <app-input-select
+        *ngIf="isMusiciansList"
         [items]="cities"
         formControlName="city"
         placeholder="Ciudad"
