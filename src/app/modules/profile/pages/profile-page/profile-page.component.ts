@@ -28,6 +28,7 @@ export class ProfilePageComponent implements OnInit {
   user!: Musician;
   reviews: Review[] = [];
   posts: Post[] = [];
+  genres: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +46,9 @@ export class ProfilePageComponent implements OnInit {
   getById(): void {
     this.profileService.getById(this.userId).subscribe((res) => {
       this.user = res;
+      this.genres = this.user.skillsInformation.genres.map(
+        (genre) => genre.name
+      );
       this.reviews = this.user.reviews ?? [];
     });
   }

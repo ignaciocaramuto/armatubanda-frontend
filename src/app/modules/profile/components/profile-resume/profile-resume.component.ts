@@ -51,6 +51,7 @@ export class ProfileResumeComponent implements OnChanges {
   @Input() biographyInfo!: BiographyInformation;
   @Input() contactInfo!: ContactInformation;
   @Input() personalInfo!: PersonalInformation;
+  @Input() genres: string[] = [];
   @Input() profileImage?: Image;
   @Input() userId!: number;
   @Input() bandInfo!: BandInfo;

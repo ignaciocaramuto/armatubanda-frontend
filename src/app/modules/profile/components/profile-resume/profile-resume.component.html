@@ -23,6 +23,15 @@
           </ng-container>
         </div>
       </ng-container>
+      <div>
+        <h4 class="bands-text">Géneros:</h4>
+        <div class="bands-text">
+          <ng-container *ngFor="let genre of genres; let last = last">
+            <span>{{ genre }}</span>
+            <span *ngIf="!last">, </span>
+          </ng-container>
+        </div>
+      </div>
     </ng-container>
 
     <div *ngIf="isMusicianProfile" class="actions">
@@ -110,6 +119,16 @@
       </ng-container>
     </div>
   </ng-container>
+
+  <div>
+    <h4 class="bands-text">Géneros:</h4>
+    <div class="bands-text">
+      <ng-container *ngFor="let genre of genres; let last = last">
+        <span>{{ genre }}</span>
+        <span *ngIf="!last">, </span>
+      </ng-container>
+    </div>
+  </div>
 </ng-template>
 
 <!-- TODO: Add social media -->
