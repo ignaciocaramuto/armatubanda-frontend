@@ -123,6 +123,7 @@ export class CreateBandProfileComponent implements OnInit {
           name: this.bandInfoFormGroup.get('name')?.value,
           description: this.bandInfoFormGroup.get('description')?.value,
           country: this.bandInfoFormGroup.get('country')?.value,
+          state: this.bandInfoFormGroup.get('state')?.value,
           city: this.bandInfoFormGroup.get('city')?.value,
         },
         bandContactInfo: {
@@ -171,6 +172,7 @@ export class CreateBandProfileComponent implements OnInit {
       .get('description')
       ?.setValue(band.bandInfo.description);
     this.bandInfoFormGroup.get('country')?.setValue(band.bandInfo.country);
+    this.bandInfoFormGroup.get('state')?.setValue(band.bandInfo.state);
     this.bandInfoFormGroup.get('city')?.setValue(band.bandInfo.city);
     this.bandInfoFormGroup
       .get('phoneNumber')
