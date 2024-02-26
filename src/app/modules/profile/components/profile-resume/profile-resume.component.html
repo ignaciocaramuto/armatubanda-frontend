@@ -1,45 +1,85 @@
 <div class="container">
-  <app-profile-image
-    [picByte]="profileImage?.picByte"
-    [type]="profileImage?.type"
-    class="large-size"
-  ></app-profile-image>
-  <ng-container *ngIf="isMusicianProfile; else band">
-    <h2>{{ personalInfo.name }} {{ personalInfo.lastname }}</h2>
-    <p>{{ biographyInfo.bio }}</p>
-    <ng-container *ngIf="!!profileBandsMember.length">
-      <h4 class="bands-text">Miembro de:</h4>
-      <div class="member">
-        <ng-container *ngFor="let band of profileBandsMember">
-          <a [routerLink]="'/band/profile/' + band.bandId">
-            <app-profile-image
-              [picByte]="band.bandImage.picByte"
-              [type]="band.bandImage.type"
-              class="small-size"
-            >
-            </app-profile-image>
-          </a>
-        </ng-container>
-      </div>
+  <div>
+    <app-profile-image
+      [picByte]="profileImage?.picByte"
+      [type]="profileImage?.type"
+      class="large-size"
+    ></app-profile-image>
+    <ng-container *ngIf="isMusicianProfile; else band">
+      <h2>{{ personalInfo.name }} {{ personalInfo.lastname }}</h2>
+      <p>{{ biographyInfo.bio }}</p>
+      <ng-container *ngIf="!!profileBandsMember.length">
+        <h4 class="bands-text">Miembro de:</h4>
+        <div class="member">
+          <ng-container *ngFor="let band of profileBandsMember">
+            <a [routerLink]="'/band/profile/' + band.bandId">
+              <app-profile-image
+                [picByte]="band.bandImage.picByte"
+                [type]="band.bandImage.type"
+                class="small-size"
+              >
+              </app-profile-image>
+            </a>
+          </ng-container>
+        </div>
+      </ng-container>
     </ng-container>
-  </ng-container>
 
-  <div *ngIf="isMusicianProfile" class="actions">
-    <ng-container *ngIf="user()?.id !== userId && !isMemberOfAllBands">
+    <div *ngIf="isMusicianProfile" class="actions">
+      <ng-container *ngIf="user()?.id !== userId && !isMemberOfAllBands">
+        <app-button
+          *ngIf="user()?.id !== userId && !hasBeenInvitedToAllBands"
+          label="Invitar"
+          icon="person_add"
+          class="larger"
+          (click)="inviteToBand()"
+        ></app-button>
+        <button mat-stroked-button disabled *ngIf="hasBeenInvitedToAllBands">
+          <mat-icon>person_add</mat-icon>
+          Pendiente
+        </button>
+      </ng-container>
+
       <app-button
-        *ngIf="user()?.id !== userId && !hasBeenInvitedToAllBands"
-        label="Invitar"
-        icon="person_add"
+        label="+ Info"
         class="larger"
-        (click)="inviteToBand()"
+        (click)="goToInfo()"
       ></app-button>
-      <button mat-stroked-button disabled *ngIf="hasBeenInvitedToAllBands">
-        <mat-icon>person_add</mat-icon>
-        Pendiente
-      </button>
-    </ng-container>
+    </div>
+  </div>
 
-    <app-button label="+ Info" class="larger" (click)="goToInfo()"></app-button>
+  <div *ngIf="isMusicianProfile" class="contact-info">
+    <div *ngIf="contactInfo.phoneNumber" class="contact">
+      <span class="material-symbols-outlined"> call </span>
+      <p>{{ contactInfo.phoneNumber }}</p>
+    </div>
+    <div *ngIf="contactInfo.socialMedia" class="contact">
+      <span class="material-symbols-outlined"> group </span>
+      <p>{{ contactInfo.socialMedia }}</p>
+    </div>
+    <div *ngIf="contactInfo.webSite" class="contact">
+      <span class="material-symbols-outlined"> public </span>
+      <p (click)="redirectToUserWebsite()" class="website">
+        {{ contactInfo.webSite }}
+      </p>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    <div *ngIf="contactInfo.phoneNumber" class="contact">
+      <span class="material-symbols-outlined"> call </span>
+      <p>{{ contactInfo.phoneNumber }}</p>
+    </div>
+    <div *ngIf="contactInfo.socialMedia" class="contact">
+      <span class="material-symbols-outlined"> group </span>
+      <p>{{ contactInfo.socialMedia }}</p>
+    </div>
+    <div *ngIf="contactInfo.webSite" class="contact">
+      <span class="material-symbols-outlined"> public </span>
+      <p (click)="redirectToUserWebsite()" class="website">
+        {{ contactInfo.webSite }}
+      </p>
+    </div>
   </div>
 </div>
 

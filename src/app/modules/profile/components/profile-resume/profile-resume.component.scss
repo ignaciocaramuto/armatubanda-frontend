@@ -9,6 +9,28 @@
   left: 0;
   z-index: 2;
   padding-top: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact-info {
+  margin-bottom: 7em;
+  padding-left: 1.5rem;
+  .contact {
+    display: flex;
+    align-items: center;
+    span {
+      color: $text-grey;
+    }
+    .website {
+      cursor: pointer;
+    }
+    .website:hover {
+      text-decoration: underline;
+      color: $main-color;
+    }
+  }
 }
 
 p {
