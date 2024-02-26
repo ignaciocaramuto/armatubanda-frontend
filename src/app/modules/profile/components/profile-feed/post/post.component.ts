@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/c
 import { ProfileService } from '../../../services/profile.service';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
+import { BandService } from 'src/app/modules/band/services/band.service';
 
 @Component({
   selector: 'app-post',
@@ -19,6 +20,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 export class PostComponent implements OnInit {
   @Input() post!: Post;
   @Input() userId!: number;
+  @Input() bandId!: number;
   @Output() postDeleted = new EventEmitter<void>();
 
   user = this.authService.currentUser();
@@ -30,7 +32,8 @@ export class PostComponent implements OnInit {
     private dialog: MatDialog,
     private profileService: ProfileService,
     private logMessageService: LogMessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private bandService: BandService
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +52,15 @@ export class PostComponent implements OnInit {
       .afterClosed()
       .subscribe((confirm: boolean) => {
         if (confirm) {
-          this.profileService.deletePost(this.post.id).subscribe(() => {
-            this.postDeleted.emit();
-            this.logMessageService.logConfirm(
-              '¡Publicación eliminada exitosamente!'
-            );
-          });
+          if (!this.bandId) {
+            this.profileService
+              .deletePost(this.post.id)
+              .subscribe(() => this.emitPostDeletedEvent());
+          } else {
+            // this.bandService
+            //   .deleteBand(this.bandId)
+            //   .subscribe(() => this.emitPostDeletedEvent());
+          }
         }
       });
   }
@@ -70,5 +76,10 @@ export class PostComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  private emitPostDeletedEvent(): void {
+    this.postDeleted.emit();
+    this.logMessageService.logConfirm('¡Publicación eliminada exitosamente!');
   }
 }

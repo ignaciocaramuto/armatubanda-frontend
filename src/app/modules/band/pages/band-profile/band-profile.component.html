@@ -10,7 +10,12 @@
     [isMusicianProfile]="false"
     [bandId]="band.bandId"
   ></app-profile-resume>
-  <app-profile-feed [posts]="posts"></app-profile-feed>
+  <app-profile-feed
+    [posts]="posts"
+    [userId]="band.leader.musicianId"
+    [bandId]="bandId"
+    (postDeleted)="getPosts()"
+  ></app-profile-feed>
   <app-profile-reviews
     [band]="band"
     [isMusicianProfile]="false"

@@ -13,5 +13,6 @@ import { NgFor, NgIf } from '@angular/common';
 export class ProfileFeedComponent {
   @Input() posts: Post[] = [];
   @Input() userId!: number;
+  @Input() bandId!: number;
   @Output() postDeleted = new EventEmitter<void>();
 }
