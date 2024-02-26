@@ -64,23 +64,6 @@
       </p>
     </div>
   </div>
-
-  <div class="contact-info">
-    <div *ngIf="contactInfo.phoneNumber" class="contact">
-      <span class="material-symbols-outlined"> call </span>
-      <p>{{ contactInfo.phoneNumber }}</p>
-    </div>
-    <div *ngIf="contactInfo.socialMedia" class="contact">
-      <span class="material-symbols-outlined"> group </span>
-      <p>{{ contactInfo.socialMedia }}</p>
-    </div>
-    <div *ngIf="contactInfo.webSite" class="contact">
-      <span class="material-symbols-outlined"> public </span>
-      <p (click)="redirectToUserWebsite()" class="website">
-        {{ contactInfo.webSite }}
-      </p>
-    </div>
-  </div>
 </div>
 
 <ng-template #band>
