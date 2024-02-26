@@ -38,4 +38,8 @@ export class AdvertisementService extends CrudService<Advertisement> {
   getAds(bandId: number): Observable<Advertisement[]> {
     return this.http.get<Advertisement[]>(`${environment.apiUrl}/ad/${bandId}`);
   }
+
+  deleteAdvertisement(adId: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/delete/${adId}`);
+  }
 }

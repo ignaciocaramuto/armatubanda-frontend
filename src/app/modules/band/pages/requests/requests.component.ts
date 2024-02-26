@@ -15,6 +15,8 @@ import { AdvertisementService } from 'src/app/modules/advertisements/services/ad
 import { ApplicationService } from '../../services/application.service';
 import { Application } from '../../models/application.interface';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
+import { ButtonComponent } from 'src/app/core/components/button/button.component';
+import { LogMessageService } from 'src/app/core/services/log-message.service';
 
 @Component({
   selector: 'app-requests',
@@ -31,6 +33,7 @@ import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/c
     InputSelectComponent,
     ReactiveFormsModule,
     RouterLink,
+    ButtonComponent,
   ],
 })
 export class RequestsComponent implements OnInit {
@@ -53,7 +56,8 @@ export class RequestsComponent implements OnInit {
     private authService: AuthService,
     private advertisementService: AdvertisementService,
     private applicationService: ApplicationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private logMessageService: LogMessageService
   ) {}
 
   ngOnInit(): void {
@@ -71,14 +75,9 @@ export class RequestsComponent implements OnInit {
 
     this.formGroup.get('bandId')?.valueChanges.subscribe((bandId) => {
       if (bandId) {
+        this.bandId = bandId;
         this.getBand(bandId, false);
-        this.advertisementService.getAds(bandId).subscribe((ads) => {
-          this.advertisements = ads.map((ad) => ({
-            id: ad.adId,
-            name: ad.adName,
-          }));
-          this.formGroup.get('adId')?.enable();
-        });
+        this.getAds(bandId);
       }
     });
 
@@ -115,6 +114,27 @@ export class RequestsComponent implements OnInit {
       });
   }
 
+  deleteAdvertisement(): void {
+    const confirmText = '¿Estás seguro que quieres borrar este aviso?';
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: confirmText,
+      })
+      .afterClosed()
+      .subscribe((confirm: Boolean) => {
+        if (confirm) {
+          this.advertisementService
+            .deleteAdvertisement(this.formGroup.get('adId')?.value)
+            .subscribe(() => {
+              this.logMessageService.logConfirm(
+                '¡Aviso borrado correctamente!'
+              );
+              this.getAds(this.bandId);
+            });
+        }
+      });
+  }
+
   private getBand(id: number, setValue: boolean): void {
     this.bandService.getById(id).subscribe((res) => {
       this.band = res;
@@ -132,6 +152,16 @@ export class RequestsComponent implements OnInit {
 
     this.applicationService.getAll(ad).subscribe((result) => {
       this.applications = result;
+    });
+  }
+
+  private getAds(bandId: number): void {
+    this.advertisementService.getAds(bandId).subscribe((ads) => {
+      this.advertisements = ads.map((ad) => ({
+        id: ad.adId,
+        name: ad.adName,
+      }));
+      this.formGroup.get('adId')?.enable();
     });
   }
 }

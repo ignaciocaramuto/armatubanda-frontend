@@ -57,9 +57,9 @@ export class PostComponent implements OnInit {
               .deletePost(this.post.id)
               .subscribe(() => this.emitPostDeletedEvent());
           } else {
-            // this.bandService
-            //   .deleteBand(this.bandId)
-            //   .subscribe(() => this.emitPostDeletedEvent());
+            this.bandService
+              .deletePost(this.bandId, this.post.id)
+              .subscribe(() => this.emitPostDeletedEvent());
           }
         }
       });

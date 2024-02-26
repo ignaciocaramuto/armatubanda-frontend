@@ -27,6 +27,13 @@
       >
       </app-input-select>
 
+      <app-button
+        *ngIf="advertisements.length && formGroup.get('adId')?.value"
+        color="warn"
+        label="Borrar aviso"
+        (click)="deleteAdvertisement()"
+      ></app-button>
+
       <span *ngIf="!advertisements.length">Aún no has publicado avisos</span>
     </form>
   </div>

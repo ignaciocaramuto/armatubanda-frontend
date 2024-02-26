@@ -61,4 +61,19 @@ export class BandService extends CrudService<BandProfile> {
       )
     );
   }
+
+  deletePost(bandId: number, postId: number): Observable<string> {
+    return this.http
+      .delete<string>(`${this.apiUrl}/delete-post/${bandId}/${postId}`)
+      .pipe(
+        tap(() =>
+          this._logMessageService.logConfirm('¡Post eliminado correctamente!')
+        ),
+        catchError((res: HttpErrorResponse) =>
+          throwError(() =>
+            this._logMessageService.logServerError(res.error.message)
+          )
+        )
+      );
+  }
 }
