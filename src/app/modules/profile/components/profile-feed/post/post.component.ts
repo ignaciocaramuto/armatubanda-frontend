@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Post } from '../../../models/post.interface';
-import { SanitizeImagePipe } from '../../../../../core/pipes/sanitize-image.pipe';
 import { DatePipe, JsonPipe, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
@@ -15,7 +14,7 @@ import { BandService } from 'src/app/modules/band/services/band.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
   standalone: true,
-  imports: [NgIf, SanitizeImagePipe, JsonPipe, DatePipe],
+  imports: [NgIf, JsonPipe, DatePipe],
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
