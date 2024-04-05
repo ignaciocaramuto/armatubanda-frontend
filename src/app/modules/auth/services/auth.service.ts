@@ -1,8 +1,7 @@
-import { LoginResponse } from './../interfaces/login-response';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { environment } from 'src/environments/environment.local';
-import { AuthUser, AuthStatus } from 'src/app/modules/auth/interfaces/index';
+import { AuthStatus, CurrentUser } from 'src/app/modules/auth/interfaces/index';
 import {
   Observable,
   Subject,
@@ -13,12 +12,11 @@ import {
   throwError,
 } from 'rxjs';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly baseUrl: string = environment.apiUrl;
   private http = inject(HttpClient);
-  private _currentUser = signal<AuthUser | null>(null);
+  private _currentUser = signal<CurrentUser | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
   private _logMessageService = inject(LogMessageService);
 
@@ -28,15 +26,15 @@ export class AuthService {
   public user$ = new Subject<void>();
 
   login(email: string, password: string): Observable<boolean> {
-    const url = `${this.baseUrl}/auth/authenticate`;
+    const url = `${this.baseUrl}/auth/login`;
     const body = { email: email, password: password };
 
-    return this.http.post<LoginResponse>(url, body).pipe(
-      tap((user: LoginResponse) => {
+    return this.http.post<CurrentUser>(url, body).pipe(
+      tap((user: CurrentUser) => {
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('token', user.token);
-        localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
+        localStorage.setItem('isProfileSet', JSON.stringify(user.isProfileSet));
         this.user$.next();
       }),
       map(() => true),
@@ -53,7 +51,7 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/register`;
     const body = { email: email, password: password };
 
-    return this.http.post<LoginResponse>(url, body).pipe(
+    return this.http.post<CurrentUser>(url, body).pipe(
       catchError((res: HttpErrorResponse) =>
         throwError(() =>
           this._logMessageService.logServerError(res.error.message)
@@ -75,11 +73,11 @@ export class AuthService {
     if (!localStorage.getItem('token')) return of(false);
     const url = `${this.baseUrl}/auth/me`;
 
-    return this.http.get<AuthUser>(url).pipe(
+    return this.http.get<CurrentUser>(url).pipe(
       tap((user) => {
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
-        localStorage.setItem('isProfileSet', JSON.stringify(user.profileSet));
+        localStorage.setItem('isProfileSet', JSON.stringify(user.isProfileSet));
         this.user$.next();
       }),
       map((user) => !!user),
@@ -97,18 +95,14 @@ export class AuthService {
     if (!localStorage.getItem('token')) return of(false);
     const url = `${this.baseUrl}/auth/me`;
 
-    return this.http.get<AuthUser>(url).pipe(
-      map(({ profileSet }) => profileSet),
+    return this.http.get<CurrentUser>(url).pipe(
+      map(({ isProfileSet }) => isProfileSet),
       catchError((res: HttpErrorResponse) =>
         throwError(() =>
           this._logMessageService.logServerError(res.error.message)
         )
       )
     );
-  }
-
-  confirmEmail(token: string): Observable<AuthUser> {
-    return this.http.get<AuthUser>(`${this.baseUrl}/auth/confirm/${token}`);
   }
 
   resetPasswordRequest(email: string): Observable<string> {

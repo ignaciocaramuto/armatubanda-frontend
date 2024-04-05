@@ -1,25 +1,18 @@
 <ng-container *ngIf="band">
   <app-profile-resume
-    [bandInfo]="band.bandInfo"
-    [contactInfo]="band.bandContactInfo"
-    [profileImage]="band.bandProfileImage"
-    [genres]="band.bandGenres"
-    [userId]="band.leader.musicianId"
-    [members]="band.bandMembersList"
-    [leaderProfileImage]="band.leader.musicianProfileImage"
     [isMusicianProfile]="false"
-    [bandId]="band.bandId"
+    [band]="band"
   ></app-profile-resume>
   <app-profile-feed
     [posts]="posts"
-    [userId]="band.leader.musicianId"
+    [userId]="band.leader.id"
     [bandId]="bandId"
     (postDeleted)="getPosts()"
   ></app-profile-feed>
   <app-profile-reviews
     [band]="band"
     [isMusicianProfile]="false"
-    [reviews]="reviews"
+    [comments]="comments"
     (onPostChange)="getPosts()"
   ></app-profile-reviews>
 </ng-container>

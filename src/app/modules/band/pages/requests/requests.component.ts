@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
-import { BandProfile } from '../../models/bandProfile.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { BandService } from '../../services/band.service';
@@ -17,6 +16,7 @@ import { Application } from '../../models/application.interface';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
+import { Band } from '../../models/band.interface.js';
 
 @Component({
   selector: 'app-requests',
@@ -38,7 +38,7 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
 })
 export class RequestsComponent implements OnInit {
   user = this.authService.currentUser();
-  band!: BandProfile;
+  band!: Band;
   bandId!: number;
   leaderBands: any[] = [];
   advertisements: any[] = [];
@@ -140,7 +140,7 @@ export class RequestsComponent implements OnInit {
       this.band = res;
 
       if (setValue) {
-        this.formGroup.get('bandId')?.setValue(this.band.bandId);
+        this.formGroup.get('bandId')?.setValue(this.band.id);
       }
     });
   }
@@ -158,8 +158,8 @@ export class RequestsComponent implements OnInit {
   private getAds(bandId: number): void {
     this.advertisementService.getAds(bandId).subscribe((ads) => {
       this.advertisements = ads.map((ad) => ({
-        id: ad.adId,
-        name: ad.adName,
+        id: ad.id,
+        name: ad.title,
       }));
       this.formGroup.get('adId')?.enable();
     });

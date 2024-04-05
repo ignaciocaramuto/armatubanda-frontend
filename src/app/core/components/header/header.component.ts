@@ -21,6 +21,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { InvitationStatusDto } from 'src/app/modules/profile/models/InvitationStatusDto.interface';
+import { Role } from '../../enums/role.enum';
 
 @Component({
   standalone: true,
@@ -50,6 +51,8 @@ export class HeaderComponent implements OnInit {
   status = this.authService.authStatus();
   musicianBands: MusicianBands[] = [];
   invitations: Invitation[] = [];
+
+  readonly Role = Role;
 
   ngOnInit(): void {
     this.authService.checkAuthentication().subscribe();

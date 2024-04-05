@@ -44,10 +44,7 @@
     <div class="skills">
       <span
         >Experiencia General:
-        {{
-          profileInfo.skillsInformation.generalExperience
-            | translateExperienceType
-        }}</span
+        {{ profileInfo.skillsInformation.generalExperience | translate }}</span
       >
       <ul class="skills-list">
         <li
@@ -58,7 +55,7 @@
           class="skill-item"
         >
           <span>{{ instrument.instrument.name }}:</span>
-          <span>{{ instrument.experience | translateExperienceType }}</span>
+          <span>{{ instrument.experience | translate }}</span>
         </li>
       </ul>
     </div>

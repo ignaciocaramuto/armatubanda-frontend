@@ -6,28 +6,27 @@
 <ng-container *ngFor="let advertisement of advertisements">
   <mat-card class="card-content">
     <div class="card-info">
-      <a [routerLink]="'../band/profile/' + advertisement.bandId">
+      <a [routerLink]="'../band/profile/' + advertisement.band.id">
         <app-profile-image
-          [picByte]="advertisement.bandImage.picByte"
-          [type]="advertisement.bandImage.type"
+          [imagePath]="advertisement.band.imagePath"
           class="medium-size"
         ></app-profile-image>
       </a>
 
-      <h3>{{ advertisement.bandName }}</h3>
+      <h3>{{ advertisement.band.name }}</h3>
       <p>
         {{ advertisement.description }}
       </p>
     </div>
     <div class="card-actions">
-      <button
+      <!-- <button
         mat-stroked-button
         color="primary"
         [disabled]="advertisement.status !== advertisementStatus.Eligible"
         (click)="openApplicationDialog(advertisement.adId)"
       >
         {{ getButtonLabel(advertisement.status) }}
-      </button>
+      </button> -->
     </div>
   </mat-card>
 </ng-container>

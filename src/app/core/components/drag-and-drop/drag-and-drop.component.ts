@@ -6,6 +6,8 @@ import {
   Input,
   ChangeDetectorRef,
   OnInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
@@ -32,22 +34,18 @@ import { ConvertImageToFilePipe } from '../../pipes/convert-image-to-file.pipe';
   providers: [ConvertImageToFilePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DragAndDropComponent implements OnInit {
-  @Input() image!: Image | undefined;
+export class DragAndDropComponent implements OnChanges {
+  @Input() imagePath!: string | undefined;
   @Output() fileSelected = new EventEmitter<Event | null>();
 
   imageSrc!: string | ArrayBuffer | null;
   fileName!: string;
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private fileConverterPipe: ConvertImageToFilePipe
-  ) {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
-    if (this.image) {
-      const file = this.fileConverterPipe.transform(this.image);
-      this.readURL(file);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['imagePath'].currentValue) {
+      this.imageSrc = changes['imagePath'].currentValue;
     }
   }
 

@@ -6,10 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { ProfileService } from '../../../services/profile.service';
-import { Review } from 'src/app/core/models/review.interface';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { DialogComponent } from 'src/app/core/components/dialog/dialog.component';
 import { BandService } from 'src/app/modules/band/services/band.service';
+import { Comment } from 'src/app/core/models/comment.interface.js';
 
 @Component({
   selector: 'app-add-review-dialog',
@@ -42,20 +42,25 @@ export class AddReviewDialogComponent {
 
   postReview(): void {
     if (this.formReview.valid && this.formReview.value) {
-      const review: Review = {
-        comment: this.formReview.value,
-        reviewerId: this.user()?.id,
-        musicianId: this.dialogData.userId ?? this.dialogData.bandId,
-      };
       if (this.dialogData.bandId) {
-        this.bandService.postReview(review).subscribe((reviews) => {
-          console.log(reviews);
+        const comment = {
+          comment: this.formReview.value,
+          author: this.user()!.id,
+          band: this.dialogData.bandId,
+        };
 
-          this.dialogRef.close(reviews);
+        this.bandService.postReview(comment).subscribe((comments) => {
+          this.dialogRef.close(comments);
         });
       } else {
-        this.profileService.postReview(review).subscribe((reviews) => {
-          this.dialogRef.close(reviews);
+        const comment = {
+          comment: this.formReview.value,
+          author: this.user()!.id,
+          musician: this.dialogData.userId,
+        };
+
+        this.profileService.postReview(comment).subscribe((comments) => {
+          this.dialogRef.close(comments);
         });
       }
     }

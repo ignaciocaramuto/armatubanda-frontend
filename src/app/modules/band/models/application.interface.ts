@@ -1,9 +1,9 @@
-import { Image } from 'src/app/core/models/image.interface';
+import { Musician } from 'src/app/core/models/musician.js';
 
 export interface Application {
-  musicianImage: Image;
-  applicationMessage: string;
-  musicianId: number;
-  musicianName: string;
-  applicationId: number;
+  id: number;
+  message: string;
+  createdAt: Date;
+  status: string;
+  applicant: Musician;
 }

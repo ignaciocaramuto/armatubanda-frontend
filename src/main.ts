@@ -30,7 +30,6 @@ import {
   TranslateModuleConfig,
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { emailConfirmedGuard } from './app/modules/auth/guards/email-confirmed.guard';
 import { adminGuard } from './app/modules/admin/guards/admin.guard';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -74,7 +73,7 @@ bootstrapApplication(AppComponent, {
           import(`./app/modules/list/pages/list-page/list-page.component`).then(
             (c) => c.ListPageComponent
           ),
-        canActivate: [canActivateGuardProfile, emailConfirmedGuard],
+        canActivate: [canActivateGuardProfile],
         canMatch: [canMatchGuardProfile],
       },
       {
@@ -102,7 +101,7 @@ bootstrapApplication(AppComponent, {
           import(
             `./app/modules/advertisements/pages/advertisements-page/advertisements-page.component`
           ).then((c) => c.AdvertisementsPageComponent),
-        canActivate: [canActivateGuard, emailConfirmedGuard],
+        canActivate: [canActivateGuard],
         canMatch: [canMatchGuard],
       },
       {

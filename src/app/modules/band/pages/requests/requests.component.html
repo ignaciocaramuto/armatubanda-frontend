@@ -1,11 +1,10 @@
-<div class="requests" *ngIf="band && band.leader.musicianId === user()?.id">
+<div class="requests" *ngIf="band && band.leader.id === user()?.id">
   <div class="container">
     <app-profile-image
-      [picByte]="band.bandProfileImage.picByte"
-      [type]="band.bandProfileImage.type"
+      [imagePath]="band.imagePath"
       class="large-size"
     ></app-profile-image>
-    <h2 style="margin-bottom: 1.5rem">{{ band.bandInfo.name }}</h2>
+    <h2 style="margin-bottom: 1.5rem">{{ band.name }}</h2>
 
     <form [formGroup]="formGroup">
       <app-input-select
@@ -42,29 +41,28 @@
     <ng-container *ngFor="let application of applications">
       <mat-card class="card-content">
         <div class="card-info">
-          <a [routerLink]="'/profile/' + application.musicianId">
+          <a [routerLink]="'/profile/' + application.applicant.id">
             <app-profile-image
-              [picByte]="application.musicianImage.picByte"
-              [type]="application.musicianImage.type"
+              [imagePath]="application.applicant.imagePath"
               class="medium-size"
             ></app-profile-image>
           </a>
-          <h3>{{ application.musicianName }}</h3>
+          <h3>{{ application.applicant.firstName }}</h3>
           <p>Quiere unirse a tu banda:</p>
-          <p>{{ application.applicationMessage }}</p>
+          <p>{{ application.message }}</p>
         </div>
         <div class="card-actions">
           <button
             mat-stroked-button
             color="primary"
-            (click)="applicationChange(application.applicationId, true)"
+            (click)="applicationChange(application.id, true)"
           >
             Aceptar
           </button>
           <button
             mat-stroked-button
             color="warn"
-            (click)="applicationChange(application.applicationId, false)"
+            (click)="applicationChange(application.id, false)"
           >
             Rechazar
           </button>

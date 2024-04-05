@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
-import { ExperienceType } from 'src/app/core/enums/experienceType.enum';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { Instrument } from 'src/app/core/models/instrument.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
@@ -19,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { GeographyService } from 'src/app/core/services/geography.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { Experience } from 'src/app/core/enums/experience.enum';
 
 @Component({
   selector: 'app-filters',
@@ -44,9 +44,9 @@ export class FiltersComponent implements OnInit {
   @Output() filterSelected = new EventEmitter<any>();
 
   readonly experienceTypes = [
-    { name: ExperienceType.Novice },
-    { name: ExperienceType.Advanced },
-    { name: ExperienceType.Expert },
+    { name: Experience.BEGINNER },
+    { name: Experience.INTERMEDIATE },
+    { name: Experience.EXPERT },
   ];
 
   readonly lookingBand = [{ name: 'Sí' }, { name: 'No' }];

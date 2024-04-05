@@ -5,7 +5,7 @@
   <div class="menu-buttons">
     <ng-container *ngIf="status() == 'authenticated'; else Unauthenticated">
       <button
-        *ngIf="user()?.role === 'ADMIN'"
+        *ngIf="user()?.role === Role.ADMIN"
         mat-button
         routerLink="/admin"
         class="text-white"
@@ -35,14 +35,13 @@
       </button>
       <div class="profile-options">
         <button mat-button [matMenuTriggerFor]="userMenu">
-          <span *ngIf="user()?.profileSet" class="text-white">{{
+          <span *ngIf="user()?.isProfileSet" class="text-white">{{
             user()?.firstName
           }}</span>
           <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
         <app-profile-image
-          [picByte]="user()?.profileImage?.picByte"
-          [type]="user()?.profileImage?.type"
+          [imagePath]="user()?.imagePath"
           class="small-size"
         ></app-profile-image>
       </div>
@@ -65,12 +64,12 @@
         class="menu-option invitation"
         [routerLink]="'/band/profile/' + invitation.bandInvitation.id"
       >
-        <app-profile-image
+        <!-- <app-profile-image
           [picByte]="invitation.bandInvitation.image.picByte"
           [type]="invitation.bandInvitation.image.type"
           class="small-size"
         ></app-profile-image>
-        <span class="text">{{ invitation.bandInvitation.bandInfo.name }}</span>
+        <span class="text">{{ invitation.bandInvitation.bandInfo.name }}</span> -->
       </div>
       <div class="actions">
         <span
@@ -95,11 +94,10 @@
     <ng-container *ngFor="let band of musicianBands">
       <button mat-menu-item [routerLink]="'band/profile/' + band.bandId">
         <div class="menu-option">
-          <app-profile-image
-            [picByte]="band.bandImage.picByte"
-            [type]="band.bandImage.type"
+          <!-- <app-profile-image
+          [imagePath]="band"
             class="small-size"
-          ></app-profile-image>
+          ></app-profile-image> -->
           <span>{{ band.bandName }}</span>
         </div>
       </button>
@@ -112,7 +110,7 @@
 </mat-menu>
 
 <mat-menu #userMenu="matMenu">
-  <ng-container *ngIf="user()?.profileSet">
+  <ng-container *ngIf="user()?.isProfileSet">
     <button mat-menu-item [routerLink]="'/profile/' + user()?.id">
       Ver perfil
     </button>

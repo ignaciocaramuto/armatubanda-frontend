@@ -5,8 +5,6 @@ import {
   canActivateGuardPublic,
   canMatchGuardPublic,
 } from './guards/public.guard';
-import { ConfirmationEmailPageComponent } from './pages/confirmation-email-page/confirmation-email-page.component';
-import { PendingEmailConfirmPageComponent } from './pages/pending-email-confirm-page/pending-email-confirm-page.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 
 export const AUTH_ROUTES: Routes = [
@@ -21,14 +19,6 @@ export const AUTH_ROUTES: Routes = [
     component: RegisterPageComponent,
     canActivate: [canActivateGuardPublic],
     canMatch: [canMatchGuardPublic],
-  },
-  {
-    path: 'confirm/:token',
-    component: ConfirmationEmailPageComponent,
-  },
-  {
-    path: 'pending-email-confirm',
-    component: PendingEmailConfirmPageComponent,
   },
   {
     path: 'reset-password/:token',

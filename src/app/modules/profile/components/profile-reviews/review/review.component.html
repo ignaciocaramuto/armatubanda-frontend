@@ -1,9 +1,8 @@
 <div class="reviewer">
   <app-profile-image
-    [picByte]="review.reviewerProfileImage?.picByte"
-    [type]="review.reviewerProfileImage?.type"
+    [imagePath]="comment.author.imagePath"
     class="small-size"
   ></app-profile-image>
-  <span>{{ review.reviewerFirstName }} {{ review.reviewerLastName }}</span>
+  <span>{{ comment.author.firstName }} {{ comment.author.lastName }}</span>
 </div>
-<p>{{ review.comment }}</p>
+<p>{{ comment.comment }}</p>

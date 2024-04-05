@@ -21,10 +21,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { InputSelectComponent } from 'src/app/core/components/input-select/input-select.component';
 import { Genre } from 'src/app/core/models/genre.interface';
 import { GenreService } from 'src/app/core/services/genre.service';
-import { BandProfile } from '../../models/bandProfile.interface';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { ConvertImageToFilePipe } from 'src/app/core/pipes/convert-image-to-file.pipe';
 import { GeographyService } from 'src/app/core/services/geography.service';
+import { Band } from '../../models/band.interface.js';
 
 @Component({
   selector: 'app-create-band-profile',
@@ -60,7 +60,7 @@ export class CreateBandProfileComponent implements OnInit {
   private geographyService = inject(GeographyService);
 
   genres: Genre[] = [];
-  band!: BandProfile;
+  band!: Band;
   countries: any[] = [];
   states: any[] = [];
   cities: any[] = [];
@@ -74,7 +74,8 @@ export class CreateBandProfileComponent implements OnInit {
     phoneNumber: [''],
     webSite: [''],
     socialMedia: [''],
-    bandGenres: ['', Validators.required],
+    genres: ['', Validators.required],
+    lookingMusicians: [''],
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
@@ -117,35 +118,33 @@ export class CreateBandProfileComponent implements OnInit {
 
   onSubmit(edition?: true): void {
     if (this.bandInfoFormGroup.valid && this.profileImageformGroup.valid) {
-      const band = {
-        bandId: this.band?.bandId,
-        bandInfo: {
-          name: this.bandInfoFormGroup.get('name')?.value,
-          description: this.bandInfoFormGroup.get('description')?.value,
-          country: this.bandInfoFormGroup.get('country')?.value,
-          state: this.bandInfoFormGroup.get('state')?.value,
-          city: this.bandInfoFormGroup.get('city')?.value,
-        },
-        bandContactInfo: {
-          phoneNumber: this.bandInfoFormGroup.get('phoneNumber')?.value,
-          webSite: this.bandInfoFormGroup.get('webSite')?.value,
-          socialMedia: this.bandInfoFormGroup.get('socialMedia')?.value,
-        },
-        leaderName: this.user()?.firstName,
-        bandGenres: this.bandInfoFormGroup.get('bandGenres')?.value,
-      };
-
       const form = new FormData();
+      form.append('name', this.bandInfoFormGroup.get('name')?.value);
       form.append(
-        'band',
-        new Blob([JSON.stringify(band)], {
-          type: 'application/json ',
-        })
+        'description',
+        this.bandInfoFormGroup.get('description')?.value
+      );
+      form.append('country', this.bandInfoFormGroup.get('country')?.value);
+      form.append('state', this.bandInfoFormGroup.get('state')?.value);
+      form.append('city', this.bandInfoFormGroup.get('city')?.value);
+      form.append(
+        'phoneNumber',
+        this.bandInfoFormGroup.get('phoneNumber')?.value
+      );
+      form.append('webSite', this.bandInfoFormGroup.get('webSite')?.value);
+      form.append(
+        'socialMedia',
+        this.bandInfoFormGroup.get('socialMedia')?.value
+      );
+      form.append('genres', this.bandInfoFormGroup.get('genres')?.value);
+      form.append(
+        'lookingMusicians',
+        this.bandInfoFormGroup.get('lookingMusicians')?.value
       );
 
       if (this.profileImageformGroup.get('bandProfileImage')?.value) {
         form.append(
-          'bandImageFile',
+          'image',
           this.profileImageformGroup.get('bandProfileImage')?.value
         );
       }
@@ -153,41 +152,33 @@ export class CreateBandProfileComponent implements OnInit {
       if (edition) {
         this.bandService.editProfile(form).subscribe((result) => {
           if (result) {
-            this.navigateToBandProfile(true, result.bandId);
+            this.navigateToBandProfile(true, result.id);
           }
         });
       } else {
         this.bandService.create(form).subscribe((result) => {
           if (result) {
-            this.navigateToBandProfile(false, result.bandId);
+            this.navigateToBandProfile(false, result.id);
           }
         });
       }
     }
   }
 
-  private setFormGroupValues(band: BandProfile): void {
-    this.bandInfoFormGroup.get('name')?.setValue(band.bandInfo.name);
-    this.bandInfoFormGroup
-      .get('description')
-      ?.setValue(band.bandInfo.description);
-    this.bandInfoFormGroup.get('country')?.setValue(band.bandInfo.country);
-    this.bandInfoFormGroup.get('state')?.setValue(band.bandInfo.state);
-    this.bandInfoFormGroup.get('city')?.setValue(band.bandInfo.city);
-    this.bandInfoFormGroup
-      .get('phoneNumber')
-      ?.setValue(band.bandContactInfo.phoneNumber);
-    this.bandInfoFormGroup
-      .get('webSite')
-      ?.setValue(band.bandContactInfo.webSite);
-    this.bandInfoFormGroup
-      .get('socialMedia')
-      ?.setValue(band.bandContactInfo.socialMedia);
-    this.bandInfoFormGroup.get('bandGenres')?.setValue(band.bandGenres);
+  private setFormGroupValues(band: Band): void {
+    this.bandInfoFormGroup.get('name')?.setValue(band.name);
+    this.bandInfoFormGroup.get('description')?.setValue(band.description);
+    this.bandInfoFormGroup.get('country')?.setValue(band.country);
+    this.bandInfoFormGroup.get('state')?.setValue(band.state);
+    this.bandInfoFormGroup.get('city')?.setValue(band.city);
+    this.bandInfoFormGroup.get('phoneNumber')?.setValue(band.phoneNumber);
+    this.bandInfoFormGroup.get('webSite')?.setValue(band.webSite);
+    this.bandInfoFormGroup.get('socialMedia')?.setValue(band.socialMedia);
+    this.bandInfoFormGroup.get('genres')?.setValue(band.genres);
 
     this.profileImageformGroup
       .get('bandProfileImage')
-      ?.setValue(this.fileConverterPipe.transform(band.bandProfileImage));
+      ?.setValue(band.imagePath);
   }
 
   private navigateToBandProfile(edition: boolean, bandId: number): void {

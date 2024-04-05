@@ -11,8 +11,8 @@
       </ng-container>
     </div>
     <div class="reviews">
-      <div *ngFor="let review of reviews">
-        <app-review [review]="review"></app-review>
+      <div *ngFor="let comment of comments">
+        <app-review [comment]="comment"></app-review>
       </div>
     </div>
   </ng-container>
@@ -21,7 +21,7 @@
 <ng-template #bandProfile>
   <div class="button">
     <ng-container
-      *ngIf="band && user()?.id === band.leader.musicianId; else reviewButton"
+      *ngIf="band && user()?.id === band.leader.id; else reviewButton"
     >
       <div class="band-buttons">
         <app-button
@@ -41,8 +41,8 @@
     </ng-container>
   </div>
   <div class="reviews">
-    <div *ngFor="let review of reviews">
-      <app-review [review]="review"></app-review>
+    <div *ngFor="let comment of comments">
+      <app-review [comment]="comment"></app-review>
     </div>
   </div>
 </ng-template>

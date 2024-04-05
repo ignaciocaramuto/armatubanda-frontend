@@ -18,9 +18,7 @@ export class CardComponent {
   constructor(private router: Router) {}
 
   get musicianInstruments(): string {
-    return this.musician.skillsInformation.instrumentExperience
-      .map(({ instrument }) => instrument.name)
-      .join(', ');
+    return this.musician.instruments.map(({ name }) => name).join(', ');
   }
 
   ngOnInit(): void {}

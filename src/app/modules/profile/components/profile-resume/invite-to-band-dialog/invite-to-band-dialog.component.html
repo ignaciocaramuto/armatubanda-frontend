@@ -18,9 +18,10 @@
         "
       >
         <div class="band-name">
-          <app-profile-image
+          <!-- <app-profile-image
             [picByte]="band.musicianBandsDto.bandImage.picByte"
             [type]="band.musicianBandsDto.bandImage.type"
+            [imagePath]="band."
             class="medium-size"
           ></app-profile-image>
           <span>{{ band.musicianBandsDto.bandName }}</span>
@@ -29,7 +30,7 @@
           </span>
           <span *ngIf="band.status === MusicianStatusBand.Pending"
             >(Invitación pendiente)</span
-          >
+          > -->
         </div>
       </mat-list-option>
     </ng-container>

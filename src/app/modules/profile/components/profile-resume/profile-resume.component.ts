@@ -2,19 +2,14 @@ import {
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
   inject,
 } from '@angular/core';
-import {
-  BiographyInformation,
-  ContactInformation,
-  PersonalInformation,
-} from 'src/app/core/models/musician';
-import { Image } from 'src/app/core/models/image.interface';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { ProfileImageComponent } from '../../../../core/components/profile-image/profile-image.component';
-import { BandInfo } from 'src/app/modules/band/models/band.interface';
+import { Band } from 'src/app/modules/band/models/band.interface';
 import { NgFor, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { InviteToBandDialogComponent } from './invite-to-band-dialog/invite-to-band-dialog.component';
@@ -26,11 +21,11 @@ import { ProfileService } from '../../services/profile.service';
 import { InvitationRequest } from '../../models/invitation.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
-import { BandMember } from 'src/app/modules/band/models/bandProfile.interface';
 import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { BandService } from 'src/app/modules/band/services/band.service';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { Musician } from 'src/app/core/models/musician.js';
 
 @Component({
   selector: 'app-profile-resume',
@@ -49,18 +44,10 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
   ],
 })
-export class ProfileResumeComponent implements OnChanges {
-  @Input() biographyInfo!: BiographyInformation;
-  @Input() contactInfo!: ContactInformation;
-  @Input() personalInfo!: PersonalInformation;
-  @Input() genres: string[] = [];
-  @Input() profileImage?: Image;
-  @Input() userId!: number;
-  @Input() bandInfo!: BandInfo;
-  @Input() leaderProfileImage!: Image;
-  @Input() members: BandMember[] = [];
+export class ProfileResumeComponent implements OnInit, OnChanges {
   @Input() isMusicianProfile: boolean = true;
-  @Input() bandId!: number;
+  @Input() musician?: Musician;
+  @Input() band?: Band;
 
   private router = inject(Router);
   private dialog = inject(MatDialog);
@@ -68,11 +55,14 @@ export class ProfileResumeComponent implements OnChanges {
   private invitationService = inject(InvitationService);
   private musicianService = inject(ProfileService);
   private bandService = inject(BandService);
+
   user = this.authService.currentUser();
   hasBeenInvitedToAllBands: boolean = false;
   isMemberOfAllBands: boolean = false;
   bands: MusicianBandsStatus[] = [];
   profileBandsMember: MusicianBands[] = [];
+
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'].currentValue) {
@@ -83,11 +73,11 @@ export class ProfileResumeComponent implements OnChanges {
   }
 
   redirectToUserWebsite(): void {
-    window.open(this.contactInfo.webSite, '_blank');
+    window.open(this.musician!.webSite, '_blank');
   }
 
   goToInfo(): void {
-    this.router.navigateByUrl(`profile/info/${this.userId}`);
+    this.router.navigateByUrl(`profile/info/${this.musician!.id}`);
   }
 
   inviteToBand(): void {
@@ -101,7 +91,7 @@ export class ProfileResumeComponent implements OnChanges {
     dialogRef.afterClosed().subscribe((selectedBandId) => {
       if (selectedBandId) {
         const invitation: InvitationRequest = {
-          musicianId: this.userId,
+          musicianId: this.musician!.id,
           bandId: selectedBandId,
         };
 
@@ -109,7 +99,7 @@ export class ProfileResumeComponent implements OnChanges {
           .createInvitation(invitation)
           .subscribe((result) => {
             if (result) {
-              this.getMusicianLeaders(this.userId);
+              this.getMusicianLeaders(this.musician!.id);
             }
           });
       }
@@ -125,7 +115,7 @@ export class ProfileResumeComponent implements OnChanges {
       .afterClosed()
       .subscribe((confirm: Boolean) => {
         if (confirm) {
-          this.bandService.deleteBand(this.bandId).subscribe((result) => {
+          this.bandService.deleteBand(this.band!.id).subscribe((result) => {
             if (result) {
               this.router.navigateByUrl('/band/list');
             }
@@ -135,13 +125,11 @@ export class ProfileResumeComponent implements OnChanges {
   }
 
   isMember(): boolean {
-    return this.members.some(
-      ({ musicianId }) => musicianId === this.user()!.id
-    );
+    return this.band!.members.some(({ id }) => id === this.user()!.id);
   }
 
   leaveBand(): void {
-    this.musicianService.leaveBand(this.bandId).subscribe((result) => {
+    this.musicianService.leaveBand(this.band!.id).subscribe((result) => {
       if (result) {
         window.location.reload();
       }

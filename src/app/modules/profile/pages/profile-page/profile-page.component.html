@@ -1,20 +1,13 @@
-<ng-container *ngIf="user">
-  <app-profile-resume
-    [biographyInfo]="user.biographyInformation"
-    [contactInfo]="user.contactInformation"
-    [personalInfo]="user.personalInformation"
-    [genres]="genres"
-    [profileImage]="user.profileImage"
-    [userId]="user.id"
-  ></app-profile-resume>
+<ng-container *ngIf="musician">
+  <app-profile-resume [musician]="musician"></app-profile-resume>
   <app-profile-feed
     [posts]="posts"
-    [userId]="userId"
+    [userId]="musicianId"
     (postDeleted)="getPosts()"
   ></app-profile-feed>
   <app-profile-reviews
-    [userId]="user.id"
-    [reviews]="reviews"
+    [userId]="musician.id"
+    [comments]="comments"
     (onPostChange)="getPosts()"
   ></app-profile-reviews>
 </ng-container>

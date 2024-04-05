@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Review } from 'src/app/core/models/review.interface';
 import { ProfileImageComponent } from '../../../../../core/components/profile-image/profile-image.component';
+import { Comment } from 'src/app/core/models/comment.interface.js';
 
 @Component({
   selector: 'app-review',
@@ -11,5 +11,5 @@ import { ProfileImageComponent } from '../../../../../core/components/profile-im
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewComponent {
-  @Input() review!: Review;
+  @Input() comment!: Comment;
 }

@@ -6,8 +6,7 @@
   <div class="container">
     <div class="reviewer">
       <app-profile-image
-        [picByte]="user()?.profileImage?.picByte"
-        [type]="user()?.profileImage?.type"
+        [imagePath]="user()?.imagePath"
         class="small-size"
       ></app-profile-image>
       <p>{{ user()?.firstName }} {{ user()?.lastName }}</p>

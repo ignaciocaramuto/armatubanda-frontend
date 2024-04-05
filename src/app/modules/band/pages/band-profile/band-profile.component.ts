@@ -7,9 +7,8 @@ import { Band } from '../../models/band.interface';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BandService } from '../../services/band.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { BandProfile } from '../../models/bandProfile.interface';
 import { Post } from 'src/app/modules/profile/models/post.interface';
-import { Review } from 'src/app/core/models/review.interface';
+import { Comment } from 'src/app/core/models/comment.interface.js';
 
 @Component({
   selector: 'app-band-profile',
@@ -26,9 +25,9 @@ import { Review } from 'src/app/core/models/review.interface';
 })
 export class BandProfileComponent implements OnInit {
   bandId!: number;
-  band!: BandProfile;
+  band!: Band;
   posts: Post[] = [];
-  reviews: Review[] = [];
+  comments: Comment[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +45,7 @@ export class BandProfileComponent implements OnInit {
   getById(): void {
     this.bandService.getById(this.bandId).subscribe((res) => {
       this.band = res;
-      this.reviews = this.band.reviewsList ?? [];
+      this.comments = this.band.comments ?? [];
     });
   }
 

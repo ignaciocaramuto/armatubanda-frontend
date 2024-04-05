@@ -11,7 +11,6 @@ import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileImageComponent {
-  @Input() picByte?: string;
-  @Input() type?: string;
+  @Input() imagePath?: string;
   @Input() class: string = '';
 }

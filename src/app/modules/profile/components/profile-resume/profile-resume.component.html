@@ -1,21 +1,19 @@
 <div class="container">
   <div>
     <app-profile-image
-      [picByte]="profileImage?.picByte"
-      [type]="profileImage?.type"
+      [imagePath]="musician?.imagePath || band?.imagePath"
       class="large-size"
     ></app-profile-image>
-    <ng-container *ngIf="isMusicianProfile; else band">
-      <h2>{{ personalInfo.name }} {{ personalInfo.lastname }}</h2>
-      <p>{{ biographyInfo.bio }}</p>
+    <ng-container *ngIf="isMusicianProfile; else bandTemplate">
+      <h2>{{ musician?.firstName }} {{ musician?.lastName }}</h2>
+      <p>{{ musician?.bio }}</p>
       <ng-container *ngIf="!!profileBandsMember.length">
         <h4 class="bands-text">Miembro de:</h4>
         <div class="member">
-          <ng-container *ngFor="let band of profileBandsMember">
-            <a [routerLink]="'/band/profile/' + band.bandId">
+          <ng-container *ngFor="let band of musician?.bands">
+            <a [routerLink]="'/band/profile/' + band.id">
               <app-profile-image
-                [picByte]="band.bandImage.picByte"
-                [type]="band.bandImage.type"
+                [imagePath]="band.imagePath"
                 class="small-size"
               >
               </app-profile-image>
@@ -26,7 +24,7 @@
       <div>
         <h4 class="bands-text">Géneros:</h4>
         <div class="bands-text">
-          <ng-container *ngFor="let genre of genres; let last = last">
+          <ng-container *ngFor="let genre of musician?.genres; let last = last">
             <span>{{ genre }}</span>
             <span *ngIf="!last">, </span>
           </ng-container>
@@ -35,9 +33,9 @@
     </ng-container>
 
     <div *ngIf="isMusicianProfile" class="actions">
-      <ng-container *ngIf="user()?.id !== userId && !isMemberOfAllBands">
+      <ng-container *ngIf="user()?.id !== musician?.id && !isMemberOfAllBands">
         <app-button
-          *ngIf="user()?.id !== userId && !hasBeenInvitedToAllBands"
+          *ngIf="user()?.id !== musician?.id && !hasBeenInvitedToAllBands"
           label="Invitar"
           icon="person_add"
           class="larger"
@@ -61,47 +59,47 @@
     <div *ngIf="!isMusicianProfile" class="contact">
       <span class="material-symbols-outlined"> location_on </span>
       <p>
-        {{ bandInfo.city }}, {{ bandInfo.state | translate }},
-        {{ bandInfo.country | translate }}
+        {{ band?.city }}, {{ band!.state | translate }},
+        {{ band!.country | translate }}
       </p>
     </div>
     <div *ngIf="isMusicianProfile" class="contact">
       <span class="material-symbols-outlined"> location_on </span>
       <p>
-        {{ personalInfo.city }}, {{ personalInfo.state | translate }},
-        {{ personalInfo.country | translate }}
+        {{ musician?.city }}, {{ musician!.state | translate }},
+        {{ musician!.country | translate }}
       </p>
     </div>
-    <div *ngIf="contactInfo.phoneNumber" class="contact">
+    <div *ngIf="musician?.phoneNumber || band?.phoneNumber" class="contact">
       <span class="material-symbols-outlined"> call </span>
-      <p>{{ contactInfo.phoneNumber }}</p>
+      <p>{{ musician?.phoneNumber || band?.phoneNumber }}</p>
     </div>
-    <div *ngIf="contactInfo.socialMedia" class="contact">
+    <div *ngIf="musician?.socialMedia || band?.socialMedia" class="contact">
       <span class="material-symbols-outlined"> group </span>
-      <p>{{ contactInfo.socialMedia }}</p>
+      <p>{{ musician?.socialMedia || band?.socialMedia }}</p>
     </div>
-    <div *ngIf="contactInfo.webSite" class="contact">
+    <div *ngIf="musician?.webSite || band?.webSite" class="contact">
       <span class="material-symbols-outlined"> public </span>
       <p (click)="redirectToUserWebsite()" class="website">
-        {{ contactInfo.webSite }}
+        {{ musician?.webSite || band?.webSite }}
       </p>
     </div>
   </div>
 </div>
 
-<ng-template #band>
-  <h2>{{ bandInfo.name }}</h2>
-  <p>{{ bandInfo.description }}</p>
-  <ng-container *ngIf="user()?.id === userId">
+<ng-template #bandTemplate>
+  <h2>{{ band?.name }}</h2>
+  <p>{{ band?.description }}</p>
+  <ng-container *ngIf="user()?.id === band?.leader?.id">
     <app-button
       label="Solicitudes"
       class="medium"
-      [routerLink]="'/band/requests/' + bandId"
+      [routerLink]="'/band/requests/' + band?.id"
     ></app-button>
     <app-button
       label="Editar"
       class="medium"
-      [routerLink]="'/band/edit/' + bandId"
+      [routerLink]="'/band/edit/' + band?.id"
     ></app-button>
     <app-button
       label="Borrar"
@@ -119,21 +117,19 @@
   ></app-button>
 
   <h4 class="bands-text">Líder:</h4>
-  <a class="bands-text" [routerLink]="'/profile/' + userId">
+  <a class="bands-text" [routerLink]="'/profile/' + band?.leader?.id">
     <app-profile-image
-      [picByte]="leaderProfileImage.picByte"
-      [type]="leaderProfileImage.type"
+      [imagePath]="band?.leader?.imagePath"
       class="small-size"
     ></app-profile-image>
   </a>
-  <ng-container *ngIf="!!members?.length">
+  <ng-container *ngIf="!!band?.members?.length">
     <h4 class="bands-text">Miembros:</h4>
     <div class="bands">
-      <ng-container *ngFor="let member of members">
-        <a class="bands-text" [routerLink]="'/profile/' + member.musicianId">
+      <ng-container *ngFor="let member of band?.members">
+        <a class="bands-text" [routerLink]="'/profile/' + member.id">
           <app-profile-image
-            [picByte]="member.musicianProfileImage.picByte"
-            [type]="member.musicianProfileImage.type"
+            [imagePath]="member.imagePath"
             class="small-size"
           ></app-profile-image>
         </a>
@@ -144,7 +140,7 @@
   <div>
     <h4 class="bands-text">Géneros:</h4>
     <div class="bands-text">
-      <ng-container *ngFor="let genre of genres; let last = last">
+      <ng-container *ngFor="let genre of band?.genres; let last = last">
         <span>{{ genre }}</span>
         <span *ngIf="!last">, </span>
       </ng-container>

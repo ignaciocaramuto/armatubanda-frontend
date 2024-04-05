@@ -1,78 +1,39 @@
-import { ExperienceType } from '../enums/experienceType.enum';
-import { Genre } from './genre.interface';
-import { Instrument } from './instrument.interface';
-import { Image } from './image.interface';
-import { Review } from './review.interface';
+import { Application } from 'src/app/modules/band/models/application.interface.js';
+import { Band } from 'src/app/modules/band/models/band.interface.js';
+import { Post } from 'src/app/modules/profile/models/post.interface.js';
+import { Genre } from './genre.interface.js';
+import { Instrument } from './instrument.interface.js';
+import { Role } from '../enums/role.enum.js';
+import { Experience } from '../enums/experience.enum.js';
+import { Carrer } from './carrer.interface.js';
+import { Comment } from './comment.interface.js';
 
-export interface Musician {
-  id: number;
-  personalInformation: PersonalInformation;
-  contactInformation: ContactInformation;
-  skillsInformation: SkillsInformation;
-  educationInformation: EducationInformation;
-  careerInformation: CareerInformation;
-  biographyInformation: BiographyInformation;
-  preferenceInformation: PreferenceInformation;
-  profileImage?: Image;
-  reviews?: Review[];
-}
-
-export interface PersonalInformation {
-  name: string;
-  lastname: string;
-  stageName: string;
-  birthday: string;
-  gender: string;
-  country: string;
-  city: string;
-  state: string;
-}
-
-export interface ContactInformation {
-  phoneNumber: string;
-  webSite: string;
-  socialMedia: string;
-}
-
-export interface SkillsInformation {
-  instrumentExperience: InstrumentExperience[];
-  genres: Genre[];
-  generalExperience: ExperienceType;
-}
-
-export interface InstrumentExperience {
-  instrument: Instrument;
-  experience: ExperienceType;
-}
-
-export interface EducationInformation {
-  educationHistory: EducationHistory[];
-}
-
-export interface EducationHistory {
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-}
-
-export interface CareerInformation {
-  careerHistory: CareerHistory[];
-}
-
-export interface CareerHistory {
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-}
-
-export interface BiographyInformation {
-  bio: string;
-}
-
-export interface PreferenceInformation {
-  lookingBands: boolean;
-  lookingMusician: boolean;
-  available: boolean;
+export class Musician {
+  id!: number;
+  email!: string;
+  password!: string;
+  role!: Role;
+  isProfileSet!: boolean;
+  firstName?: string;
+  lastName?: string;
+  stageName?: string;
+  birthday?: Date;
+  country!: string;
+  state!: string;
+  city!: string;
+  phoneNumber?: string;
+  webSite?: string;
+  socialMedia?: string;
+  instruments!: Instrument[];
+  genres!: Genre[];
+  experience?: Experience;
+  career?: Carrer[];
+  bands?: Band[];
+  bio?: string;
+  lookingBands?: boolean;
+  imagePath!: string;
+  comments?: Comment[];
+  writtenComments?: Comment[];
+  posts?: Post[];
+  applications?: Application[];
 }

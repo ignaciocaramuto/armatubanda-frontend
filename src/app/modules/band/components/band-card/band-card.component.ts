@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Band } from '../../models/band.interface';
 import { ProfileImageComponent } from 'src/app/core/components/profile-image/profile-image.component';
 import { Router } from '@angular/router';
-import { BandProfile } from '../../models/bandProfile.interface';
 
 @Component({
   selector: 'app-band-card',
@@ -13,11 +12,11 @@ import { BandProfile } from '../../models/bandProfile.interface';
   styleUrls: ['./band-card.component.scss'],
 })
 export class BandCardComponent {
-  @Input() band!: BandProfile;
+  @Input() band!: Band;
 
   constructor(private router: Router) {}
 
   openProfile(): void {
-    this.router.navigate(['/band/profile', this.band.bandId]);
+    this.router.navigate(['/band/profile', this.band.id]);
   }
 }

@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
-import { ProfileInfo } from 'src/app/core/models/profileInfo.interface';
-import { TranslateExperienceTypePipe } from '../../../../core/pipes/translate-experience-type.pipe';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-info-page',
@@ -15,14 +14,14 @@ import { ButtonComponent } from 'src/app/core/components/button/button.component
     NgIf,
     NgFor,
     DatePipe,
-    TranslateExperienceTypePipe,
     ButtonComponent,
     RouterLink,
+    TranslateModule,
   ],
 })
 export class ProfileInfoPageComponent implements OnInit {
   isEdit: boolean = false;
-  profileInfo!: ProfileInfo;
+  profileInfo!: any;
   userId!: number;
   private profileService = inject(ProfileService);
   private route = inject(ActivatedRoute);
@@ -30,9 +29,9 @@ export class ProfileInfoPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.userId = params['id'];
-      this.profileService.getProfileInfo(params['id']).subscribe((result) => {
-        this.profileInfo = result;
-      });
+      // this.profileService.getProfileInfo(params['id']).subscribe((result) => {
+      //   this.profileInfo = result;
+      // });
     });
   }
 }

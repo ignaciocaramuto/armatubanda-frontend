@@ -1,21 +1,18 @@
 <div class="card" (click)="openProfile()">
-  <div class="tag" *ngIf="musician.preferenceInformation?.lookingBands">
-    Busca banda
-  </div>
+  <div class="tag" *ngIf="musician?.lookingBands">Busca banda</div>
   <div class="pickgradient">
     <app-profile-image
-      [picByte]="musician.profileImage?.picByte"
-      [type]="musician.profileImage?.type"
+      [imagePath]="musician.imagePath"
       class="list-size"
     ></app-profile-image>
     <div class="image-text">
-      <h3>{{ musician.personalInformation.name }}</h3>
+      <h3>{{ musician.firstName }}</h3>
     </div>
   </div>
   <p class="coments-instruments">
-    ({{ musician.reviews?.length }} comentarios)
+    ({{ musician.comments?.length }} comentarios)
     {{ musicianInstruments }}
   </p>
 
-  <p>{{ musician.biographyInformation.bio }}</p>
+  <p>{{ musician.bio }}</p>
 </div>

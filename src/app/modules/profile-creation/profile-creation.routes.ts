@@ -6,19 +6,18 @@ import {
   canMatchGuardProfile,
 } from '../profile-creation/guards/profile-set.guard';
 import { canActivateGuard, canMatchGuard } from '../auth/guards/auth.guard';
-import { emailConfirmedGuard } from '../auth/guards/email-confirmed.guard';
 
 export const PROFILE_CREATION_ROUTES: Routes = [
   {
     path: 'create',
     component: CreationFormComponent,
-    canActivate: [canActivateGuard, emailConfirmedGuard],
+    canActivate: [canActivateGuard],
     canMatch: [canMatchGuard],
   },
   {
     path: 'edit/:id',
     component: CreationFormComponent,
-    canActivate: [canActivateGuardProfile, canEditProfile, emailConfirmedGuard],
+    canActivate: [canActivateGuardProfile, canEditProfile],
     canMatch: [canMatchGuardProfile],
   },
 ];

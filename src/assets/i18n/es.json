@@ -1,6 +1,6 @@
 {
-  "NOVICE": "Novato",
-  "ADVANCED": "Avanzado",
+  "BEGINNER": "Principiante",
+  "INTERMEDIATE": "Intermedio",
   "EXPERT": "Experto",
   "name": "Nombre",
   "instruments": "Instrumentos",

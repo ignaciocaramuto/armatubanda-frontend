@@ -131,91 +131,8 @@
     </div>
   </mat-step>
 
-  <mat-step [stepControl]="skillsFormGroup">
-    <form [formGroup]="skillsFormGroup">
-      <ng-template matStepLabel>Instrumentos</ng-template>
-      <div class="instruments-inputs">
-        <app-input-select
-          appearance="outline"
-          [items]="experienceTypes"
-          formControlName="generalExperience"
-          placeholder="Experiencia general"
-          [required]="true"
-          [width]="300"
-        >
-        </app-input-select>
-      </div>
-
-      <ng-container formArrayName="skills">
-        <ng-container
-          *ngFor="let skillForm of skillsFormArrayControls; let i = index"
-        >
-          <div [formGroup]="skillForm" class="instruments-inputs">
-            <app-input-select
-              appearance="outline"
-              [items]="instruments"
-              formControlName="instrument"
-              placeholder="Selecciona uno"
-              [required]="true"
-              [width]="300"
-            >
-            </app-input-select>
-
-            <app-input-select
-              appearance="outline"
-              [items]="experienceTypes"
-              formControlName="experience"
-              placeholder="Experiencia"
-              [required]="true"
-              [width]="300"
-            >
-            </app-input-select>
-
-            <mat-icon (click)="deleteInstrument(i)">delete</mat-icon>
-          </div>
-        </ng-container>
-      </ng-container>
-
-      <div class="new-button">
-        <app-button
-          icon="add"
-          label="Agregar"
-          (click)="addInstrument()"
-        ></app-button>
-      </div>
-    </form>
-    <div class="stepper-buttons">
-      <button mat-flat-button matStepperPrevious color="primary">Volver</button>
-      <button mat-flat-button matStepperNext color="primary">Siguiente</button>
-    </div>
-  </mat-step>
-
-  <mat-step [stepControl]="genresFormGroup">
-    <form [formGroup]="genresFormGroup">
-      <ng-template matStepLabel>Géneros</ng-template>
-      <!-- Genres -->
-      <div class="instruments-inputs">
-        <app-input-select
-          appearance="outline"
-          [required]="true"
-          [items]="genres"
-          formControlName="genres"
-          placeholder="Géneros"
-          [multiple]="true"
-          [width]="400"
-          class="textinput"
-        >
-        </app-input-select>
-      </div>
-    </form>
-    <div class="stepper-buttons">
-      <button mat-flat-button matStepperPrevious color="primary">Volver</button>
-      <button mat-flat-button matStepperNext color="primary">Siguiente</button>
-    </div>
-  </mat-step>
-
-  <mat-step [stepControl]="bioformGroup">
-    <form [formGroup]="bioformGroup">
+  <mat-step [stepControl]="personalformGroup">
+    <form [formGroup]="personalformGroup">
       <ng-template matStepLabel>Biografia</ng-template>
       <mat-form-field appearance="outline" style="width: 100%; margin-top: 1em">
         <mat-label>Biografia</mat-label>
@@ -291,106 +208,6 @@
     </div>
   </mat-step>
 
-  <mat-step [stepControl]="academicHistoryFormGroup">
-    <form [formGroup]="academicHistoryFormGroup">
-      <ng-template matStepLabel>Historia Académica</ng-template>
-      <ng-container formArrayName="academics">
-        <ng-container
-          *ngFor="let academicForm of academicsFormArrayControls; let i = index"
-        >
-          <div [formGroup]="academicForm">
-            <h4>Agregar estudio</h4>
-            <div class="bands">
-              <app-input-text
-                appearance="outline"
-                formControlName="name"
-                type="text"
-                placeholder="Nombre de estudio"
-                [width]="300"
-              >
-              </app-input-text>
-
-              <mat-form-field class="textinput" appearance="outline">
-                <mat-label>Desde</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="startPicker"
-                  formControlName="startDate"
-                />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="startPicker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #startPicker></mat-datepicker>
-              </mat-form-field>
-
-              <mat-form-field class="textinput" appearance="outline">
-                <mat-label>Hasta</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="endPicker"
-                  formControlName="endDate"
-                />
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="endPicker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #endPicker></mat-datepicker>
-              </mat-form-field>
-
-              <mat-icon (click)="deleteStudy(i)">delete</mat-icon>
-            </div>
-
-            <mat-form-field appearance="outline" class="band-description">
-              <mat-label>Descripción</mat-label>
-              <textarea
-                matInput
-                rows="5"
-                cols="300"
-                formControlName="description"
-              ></textarea>
-            </mat-form-field>
-          </div>
-        </ng-container>
-      </ng-container>
-
-      <app-button icon="add" label="Agregar estudio" (click)="addStudy()">
-      </app-button>
-    </form>
-    <div class="stepper-buttons">
-      <button mat-flat-button matStepperPrevious color="primary">Volver</button>
-      <button mat-flat-button matStepperNext color="primary">Siguiente</button>
-    </div>
-  </mat-step>
-
-  <mat-step [stepControl]="preferencesFormGroup">
-    <form [formGroup]="preferencesFormGroup">
-      <ng-template matStepLabel>Preferencias</ng-template>
-      <div class="preferences">
-        <app-input-select
-          appearance="outline"
-          [items]="lookingBand"
-          formControlName="lookingBands"
-          placeholder="Busca banda"
-          [required]="true"
-        >
-        </app-input-select>
-        <app-input-select
-          appearance="outline"
-          [items]="lookingBand"
-          formControlName="available"
-          placeholder="¿Disponible?"
-          [required]="true"
-        >
-        </app-input-select>
-      </div>
-    </form>
-    <div class="stepper-buttons">
-      <button mat-flat-button matStepperPrevious color="primary">Volver</button>
-      <button mat-flat-button matStepperNext color="primary">Siguiente</button>
-    </div>
-  </mat-step>
-
   <mat-step [stepControl]="profileImageformGroup">
     <form
       [formGroup]="profileImageformGroup"
@@ -400,7 +217,7 @@
       <ng-template matStepLabel>Subir foto de perfil</ng-template>
       <app-drag-and-drop
         *ngIf="musician"
-        [image]="musician.profileImage"
+        [imagePath]="musician.imagePath"
         (fileSelected)="setSelectedFile($event)"
       ></app-drag-and-drop>
       <app-drag-and-drop
