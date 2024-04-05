@@ -71,4 +71,8 @@ export class ProfileService extends CrudService<Musician> {
   deletePost(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete-post/${id}`);
   }
+
+  leaveBand(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/leave?bandId=${id}`);
+  }
 }

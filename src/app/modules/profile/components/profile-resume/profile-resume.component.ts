@@ -134,6 +134,20 @@ export class ProfileResumeComponent implements OnChanges {
       });
   }
 
+  isMember(): boolean {
+    return this.members.some(
+      ({ musicianId }) => musicianId === this.user()!.id
+    );
+  }
+
+  leaveBand(): void {
+    this.musicianService.leaveBand(this.bandId).subscribe((result) => {
+      if (result) {
+        window.location.reload();
+      }
+    });
+  }
+
   private getMusicianLeaders(userId: number): void {
     this.musicianService.getMusicianLeaderBands(userId).subscribe((result) => {
       this.bands = result;

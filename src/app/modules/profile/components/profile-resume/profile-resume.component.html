@@ -111,6 +111,13 @@
     ></app-button>
   </ng-container>
 
+  <app-button
+    *ngIf="isMember()"
+    color="warn"
+    label="Dejar banda"
+    (click)="leaveBand()"
+  ></app-button>
+
   <h4 class="bands-text">Líder:</h4>
   <a class="bands-text" [routerLink]="'/profile/' + userId">
     <app-profile-image
