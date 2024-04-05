@@ -1,6 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
+import { environment } from 'src/environments/environment.local';
 
 @Component({
   selector: 'app-profile-image',
@@ -13,4 +14,6 @@ import { SanitizeImagePipe } from '../../pipes/sanitize-image.pipe';
 export class ProfileImageComponent {
   @Input() imagePath?: string;
   @Input() class: string = '';
+
+  readonly apiUrl = environment.apiUrl;
 }
