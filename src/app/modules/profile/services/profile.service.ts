@@ -4,7 +4,6 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Musician } from 'src/app/core/models/musician';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment.local';
-import { Post } from '../models/post.interface';
 import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 
@@ -47,5 +46,9 @@ export class ProfileService extends CrudService<Musician> {
 
   leaveBand(id: number): Observable<string> {
     return this.http.delete<string>(`${this.apiUrl}/leave?bandId=${id}`);
+  }
+
+  getMoreInfo(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/more-info/${id}`);
   }
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { ButtonComponent } from 'src/app/core/components/button/button.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { Musician } from 'src/app/core/models/musician.js';
 
 @Component({
   selector: 'app-profile-info-page',
@@ -21,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ProfileInfoPageComponent implements OnInit {
   isEdit: boolean = false;
-  profileInfo!: any;
+  musician!: Musician;
   userId!: number;
   private profileService = inject(ProfileService);
   private route = inject(ActivatedRoute);
@@ -29,9 +30,9 @@ export class ProfileInfoPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.userId = params['id'];
-      // this.profileService.getProfileInfo(params['id']).subscribe((result) => {
-      //   this.profileInfo = result;
-      // });
+      this.profileService.getMoreInfo(this.userId).subscribe((result) => {
+        this.musician = result;
+      });
     });
   }
 }
