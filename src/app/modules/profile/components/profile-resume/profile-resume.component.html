@@ -25,7 +25,7 @@
         <h4 class="bands-text">Géneros:</h4>
         <div class="bands-text">
           <ng-container *ngFor="let genre of musician?.genres; let last = last">
-            <span>{{ genre }}</span>
+            <span>{{ genre.name }}</span>
             <span *ngIf="!last">, </span>
           </ng-container>
         </div>
@@ -141,11 +141,9 @@
     <h4 class="bands-text">Géneros:</h4>
     <div class="bands-text">
       <ng-container *ngFor="let genre of band?.genres; let last = last">
-        <span>{{ genre }}</span>
+        <span>{{ genre.name }}</span>
         <span *ngIf="!last">, </span>
       </ng-container>
     </div>
   </div>
 </ng-template>
-
-<!-- TODO: Add social media -->
