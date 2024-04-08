@@ -21,9 +21,9 @@ import { Musician } from 'src/app/core/models/musician.js';
   ],
 })
 export class ProfileInfoPageComponent implements OnInit {
-  isEdit: boolean = false;
   musician!: Musician;
   userId!: number;
+
   private profileService = inject(ProfileService);
   private route = inject(ActivatedRoute);
 
