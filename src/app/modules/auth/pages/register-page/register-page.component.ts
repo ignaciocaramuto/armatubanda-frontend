@@ -28,7 +28,6 @@ import { catchError, of } from 'rxjs';
   ],
 })
 export class RegisterPageComponent {
-  userCreated: boolean = false;
   loading: boolean = false;
 
   private fb = inject(FormBuilder);
@@ -77,7 +76,6 @@ export class RegisterPageComponent {
         )
         .subscribe((result) => {
           if (result) {
-            this.userCreated = true;
             this.loading = false;
           }
         });
