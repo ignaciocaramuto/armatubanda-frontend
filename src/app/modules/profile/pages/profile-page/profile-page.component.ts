@@ -8,7 +8,8 @@ import { ProfileResumeComponent } from '../../components/profile-resume/profile-
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgIf } from '@angular/common';
 import { Post } from '../../models/post.interface';
-import { Comment } from 'src/app/core/models/comment.interface.js';
+import { Comment } from 'src/app/core/models/comment.interface';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -32,7 +33,8 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private postService: PostService
   ) {}
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   getPosts(): void {
-    this.profileService
-      .getPosts(this.musicianId)
+    this.postService
+      .getAllFromMusician(this.musicianId)
       .subscribe((result: Post[]) => (this.posts = result));
   }
 }

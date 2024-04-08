@@ -31,23 +31,6 @@ export class ProfileService extends CrudService<Musician> {
       );
   }
 
-  addPost(post: FormData): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/create-post`, post).pipe(
-      tap(() =>
-        this._logMessageService.logConfirm('¡Tu posteo ha sido añadido!')
-      ),
-      catchError((res: HttpErrorResponse) =>
-        throwError(() =>
-          this._logMessageService.logServerError(res.error.message)
-        )
-      )
-    );
-  }
-
-  getPosts(id: number): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/get-post/${id}`);
-  }
-
   getMusicianBands(id: number): Observable<MusicianBands[]> {
     return this.http.get<MusicianBands[]>(`${this.apiUrl}/${id}/bands`);
   }
@@ -60,10 +43,6 @@ export class ProfileService extends CrudService<Musician> {
 
   editProfile(data: FormData): Observable<Musician> {
     return this.http.put<Musician>(`${this.apiUrl}/edit`, data);
-  }
-
-  deletePost(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete-post/${id}`);
   }
 
   leaveBand(id: number): Observable<string> {

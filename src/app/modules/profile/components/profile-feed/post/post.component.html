@@ -1,6 +1,6 @@
 <div class="header">
   <span class="date"
-    >Publicado el {{ post.createdOn | date : "dd/MM/yyyy" }}</span
+    >Publicado el {{ post.createdAt | date : "dd/MM/yyyy" }}</span
   >
   <span
     *ngIf="user()?.id == userId"

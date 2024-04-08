@@ -15,23 +15,6 @@ export class BandService extends CrudService<Band> {
     super(http, `${environment.apiUrl}/bands`);
   }
 
-  addPost(post: FormData): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/create-post`, post).pipe(
-      tap(() =>
-        this._logMessageService.logConfirm('¡Tu posteo ha sido añadido!')
-      ),
-      catchError((res: HttpErrorResponse) =>
-        throwError(() =>
-          this._logMessageService.logServerError(res.error.message)
-        )
-      )
-    );
-  }
-
-  getPosts(id: number): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/get-post/${id}`);
-  }
-
   postReview(comment: any): Observable<Comment[]> {
     return this.http
       .put<Comment[]>(`${this.apiUrl}/upload-review`, comment)
@@ -62,20 +45,5 @@ export class BandService extends CrudService<Band> {
         )
       )
     );
-  }
-
-  deletePost(bandId: number, postId: number): Observable<string> {
-    return this.http
-      .delete<string>(`${this.apiUrl}/delete-post/${bandId}/${postId}`)
-      .pipe(
-        tap(() =>
-          this._logMessageService.logConfirm('¡Post eliminado correctamente!')
-        ),
-        catchError((res: HttpErrorResponse) =>
-          throwError(() =>
-            this._logMessageService.logServerError(res.error.message)
-          )
-        )
-      );
   }
 }

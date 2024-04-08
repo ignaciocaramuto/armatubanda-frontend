@@ -4,10 +4,10 @@ import { Post } from '../../../models/post.interface';
 import { DatePipe, JsonPipe, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
-import { ProfileService } from '../../../services/profile.service';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { BandService } from 'src/app/modules/band/services/band.service';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -29,10 +29,9 @@ export class PostComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private dialog: MatDialog,
-    private profileService: ProfileService,
+    private postService: PostService,
     private logMessageService: LogMessageService,
-    private authService: AuthService,
-    private bandService: BandService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -52,12 +51,12 @@ export class PostComponent implements OnInit {
       .subscribe((confirm: boolean) => {
         if (confirm) {
           if (!this.bandId) {
-            this.profileService
-              .deletePost(this.post.id)
+            this.postService
+              .deleteForMusician(this.post.id)
               .subscribe(() => this.emitPostDeletedEvent());
           } else {
-            this.bandService
-              .deletePost(this.bandId, this.post.id)
+            this.postService
+              .deleteForBand(this.bandId, this.post.id)
               .subscribe(() => this.emitPostDeletedEvent());
           }
         }

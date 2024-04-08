@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { DragAndDropComponent } from 'src/app/core/components/drag-and-drop/drag-and-drop.component';
 import { InputTextComponent } from 'src/app/core/components/input-text/input-text.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ProfileService } from '../../../services/profile.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BandService } from 'src/app/modules/band/services/band.service';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-add-post-dialog',
@@ -26,14 +25,12 @@ import { BandService } from 'src/app/modules/band/services/band.service';
 })
 export class AddPostDialogComponent {
   private fb = inject(FormBuilder);
-  private profileService = inject(ProfileService);
-  private bandService = inject(BandService);
+  private postService = inject(PostService);
   private data = inject(MAT_DIALOG_DATA);
   private dialogRef = inject(MatDialogRef<AddPostDialogComponent>);
 
   formGroup: FormGroup = this.fb.group({
-    urlVideo: [],
-    image: [],
+    videoUrl: [],
   });
 
   addPost(): void {
@@ -41,30 +38,24 @@ export class AddPostDialogComponent {
       return;
     }
 
-    const formData = new FormData();
-    if (this.formGroup.get('urlVideo')?.value) {
-      formData.append('videoUrl', this.formGroup.get('urlVideo')?.value);
-    } else if (this.formGroup.get('image')?.value) {
-      formData.append('image', this.formGroup.get('image')?.value);
-    }
+    const post = {
+      videoUrl: this.formGroup.get('videoUrl')!.value,
+    };
 
     if (this.data.isMusicianProfile) {
-      this.profileService.addPost(formData).subscribe((result) => {
+      this.postService.createForMusician(post).subscribe((result) => {
         if (result) {
           this.dialogRef.close(true);
         }
       });
     } else {
-      formData.append('bandId', this.data.bandId);
-      this.bandService.addPost(formData).subscribe((result) => {
-        if (result) {
-          this.dialogRef.close(true);
-        }
-      });
+      this.postService
+        .createForBand(post, this.data.bandId)
+        .subscribe((result) => {
+          if (result) {
+            this.dialogRef.close(true);
+          }
+        });
     }
-  }
-
-  setSelectedFile(event: any): void {
-    this.formGroup.get('image')?.setValue(event?.target.files[0]);
   }
 }
