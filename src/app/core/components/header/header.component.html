@@ -92,13 +92,13 @@
 <mat-menu #bandsMenu="matMenu">
   <ng-container *ngIf="musicianBands.length > 0; else noBands">
     <ng-container *ngFor="let band of musicianBands">
-      <button mat-menu-item [routerLink]="'band/profile/' + band.bandId">
+      <button mat-menu-item [routerLink]="'band/profile/' + band.id">
         <div class="menu-option">
-          <!-- <app-profile-image
-          [imagePath]="band"
+          <app-profile-image
+            [imagePath]="band.imagePath"
             class="small-size"
-          ></app-profile-image> -->
-          <span>{{ band.bandName }}</span>
+          ></app-profile-image>
+          <span>{{ band.name }}</span>
         </div>
       </button>
     </ng-container>

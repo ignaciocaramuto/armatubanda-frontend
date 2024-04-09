@@ -96,8 +96,21 @@
               [items]="genres"
               [multiple]="true"
               [required]="true"
-              formControlName="bandGenres"
+              formControlName="genres"
               placeholder="Géneros"
+              class="textinput"
+              [width]="300"
+            >
+            </app-input-select>
+
+            <!-- Looking musicians -->
+            <app-input-select
+              appearance="outline"
+              [items]="lookingMusicians"
+              formControlName="lookingMusicians"
+              placeholder="¿Busca músicos?"
+              class="textinput"
+              [width]="300"
             >
             </app-input-select>
           </div>

@@ -6,6 +6,7 @@ import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment.local';
 import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
+import { Band } from '../../band/models/band.interface.js';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +31,8 @@ export class ProfileService extends CrudService<Musician> {
       );
   }
 
-  getMusicianBands(id: number): Observable<MusicianBands[]> {
-    return this.http.get<MusicianBands[]>(`${this.apiUrl}/${id}/bands`);
+  getMusicianBands(id: number): Observable<Band[]> {
+    return this.http.get<Band[]>(`${this.apiUrl}/${id}/bands`);
   }
 
   getMusicianLeaderBands(id?: number): Observable<MusicianBandsStatus[]> {

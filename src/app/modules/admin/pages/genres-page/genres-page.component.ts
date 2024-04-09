@@ -63,7 +63,7 @@ export class GenresPageComponent {
 
     dialogRef.afterClosed().subscribe((genre: Genre) => {
       if (genre) {
-        this.genreService.update(genre).subscribe((result) => {
+        this.genreService.update(genre.name, genre).subscribe((result) => {
           if (result) {
             this.logMessageService.logConfirm('¡Género editado correctamente!');
             this.getGenres();

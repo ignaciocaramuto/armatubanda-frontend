@@ -22,6 +22,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { InvitationStatusDto } from 'src/app/modules/profile/models/InvitationStatusDto.interface';
 import { Role } from '../../enums/role.enum';
+import { Band } from 'src/app/modules/band/models/band.interface.js';
 
 @Component({
   standalone: true,
@@ -49,7 +50,7 @@ export class HeaderComponent implements OnInit {
   cd = inject(ChangeDetectorRef);
   user = this.authService.currentUser();
   status = this.authService.authStatus();
-  musicianBands: MusicianBands[] = [];
+  musicianBands: Band[] = [];
   invitations: Invitation[] = [];
 
   readonly Role = Role;
@@ -99,10 +100,12 @@ export class HeaderComponent implements OnInit {
   private getMusicianData(): void {
     forkJoin({
       musicianBands: this.profileService.getMusicianBands(this.user()!.id),
-      invitations: this.invitationService.getPendingInvitations(),
-    }).subscribe(({ musicianBands, invitations }) => {
+      // invitations: this.invitationService.getPendingInvitations(),
+    }).subscribe(({ musicianBands }) => {
       this.musicianBands = musicianBands;
-      this.invitations = invitations;
+      console.log(this.musicianBands);
+
+      // this.invitations = invitations;
       this.cd.detectChanges();
     });
   }

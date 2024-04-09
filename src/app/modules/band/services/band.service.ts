@@ -12,7 +12,7 @@ import { Band } from '../models/band.interface.js';
 })
 export class BandService extends CrudService<Band> {
   constructor(http: HttpClient) {
-    super(http, `${environment.apiUrl}/bands`);
+    super(http, `${environment.apiUrl}/band`);
   }
 
   postReview(comment: any): Observable<Comment[]> {

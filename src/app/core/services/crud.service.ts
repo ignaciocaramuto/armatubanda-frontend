@@ -43,8 +43,8 @@ export class CrudService<T> {
     );
   }
 
-  update(data: Partial<T>): Observable<T> {
-    return this.http.put<T>(this.apiUrl, data);
+  update(id: number | string, data: T | FormData): Observable<T> {
+    return this.http.put<T>(`${this.apiUrl}/${id}`, data);
   }
 
   delete(id: number): Observable<string> {

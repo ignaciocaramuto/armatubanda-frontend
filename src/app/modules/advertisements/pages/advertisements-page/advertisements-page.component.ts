@@ -8,7 +8,6 @@ import { AdvertisementService } from '../../services/advertisement.service';
 import { Advertisement } from '../../models/advertisement.interface';
 import { ProfileService } from 'src/app/modules/profile/services/profile.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddApplicationDialogComponent } from '../../components/add-application-dialog/add-application-dialog.component';
@@ -31,22 +30,17 @@ import { AdvertisementStatus } from '../../enums/advertisementStatus.enum';
 })
 export class AdvertisementsPageComponent implements OnInit {
   advertisements: Advertisement[] = [];
-  musicianBands: MusicianBands[] = [];
   user = this.authService.currentUser();
   readonly advertisementStatus = AdvertisementStatus;
 
   constructor(
     private advertisementService: AdvertisementService,
-    private profileService: ProfileService,
     private authService: AuthService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.getList();
-    this.profileService
-      .getMusicianBands(this.user()!.id)
-      .subscribe((data) => (this.musicianBands = data));
   }
 
   getList(filters?: any): void {

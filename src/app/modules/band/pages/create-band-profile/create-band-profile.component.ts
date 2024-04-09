@@ -59,6 +59,7 @@ export class CreateBandProfileComponent implements OnInit {
   private fileConverterPipe = inject(ConvertImageToFilePipe);
   private geographyService = inject(GeographyService);
 
+  readonly lookingMusicians = [{ name: 'Sí' }, { name: 'No' }];
   genres: Genre[] = [];
   band!: Band;
   countries: any[] = [];
@@ -137,10 +138,10 @@ export class CreateBandProfileComponent implements OnInit {
         this.bandInfoFormGroup.get('socialMedia')?.value
       );
       form.append('genres', this.bandInfoFormGroup.get('genres')?.value);
-      form.append(
-        'lookingMusicians',
-        this.bandInfoFormGroup.get('lookingMusicians')?.value
-      );
+      // form.append(
+      //   'lookingMusicians',
+      //   this.bandInfoFormGroup.get('lookingMusicians')?.value
+      // );
 
       if (this.profileImageformGroup.get('bandProfileImage')?.value) {
         form.append(
@@ -150,7 +151,7 @@ export class CreateBandProfileComponent implements OnInit {
       }
 
       if (edition) {
-        this.bandService.editProfile(form).subscribe((result) => {
+        this.bandService.update(this.band.id, form).subscribe((result) => {
           if (result) {
             this.navigateToBandProfile(true, result.id);
           }

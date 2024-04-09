@@ -21,11 +21,10 @@ import { ProfileService } from '../../services/profile.service';
 import { InvitationRequest } from '../../models/invitation.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
-import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { BandService } from 'src/app/modules/band/services/band.service';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { Musician } from 'src/app/core/models/musician.js';
+import { Musician } from 'src/app/core/models/musician';
 
 @Component({
   selector: 'app-profile-resume',
@@ -60,12 +59,14 @@ export class ProfileResumeComponent implements OnInit, OnChanges {
   hasBeenInvitedToAllBands: boolean = false;
   isMemberOfAllBands: boolean = false;
   bands: MusicianBandsStatus[] = [];
-  profileBandsMember: MusicianBands[] = [];
+  profileBandsMember: Band[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.band);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userId'].currentValue) {
+    if (changes['userId']?.currentValue) {
       const userId = changes['userId'].currentValue;
       this.getMusicianLeaders(userId);
       this.getBandsFromMusician(userId);
@@ -125,7 +126,7 @@ export class ProfileResumeComponent implements OnInit, OnChanges {
   }
 
   isMember(): boolean {
-    return this.band!.members.some(({ id }) => id === this.user()!.id);
+    return this.band!.members?.some(({ id }) => id === this.user()!.id);
   }
 
   leaveBand(): void {
