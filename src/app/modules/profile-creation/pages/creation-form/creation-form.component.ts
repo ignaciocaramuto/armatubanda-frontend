@@ -201,7 +201,7 @@ export class CreationFormComponent implements OnInit {
         form.append('image', this.profileImageformGroup.get('image')?.value);
       }
 
-      this.http.patch<FormData>(urlPatch, form).subscribe({
+      this.http.put<FormData>(urlPatch, form).subscribe({
         next: (resp) => {
           if (resp) {
             this.router.navigateByUrl('/list').then(() => {
