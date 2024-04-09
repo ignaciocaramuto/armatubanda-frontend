@@ -3,9 +3,9 @@ import { Band } from '../../band/models/band.interface';
 
 export interface Invitation {
   id: number;
-  musicianInvited: Musician;
-  bandInvitation: Band;
   status: boolean;
+  musician: Musician;
+  band: Band;
 }
 
 export interface InvitationRequest {

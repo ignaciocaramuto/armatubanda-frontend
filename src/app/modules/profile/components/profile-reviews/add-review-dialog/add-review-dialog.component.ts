@@ -53,15 +53,12 @@ export class AddReviewDialogComponent {
           this.dialogRef.close(comments);
         });
       } else {
-        const comment = {
-          comment: this.formReview.value,
-          author: this.user()!.id,
-          musician: this.dialogData.userId,
-        };
-
-        this.profileService.postReview(comment).subscribe((comments) => {
-          this.dialogRef.close(comments);
-        });
+        const comment = this.formReview.value;
+        this.profileService
+          .leaveComment(this.dialogData.userId, comment)
+          .subscribe((comments) => {
+            this.dialogRef.close(comments);
+          });
       }
     }
   }

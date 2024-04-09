@@ -1,5 +1,8 @@
 <ng-container *ngIf="musician">
-  <app-profile-resume [musician]="musician"></app-profile-resume>
+  <app-profile-resume
+    [musician]="musician"
+    [currentProfileMusician]="musicianId"
+  ></app-profile-resume>
   <app-profile-feed
     [posts]="posts"
     [userId]="musicianId"

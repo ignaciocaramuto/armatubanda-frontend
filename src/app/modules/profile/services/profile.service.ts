@@ -4,9 +4,9 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 import { Musician } from 'src/app/core/models/musician';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment.local';
-import { MusicianBands } from 'src/app/core/models/musicianBands.interface';
 import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
 import { Band } from '../../band/models/band.interface.js';
+import { Comment } from 'src/app/core/models/comment.interface.js';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +16,11 @@ export class ProfileService extends CrudService<Musician> {
     super(http, `${environment.apiUrl}/musician`);
   }
 
-  postReview(comment: any): Observable<Comment[]> {
+  leaveComment(id: number, comment: any): Observable<Comment[]> {
     return this.http
-      .put<Comment[]>(`${this.apiUrl}/upload-review`, comment)
+      .post<Comment[]>(`${environment.apiUrl}/comment/musician/${id}`, {
+        comment,
+      })
       .pipe(
         tap(() =>
           this._logMessageService.logConfirm('¡Tu comentario ha sido añadido!')
@@ -35,9 +37,11 @@ export class ProfileService extends CrudService<Musician> {
     return this.http.get<Band[]>(`${this.apiUrl}/${id}/bands`);
   }
 
-  getMusicianLeaderBands(id?: number): Observable<MusicianBandsStatus[]> {
+  getMusicianLeaderBands(
+    musicianId: number
+  ): Observable<MusicianBandsStatus[]> {
     return this.http.get<MusicianBandsStatus[]>(
-      `${this.apiUrl}/${id}/leader/bands`
+      `${this.apiUrl}/leader/${musicianId}`
     );
   }
 

@@ -1,5 +1,5 @@
 export enum MusicianStatusBand {
-  Member = 'MEMBER',
-  NotMember = 'NOT MEMBER',
-  Pending = 'PENDING',
+  MEMBER = 'Member',
+  NOT_MEMBER = 'Not member',
+  PENDING_INVITATION = 'Pending invitation',
 }

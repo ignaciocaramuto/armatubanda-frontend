@@ -62,14 +62,13 @@
     <div class="invitations">
       <div
         class="menu-option invitation"
-        [routerLink]="'/band/profile/' + invitation.bandInvitation.id"
+        [routerLink]="'/band/profile/' + invitation.band.id"
       >
-        <!-- <app-profile-image
-          [picByte]="invitation.bandInvitation.image.picByte"
-          [type]="invitation.bandInvitation.image.type"
+        <app-profile-image
+          [imagePath]="invitation.band.imagePath"
           class="small-size"
         ></app-profile-image>
-        <span class="text">{{ invitation.bandInvitation.bandInfo.name }}</span> -->
+        <span class="text">{{ invitation.band.name }}</span>
       </div>
       <div class="actions">
         <span

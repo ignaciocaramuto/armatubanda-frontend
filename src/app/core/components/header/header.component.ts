@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  invitationChange(invitation: Invitation, status: boolean): void {
+  invitationChange({ id }: Invitation, status: boolean): void {
     const confirmText = status
       ? '¿Estás seguro que quieres aceptar esta invitación?'
       : '¿Estás seguro que quieres rechazar esta invitación?';
@@ -79,15 +79,8 @@ export class HeaderComponent implements OnInit {
       .afterClosed()
       .subscribe((confirm: boolean) => {
         if (confirm) {
-          const invitationStatus: InvitationStatusDto = {
-            invitationId: invitation.id,
-            musicianId: invitation.musicianInvited.id,
-            bandId: invitation.bandInvitation.id,
-            status: status,
-          };
-
           this.invitationService
-            .changeInvitationStatus(invitationStatus)
+            .changeInvitationStatus(id, status)
             .subscribe((result) => {
               if (result) {
                 this.getMusicianData();
@@ -100,12 +93,10 @@ export class HeaderComponent implements OnInit {
   private getMusicianData(): void {
     forkJoin({
       musicianBands: this.profileService.getMusicianBands(this.user()!.id),
-      // invitations: this.invitationService.getPendingInvitations(),
-    }).subscribe(({ musicianBands }) => {
+      invitations: this.invitationService.getPendingInvitations(),
+    }).subscribe(({ musicianBands, invitations }) => {
       this.musicianBands = musicianBands;
-      console.log(this.musicianBands);
-
-      // this.invitations = invitations;
+      this.invitations = invitations;
       this.cd.detectChanges();
     });
   }

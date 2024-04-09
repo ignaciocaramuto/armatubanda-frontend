@@ -13,23 +13,18 @@ export class InvitationService {
 
   createInvitation(invitation: InvitationRequest): Observable<Invitation> {
     return this.http.post<Invitation>(
-      `${environment.apiUrl}/invitation/invite`,
+      `${environment.apiUrl}/invitation`,
       invitation
     );
   }
 
   getPendingInvitations(): Observable<Invitation[]> {
-    return this.http.get<Invitation[]>(
-      `${environment.apiUrl}/invitation/musician/pending`
-    );
+    return this.http.get<Invitation[]>(`${environment.apiUrl}/invitation`);
   }
 
-  changeInvitationStatus(
-    invitation: InvitationStatusDto
-  ): Observable<InvitationStatusDto> {
-    return this.http.put<InvitationStatusDto>(
-      `${environment.apiUrl}/invitation/change`,
-      invitation
+  changeInvitationStatus(id: number, status: boolean): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.apiUrl}/invitation/${id}?accepted=${status}`
     );
   }
 }

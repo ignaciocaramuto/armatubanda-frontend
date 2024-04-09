@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
   inject,
 } from '@angular/core';
@@ -19,12 +18,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileService } from '../../services/profile.service';
 import { InvitationRequest } from '../../models/invitation.interface';
-import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
-import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
 import { BandService } from 'src/app/modules/band/services/band.service';
 import { ConfirmDialogComponent } from 'src/app/core/components/confirm-dialog/confirm-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Musician } from 'src/app/core/models/musician';
+import { MusicianBandsStatus } from 'src/app/core/models/musicianBandsStatus.interface';
+import { MusicianStatusBand } from 'src/app/core/enums/musicianStatusBand.enum';
 
 @Component({
   selector: 'app-profile-resume',
@@ -43,10 +42,11 @@ import { Musician } from 'src/app/core/models/musician';
     TranslateModule,
   ],
 })
-export class ProfileResumeComponent implements OnInit, OnChanges {
+export class ProfileResumeComponent implements OnChanges {
   @Input() isMusicianProfile: boolean = true;
   @Input() musician?: Musician;
   @Input() band?: Band;
+  @Input() currentProfileMusician?: number;
 
   private router = inject(Router);
   private dialog = inject(MatDialog);
@@ -61,15 +61,12 @@ export class ProfileResumeComponent implements OnInit, OnChanges {
   bands: MusicianBandsStatus[] = [];
   profileBandsMember: Band[] = [];
 
-  ngOnInit(): void {
-    console.log(this.band);
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userId']?.currentValue) {
-      const userId = changes['userId'].currentValue;
-      this.getMusicianLeaders(userId);
-      this.getBandsFromMusician(userId);
+    if (changes['currentProfileMusician']?.currentValue) {
+      const currentProfileMusician =
+        changes['currentProfileMusician'].currentValue;
+      this.getMusicianLeaders(currentProfileMusician);
+      this.getBandsFromMusician(currentProfileMusician);
     }
   }
 
@@ -137,16 +134,18 @@ export class ProfileResumeComponent implements OnInit, OnChanges {
     });
   }
 
-  private getMusicianLeaders(userId: number): void {
-    this.musicianService.getMusicianLeaderBands(userId).subscribe((result) => {
-      this.bands = result;
-      this.hasBeenInvitedToAllBands = this.bands.every(
-        ({ status }) => status === MusicianStatusBand.Pending
-      );
-      this.isMemberOfAllBands = this.bands.every(
-        ({ status }) => status === MusicianStatusBand.Member
-      );
-    });
+  private getMusicianLeaders(currentProfileMusician: number): void {
+    this.musicianService
+      .getMusicianLeaderBands(currentProfileMusician)
+      .subscribe((result) => {
+        this.bands = result;
+        this.hasBeenInvitedToAllBands = this.bands.every(
+          ({ status }) => status === MusicianStatusBand.PENDING_INVITATION
+        );
+        this.isMemberOfAllBands = this.bands.every(
+          ({ status }) => status === MusicianStatusBand.MEMBER
+        );
+      });
   }
 
   private getBandsFromMusician(userId: number): void {

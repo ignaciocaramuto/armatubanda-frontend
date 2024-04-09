@@ -66,10 +66,10 @@ export class RequestsComponent implements OnInit {
       this.getBand(this.bandId, true);
     });
 
-    this.profileService.getMusicianLeaderBands(2132131).subscribe((bands) => {
-      this.leaderBands = bands.map((band) => ({
-        id: band.musicianBandsDto.bandId,
-        name: band.musicianBandsDto.bandName,
+    this.profileService.getMusicianLeaderBands(123).subscribe((bands) => {
+      this.leaderBands = bands.map(({ id, name }) => ({
+        id,
+        name,
       }));
     });
 

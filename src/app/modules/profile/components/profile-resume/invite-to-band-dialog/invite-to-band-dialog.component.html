@@ -13,24 +13,22 @@
       <mat-list-option
         [value]="band"
         [disabled]="
-          band.status === MusicianStatusBand.Member ||
-          band.status === MusicianStatusBand.Pending
+          band.status === MusicianStatusBand.MEMBER ||
+          band.status === MusicianStatusBand.PENDING_INVITATION
         "
       >
         <div class="band-name">
-          <!-- <app-profile-image
-            [picByte]="band.musicianBandsDto.bandImage.picByte"
-            [type]="band.musicianBandsDto.bandImage.type"
-            [imagePath]="band."
+          <app-profile-image
+            [imagePath]="band.imagePath"
             class="medium-size"
           ></app-profile-image>
-          <span>{{ band.musicianBandsDto.bandName }}</span>
-          <span *ngIf="band.status === MusicianStatusBand.Member"
+          <span>{{ band.name }}</span>
+          <span *ngIf="band.status === MusicianStatusBand.MEMBER"
             >(Ya pertenece a esta banda)
           </span>
-          <span *ngIf="band.status === MusicianStatusBand.Pending"
+          <span *ngIf="band.status === MusicianStatusBand.PENDING_INVITATION"
             >(Invitación pendiente)</span
-          > -->
+          >
         </div>
       </mat-list-option>
     </ng-container>
