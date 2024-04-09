@@ -103,22 +103,29 @@ export class CreationFormComponent implements OnInit {
     birthday: ['', Validators.required],
     webSite: [''],
     socialMedia: [''],
-    lookingBands: ['', Validators.required],
+  });
+
+  bioFormGroup: FormGroup = this.fb.group({
+    bio: ['', Validators.required],
     career: this.fb.array([]),
+  });
+
+  skillsFormGroup: FormGroup = this.fb.group({
+    lookingBands: ['', Validators.required],
     genres: ['', Validators.required],
     instruments: ['', Validators.required],
   });
 
   profileImageformGroup: FormGroup = this.fb.group({
-    profileImage: ['', Validators.required],
+    image: ['', Validators.required],
   });
 
   get career(): FormArray {
-    return this.personalformGroup.controls['career'] as FormArray;
+    return this.bioFormGroup.controls['career'] as FormArray;
   }
 
   get careerFormArrayControls(): FormGroup[] {
-    return (this.personalformGroup.controls['career'] as FormArray)
+    return (this.bioFormGroup.controls['career'] as FormArray)
       .controls as FormGroup[];
   }
 
@@ -155,9 +162,7 @@ export class CreationFormComponent implements OnInit {
 
   onSubmit(edition?: boolean): void {
     if (this.personalformGroup.valid && this.profileImageformGroup.valid) {
-      const urlPatch = !edition
-        ? `${this.baseUrl}/musician`
-        : `${this.baseUrl}/musician/edit`;
+      const urlPatch = `${this.baseUrl}/musician`;
 
       const form = new FormData();
 
@@ -177,22 +182,23 @@ export class CreationFormComponent implements OnInit {
         'socialMedia',
         this.personalformGroup.get('socialMedia')?.value
       );
+      // form.append(
+      //   'lookingBands',
+      //   this.skillsFormGroup.get('lookingBands')?.value === 'Sí' ? true : false
+      // );
+      form.append('bio', this.bioFormGroup.get('bio')?.value);
       form.append(
-        'lookingBands',
-        this.personalformGroup.get('lookingBands')?.value
+        'career',
+        JSON.stringify(this.bioFormGroup.get('career')?.value)
       );
-      form.append('career', this.personalformGroup.get('career')?.value);
-      form.append('genres', this.personalformGroup.get('genres')?.value);
+      form.append('genres', this.skillsFormGroup.get('genres')?.value);
       form.append(
         'instruments',
-        this.personalformGroup.get('instruments')?.value
+        this.skillsFormGroup.get('instruments')?.value
       );
 
-      if (this.profileImageformGroup.get('profileImage')?.value) {
-        form.append(
-          'profileImage',
-          this.profileImageformGroup.get('profileImage')?.value
-        );
+      if (this.profileImageformGroup.get('image')?.value) {
+        form.append('image', this.profileImageformGroup.get('image')?.value);
       }
 
       this.http.patch<FormData>(urlPatch, form).subscribe({
@@ -227,17 +233,15 @@ export class CreationFormComponent implements OnInit {
 
   setSelectedFile(event: any) {
     if (!event) {
-      this.profileImageformGroup.get('profileImage')?.setValue(null);
+      this.profileImageformGroup.get('image')?.setValue(null);
       return;
     }
-    this.profileImageformGroup
-      .get('profileImage')
-      ?.setValue(event?.target.files[0]);
+    this.profileImageformGroup.get('image')?.setValue(event?.target.files[0]);
   }
 
   addCareer(): void {
     const careerForm = this.fb.group({
-      name: ['', Validators.required],
+      title: ['', Validators.required],
       description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
@@ -263,17 +267,32 @@ export class CreationFormComponent implements OnInit {
     this.personalformGroup.get('webSite')?.setValue(musician.webSite);
     this.personalformGroup.get('socialMedia')?.setValue(musician.socialMedia);
 
+    // Bio
+    this.bioFormGroup.get('bio')?.setValue(musician.bio);
+
     // Carreer
+    musician.career?.forEach((career) => {
+      const carrerForm = this.fb.group({
+        title: career.title,
+        description: career.description,
+        startDate: career.startDate,
+        endDate: career.endDate,
+      });
+      this.career.push(carrerForm);
+    });
 
-    // Academic history
-
-    // Preferences
+    // Skills
+    this.skillsFormGroup
+      .get('instruments')
+      ?.setValue(musician.instruments.map(({ name }) => name));
+    this.skillsFormGroup
+      .get('genres')
+      ?.setValue(musician.genres.map(({ name }) => name));
+    this.skillsFormGroup.get('lookingBands')?.setValue(musician.lookingBands);
 
     // Profile image
     if (musician.imagePath) {
-      // this.profileImageformGroup
-      //   .get('profileImage')
-      //   ?.setValue(this.fileConverterPipe.transform(musician.profileImage));
+      this.profileImageformGroup.get('image')?.setValue(musician.imagePath);
     }
   }
 

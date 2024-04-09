@@ -131,8 +131,8 @@
     </div>
   </mat-step>
 
-  <mat-step [stepControl]="personalformGroup">
-    <form [formGroup]="personalformGroup">
+  <mat-step [stepControl]="bioFormGroup">
+    <form [formGroup]="bioFormGroup">
       <ng-template matStepLabel>Biografia</ng-template>
       <mat-form-field appearance="outline" style="width: 100%; margin-top: 1em">
         <mat-label>Biografia</mat-label>
@@ -148,7 +148,7 @@
             <div class="bands">
               <app-input-text
                 appearance="outline"
-                formControlName="name"
+                formControlName="title"
                 type="text"
                 placeholder="Nombre de banda"
                 [width]="300"
@@ -208,13 +208,56 @@
     </div>
   </mat-step>
 
+  <mat-step [stepControl]="skillsFormGroup">
+    <form [formGroup]="skillsFormGroup" class="personal-info-form">
+      <ng-template matStepLabel>Instrumentos</ng-template>
+      <div class="personal-inputs">
+        <app-input-select
+          appearance="outline"
+          [items]="instruments"
+          formControlName="instruments"
+          idPropertyName="name"
+          placeholder="Intrumentos"
+          [multiple]="true"
+          [width]="500"
+          class="textinput"
+        >
+        </app-input-select>
+        <app-input-select
+          appearance="outline"
+          [items]="genres"
+          idPropertyName="name"
+          formControlName="genres"
+          placeholder="Géneros"
+          [multiple]="true"
+          [width]="500"
+          class="textinput"
+        >
+        </app-input-select>
+        <app-input-select
+          appearance="outline"
+          [items]="lookingBand"
+          formControlName="lookingBands"
+          placeholder="¿Estás buscando banda?"
+          [width]="500"
+          class="textinput"
+        >
+        </app-input-select>
+      </div>
+    </form>
+    <div class="stepper-buttons">
+      <button mat-flat-button matStepperPrevious color="primary">Volver</button>
+      <button mat-flat-button matStepperNext color="primary">Siguiente</button>
+    </div>
+  </mat-step>
+
   <mat-step [stepControl]="profileImageformGroup">
     <form
       [formGroup]="profileImageformGroup"
       enctype="multipart/form-data"
       (ngSubmit)="onSubmit()"
     >
-      <ng-template matStepLabel>Subir foto de perfil</ng-template>
+      <ng-template matStepLabel>Imagen de perfil</ng-template>
       <app-drag-and-drop
         *ngIf="musician"
         [imagePath]="musician.imagePath"
