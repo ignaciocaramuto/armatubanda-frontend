@@ -19,14 +19,14 @@
       </p>
     </div>
     <div class="card-actions">
-      <!-- <button
+      <button
         mat-stroked-button
         color="primary"
-        [disabled]="advertisement.status !== advertisementStatus.Eligible"
-        (click)="openApplicationDialog(advertisement.adId)"
+        [disabled]="advertisement.status !== advertisementStatus.ELIGIGLE"
+        (click)="openApplicationDialog(advertisement.id)"
       >
         {{ getButtonLabel(advertisement.status) }}
-      </button> -->
+      </button>
     </div>
   </mat-card>
 </ng-container>

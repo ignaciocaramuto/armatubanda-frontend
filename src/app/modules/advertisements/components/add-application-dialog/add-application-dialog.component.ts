@@ -27,7 +27,6 @@ export class AddApplicationDialogComponent {
   adId = inject(MAT_DIALOG_DATA);
 
   applicationFormGroup = this.fb.group({
-    idApplication: this.adId,
     message: ['', [Validators.required, Validators.maxLength(200)]],
   });
 
@@ -37,7 +36,7 @@ export class AddApplicationDialogComponent {
     }
 
     this.applicationService
-      .create(this.applicationFormGroup.value)
+      .createApplication(this.adId, this.applicationFormGroup.value)
       .subscribe((result) => {
         if (result) {
           this.dialogRef.close(result);

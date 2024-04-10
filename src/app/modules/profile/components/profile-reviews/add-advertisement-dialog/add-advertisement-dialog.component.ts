@@ -51,8 +51,7 @@ export class AddAdvertisementDialogComponent implements OnInit {
   genres: Genre[] = [];
   instruments: Instrument[] = [];
   formGroup: FormGroup = this.fb.group({
-    bandId: [],
-    name: ['', Validators.required],
+    title: ['', Validators.required],
     description: ['', Validators.required],
     genres: ['', Validators.required],
     instruments: ['', Validators.required],
@@ -70,19 +69,8 @@ export class AddAdvertisementDialogComponent implements OnInit {
 
   publishAdvertisement(): void {
     if (this.formGroup.valid) {
-      this.formGroup.get('bandId')?.setValue(this.bandId);
-      const genres = this.getInstrumentsFormatted(
-        this.formGroup.get('genres')?.value
-      );
-      const instruments = this.getInstrumentsFormatted(
-        this.formGroup.get('instruments')?.value
-      );
-
-      this.formGroup.get('genres')?.setValue(genres);
-      this.formGroup.get('instruments')?.setValue(instruments);
-
       this.advertisementService
-        .createAdvertisement(this.formGroup.value)
+        .createAdvertisement(this.bandId, this.formGroup.value)
         .subscribe((result) => {
           if (result) {
             this.dialogRef.close();

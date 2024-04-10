@@ -53,13 +53,13 @@ export class AdvertisementsPageComponent implements OnInit {
 
   getButtonLabel(status: AdvertisementStatus): string {
     switch (status) {
-      case this.advertisementStatus.Eligible:
+      case this.advertisementStatus.ELIGIGLE:
         return 'Enviar solicitud';
-      case this.advertisementStatus.Invited:
+      case this.advertisementStatus.PENDING_INVITATION:
         return 'Invitación pendiente';
-      case this.advertisementStatus.Member:
+      case this.advertisementStatus.MEMBER:
         return 'Ya eres miembro';
-      case this.advertisementStatus.Pending:
+      case this.advertisementStatus.PENDING_APPLICATION:
         return 'Solicitud pendiente';
       default:
         return '';

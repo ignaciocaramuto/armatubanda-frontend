@@ -99,17 +99,23 @@ export class RequestsComponent implements OnInit {
       .afterClosed()
       .subscribe((confirm: Boolean) => {
         if (confirm) {
-          const data = {
-            applicationId,
-            status,
-          };
-          this.applicationService
-            .changeApplicationStatus(data)
-            .subscribe((result) => {
-              if (result) {
-                this.getApplications(applicationId);
-              }
-            });
+          if (status) {
+            this.applicationService
+              .accept(this.bandId, applicationId)
+              .subscribe((result) => {
+                if (result) {
+                  this.getApplications(applicationId);
+                }
+              });
+          } else {
+            this.applicationService
+              .reject(this.bandId, applicationId)
+              .subscribe((result) => {
+                if (result) {
+                  this.getApplications(applicationId);
+                }
+              });
+          }
         }
       });
   }
@@ -124,7 +130,7 @@ export class RequestsComponent implements OnInit {
       .subscribe((confirm: Boolean) => {
         if (confirm) {
           this.advertisementService
-            .deleteAdvertisement(this.formGroup.get('adId')?.value)
+            .delete(this.formGroup.get('adId')?.value)
             .subscribe(() => {
               this.logMessageService.logConfirm(
                 '¡Aviso borrado correctamente!'

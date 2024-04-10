@@ -64,7 +64,7 @@ export class FiltersComponent implements OnInit {
     private geographyService: GeographyService
   ) {
     this.formGroup = this.fb.group({
-      name: [''],
+      firstName: [''],
       instruments: [''],
       genres: [''],
       experience: [''],
@@ -78,7 +78,7 @@ export class FiltersComponent implements OnInit {
   get isFilterSelected(): boolean {
     const controls = this.formGroup.controls;
     return (
-      controls['name'].value ||
+      controls['firstName'].value ||
       controls['instruments'].value.length > 0 ||
       controls['genres'].value.length > 0 ||
       controls['experience'].value ||
@@ -154,8 +154,8 @@ export class FiltersComponent implements OnInit {
     const selectedKeys: string[] = [];
     const controls = this.formGroup.controls;
 
-    if (controls['name'].value) {
-      selectedKeys.push('name');
+    if (controls['firstName'].value) {
+      selectedKeys.push('firstName');
     }
     if (controls['instruments'].value?.length > 0) {
       selectedKeys.push('instruments');

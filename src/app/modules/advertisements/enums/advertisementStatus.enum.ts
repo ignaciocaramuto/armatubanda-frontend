@@ -1,6 +1,6 @@
 export enum AdvertisementStatus {
-  Eligible = 'ELIGIBLE',
-  Member = 'MEMBER',
-  Invited = 'INVITED',
-  Pending = 'PENDING',
+  PENDING_INVITATION = 'Pending invitation',
+  PENDING_APPLICATION = 'Pending application',
+  MEMBER = 'Member',
+  ELIGIGLE = 'Eligible',
 }

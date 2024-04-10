@@ -12,12 +12,15 @@ import { Advertisement } from '../models/advertisement.interface';
 export class AdvertisementService extends CrudService<Advertisement> {
   // TODO: extend CRUD service: update API to return correct class in create advertisement
   constructor(http: HttpClient) {
-    super(http, `${environment.apiUrl}/ad`);
+    super(http, `${environment.apiUrl}/advertisement`);
   }
 
-  createAdvertisement(request: FormData): Observable<BandAdvertisement> {
+  createAdvertisement(
+    bandId: number,
+    request: FormData
+  ): Observable<BandAdvertisement> {
     return this.http
-      .post<BandAdvertisement>(`${environment.apiUrl}/ad`, request)
+      .post<BandAdvertisement>(`${this.apiUrl}/${bandId}`, request)
       .pipe(
         tap(
           () =>
@@ -36,10 +39,6 @@ export class AdvertisementService extends CrudService<Advertisement> {
   }
 
   getAds(bandId: number): Observable<Advertisement[]> {
-    return this.http.get<Advertisement[]>(`${environment.apiUrl}/ad/${bandId}`);
-  }
-
-  deleteAdvertisement(adId: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/delete/${adId}`);
+    return this.http.get<Advertisement[]>(`${this.apiUrl}/${bandId}`);
   }
 }

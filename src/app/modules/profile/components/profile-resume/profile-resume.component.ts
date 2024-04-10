@@ -151,6 +151,7 @@ export class ProfileResumeComponent implements OnChanges {
   private getBandsFromMusician(userId: number): void {
     this.musicianService.getMusicianBands(userId).subscribe((result) => {
       this.profileBandsMember = result;
+      console.log(this.profileBandsMember);
     });
   }
 }
