@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { CrudService } from 'src/app/core/services/crud.service';
 import { environment } from 'src/environments/environment.local';
 import { Observable, tap, catchError, throwError } from 'rxjs';
-import { Post } from '../../profile/models/post.interface';
 import { Comment } from 'src/app/core/models/comment.interface.js';
 import { Band } from '../models/band.interface.js';
 
@@ -35,7 +34,7 @@ export class BandService extends CrudService<Band> {
   }
 
   deleteBand(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/delete/${id}`).pipe(
+    return this.http.delete<string>(`${this.apiUrl}/${id}`).pipe(
       tap(() =>
         this._logMessageService.logConfirm('¡Banda eliminada correctamente!')
       ),
