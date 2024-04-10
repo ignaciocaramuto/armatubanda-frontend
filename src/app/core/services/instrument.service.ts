@@ -17,21 +17,19 @@ export class InstrumentService extends CrudService<Instrument> {
     return this.getAll();
   }
 
-  addInstrument(instrument: Instrument): Observable<Instrument> {
-    return this.http
-      .post<Instrument>(`${this.apiUrl}/${instrument}`, null)
-      .pipe(
-        tap(() =>
-          this._logMessageService.logConfirm(
-            '¡Instrumento agregado correctamente!'
-          )
-        ),
-        catchError((res: HttpErrorResponse) =>
-          throwError(() => {
-            if (res.error)
-              this._logMessageService.logServerError(res.error.message);
-          })
+  addInstrument(name: string): Observable<Instrument> {
+    return this.http.post<Instrument>(`${this.apiUrl}`, { name }).pipe(
+      tap(() =>
+        this._logMessageService.logConfirm(
+          '¡Instrumento agregado correctamente!'
         )
-      );
+      ),
+      catchError((res: HttpErrorResponse) =>
+        throwError(() => {
+          if (res.error)
+            this._logMessageService.logServerError(res.error.message);
+        })
+      )
+    );
   }
 }

@@ -17,8 +17,8 @@ export class GenreService extends CrudService<Genre> {
     return this.getAll();
   }
 
-  addGenre(genre: string): Observable<Genre> {
-    return this.http.post<Genre>(`${this.apiUrl}/${genre}`, null).pipe(
+  addGenre(name: string): Observable<Genre> {
+    return this.http.post<Genre>(`${this.apiUrl}`, { name }).pipe(
       tap(() =>
         this._logMessageService.logConfirm('Género agregado correctamente!')
       ),

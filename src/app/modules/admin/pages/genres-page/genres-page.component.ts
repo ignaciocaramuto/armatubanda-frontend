@@ -22,7 +22,7 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
   styleUrls: ['./genres-page.component.scss'],
 })
 export class GenresPageComponent {
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = ['name', 'actions'];
   genres: Genre[] = [];
 
   constructor(
@@ -71,26 +71,6 @@ export class GenresPageComponent {
         });
       }
     });
-  }
-
-  deleteGenre(id: number): void {
-    this.dialog
-      .open(ConfirmDialogComponent, {
-        data: '¿Estás seguro que quieres eliminar este género?',
-      })
-      .afterClosed()
-      .subscribe((confirm: boolean) => {
-        if (confirm) {
-          this.genreService.delete(id).subscribe((result) => {
-            if (result) {
-              this.logMessageService.logConfirm(
-                '¡Género eliminado correctamente!'
-              );
-              this.getGenres();
-            }
-          });
-        }
-      });
   }
 
   private getGenres(): void {

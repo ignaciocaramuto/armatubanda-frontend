@@ -22,7 +22,7 @@ import { LogMessageService } from 'src/app/core/services/log-message.service';
   styleUrls: ['./instruments-page.component.scss'],
 })
 export class InstrumentsPageComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = ['name', 'actions'];
   instruments: Instrument[] = [];
 
   constructor(
@@ -51,26 +51,6 @@ export class InstrumentsPageComponent implements OnInit {
         });
       }
     });
-  }
-
-  deleteInstrument(id: number): void {
-    this.dialog
-      .open(ConfirmDialogComponent, {
-        data: '¿Estás seguro que quieres eliminar este instrumento?',
-      })
-      .afterClosed()
-      .subscribe((confirm: boolean) => {
-        if (confirm) {
-          this.instrumentService.delete(id).subscribe((result) => {
-            if (result) {
-              this.logMessageService.logConfirm(
-                '¡Instrumento eliminado correctamente!'
-              );
-              this.getInstruments();
-            }
-          });
-        }
-      });
   }
 
   private getInstruments(): void {
