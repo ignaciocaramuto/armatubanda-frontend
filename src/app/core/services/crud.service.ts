@@ -43,12 +43,14 @@ export class CrudService<T> {
     );
   }
 
-  update(id: number | string, data: T | FormData): Observable<T> {
+  update(id: number | string, data: T | FormData | any): Observable<T> {
+    console.log(id, data);
+
     return this.http.put<T>(`${this.apiUrl}/${id}`, data);
   }
 
-  delete(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/${id}`);
+  delete(id: number | string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
   buildQueryParams(filters: any): HttpParams {

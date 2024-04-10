@@ -53,6 +53,49 @@ export class InstrumentsPageComponent implements OnInit {
     });
   }
 
+  updateInstrument(name: string): void {
+    const dialogRef = this.dialog.open(AddInstrumentDialogComponent, {
+      width: '400px',
+      height: '250px',
+      disableClose: true,
+      data: name,
+    });
+
+    dialogRef.afterClosed().subscribe((instrument) => {
+      if (instrument) {
+        const updatedInstrument = {
+          newName: instrument,
+        };
+        this.instrumentService
+          .update(name, updatedInstrument)
+          .subscribe((result) => {
+            if (result) {
+              this.logMessageService.logConfirm(
+                'Instrumento editado correctamente'
+              );
+              this.getInstruments();
+            }
+          });
+      }
+    });
+  }
+
+  deleteInstrument(name: string): void {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: '¿Estás seguro que quieres eliminar este instrumento?',
+      })
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.instrumentService.delete(name).subscribe((res) => {
+            this.logMessageService.logConfirm(res.message);
+            this.getInstruments();
+          });
+        }
+      });
+  }
+
   private getInstruments(): void {
     this.instrumentService
       .getAll()

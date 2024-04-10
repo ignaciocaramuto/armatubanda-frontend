@@ -14,23 +14,17 @@ import { AddInstrumentDialogComponent } from '../add-instrument-dialog/add-instr
 })
 export class AddGenreDialogComponent implements OnInit {
   genre = new FormControl('', Validators.required);
-  genreId!: number;
   private dialogRef = inject(MatDialogRef<AddInstrumentDialogComponent>);
-  private editGenre = inject(MAT_DIALOG_DATA);
+  private genreName = inject(MAT_DIALOG_DATA);
 
   ngOnInit(): void {
-    if (this.editGenre) {
-      this.genreId = this.editGenre.id;
-      this.genre.setValue(this.editGenre.name);
+    if (this.genreName) {
+      this.genre.setValue(this.genreName);
     }
   }
 
   confirmGenre(): void {
     if (this.genre.valid) {
-      if (this.genreId) {
-        this.dialogRef.close({ id: this.genreId, name: this.genre.value });
-        return;
-      }
       this.dialogRef.close(this.genre.value);
     }
   }

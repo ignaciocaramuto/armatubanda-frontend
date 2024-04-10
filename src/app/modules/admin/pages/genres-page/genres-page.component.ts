@@ -53,17 +53,20 @@ export class GenresPageComponent {
     });
   }
 
-  editGenre(genre: Genre): void {
+  editGenre(name: string): void {
     const dialogRef = this.dialog.open(AddGenreDialogComponent, {
       width: '400px',
       height: '250px',
       disableClose: true,
-      data: genre,
+      data: name,
     });
 
-    dialogRef.afterClosed().subscribe((genre: Genre) => {
+    dialogRef.afterClosed().subscribe((genre) => {
       if (genre) {
-        this.genreService.update(genre.name, genre).subscribe((result) => {
+        const updatedGenre = {
+          newName: genre,
+        };
+        this.genreService.update(name, updatedGenre).subscribe((result) => {
           if (result) {
             this.logMessageService.logConfirm('¡Género editado correctamente!');
             this.getGenres();
@@ -71,6 +74,22 @@ export class GenresPageComponent {
         });
       }
     });
+  }
+
+  deleteGenre(name: string): void {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: '¿Estás seguro que quieres eliminar este género?',
+      })
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.genreService.delete(name).subscribe((res) => {
+            this.logMessageService.logConfirm(res.message);
+            this.getGenres();
+          });
+        }
+      });
   }
 
   private getGenres(): void {

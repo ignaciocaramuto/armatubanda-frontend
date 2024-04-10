@@ -14,7 +14,18 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <div class="actions">
-        <span class="material-symbols-outlined"> edit </span>
+        <span
+          class="material-symbols-outlined"
+          (click)="updateInstrument(element.name)"
+        >
+          edit
+        </span>
+        <span
+          class="material-symbols-outlined"
+          (click)="deleteInstrument(element.name)"
+        >
+          delete
+        </span>
       </div>
     </td>
   </ng-container>
