@@ -30,7 +30,6 @@ import { GenreService } from 'src/app/core/services/genre.service';
 import { tap } from 'rxjs';
 import { ProfileService } from 'src/app/modules/profile/services/profile.service';
 import { Musician } from 'src/app/core/models/musician';
-import { ConvertImageToFilePipe } from 'src/app/core/pipes/convert-image-to-file.pipe';
 import { GeographyService } from 'src/app/core/services/geography.service';
 import { Experience } from 'src/app/core/enums/experience.enum';
 
@@ -44,7 +43,6 @@ import { Experience } from 'src/app/core/enums/experience.enum';
       useExisting: CreationFormComponent,
       multi: true,
     },
-    ConvertImageToFilePipe,
   ],
   standalone: true,
   imports: [
@@ -74,7 +72,6 @@ export class CreationFormComponent implements OnInit {
   private genreService = inject(GenreService);
   private route = inject(ActivatedRoute);
   private profileService = inject(ProfileService);
-  private fileConverterPipe = inject(ConvertImageToFilePipe);
   private geographyService = inject(GeographyService);
 
   instruments: Instrument[] = [];
@@ -182,10 +179,12 @@ export class CreationFormComponent implements OnInit {
         'socialMedia',
         this.personalformGroup.get('socialMedia')?.value
       );
-      // form.append(
-      //   'lookingBands',
-      //   this.skillsFormGroup.get('lookingBands')?.value === 'Sí' ? true : false
-      // );
+      form.append(
+        'lookingBands',
+        this.skillsFormGroup.get('lookingBands')?.value === 'Sí'
+          ? 'true'
+          : 'false'
+      );
       form.append('bio', this.bioFormGroup.get('bio')?.value);
       form.append(
         'career',
@@ -288,7 +287,9 @@ export class CreationFormComponent implements OnInit {
     this.skillsFormGroup
       .get('genres')
       ?.setValue(musician.genres.map(({ name }) => name));
-    this.skillsFormGroup.get('lookingBands')?.setValue(musician.lookingBands);
+    this.skillsFormGroup
+      .get('lookingBands')
+      ?.setValue(musician.lookingBands ? 'Sí' : 'No');
 
     // Profile image
     if (musician.imagePath) {
