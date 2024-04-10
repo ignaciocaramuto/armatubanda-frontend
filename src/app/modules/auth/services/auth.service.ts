@@ -12,6 +12,7 @@ import {
   throwError,
 } from 'rxjs';
 import { LogMessageService } from 'src/app/core/services/log-message.service';
+import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly baseUrl: string = environment.apiUrl;
@@ -19,6 +20,7 @@ export class AuthService {
   private _currentUser = signal<CurrentUser | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
   private _logMessageService = inject(LogMessageService);
+  private router = inject(Router);
 
   // devuelve una señal de solo lectura
   public currentUser = computed(() => this._currentUser);
@@ -52,6 +54,14 @@ export class AuthService {
     const body = { email: email, password: password };
 
     return this.http.post<CurrentUser>(url, body).pipe(
+      tap((res) => {
+        if (res) {
+          this._logMessageService.logConfirm(
+            'Registro completado correctamente. Inicia sesión para crear tu perfil de músico.'
+          );
+          this.router.navigateByUrl('/auth/login');
+        }
+      }),
       catchError((res: HttpErrorResponse) =>
         throwError(() =>
           this._logMessageService.logServerError(res.error.message)
