@@ -13,9 +13,10 @@
   />
 </div>
 
-<mat-card class="image-preview-card" *ngIf="imageSrc">
+<mat-card class="image-preview-card" *ngIf="imageSrc || imagePath">
   <div class="image-name">
-    <img [src]="imageSrc" alt="Preview" />
+    <img *ngIf="imagePath" [src]="apiUrl + '/' + imagePath" alt="Preview" />
+    <img *ngIf="imageSrc" [src]="imageSrc" alt="Preview" />
     <span>{{ fileName }}</span>
   </div>
   <button mat-icon-button type="button" (click)="deleteFile()">

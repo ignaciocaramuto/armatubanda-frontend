@@ -5,18 +5,15 @@ import {
   EventEmitter,
   Input,
   ChangeDetectorRef,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { DndDirective } from '../../directives/dnd.directive';
-import { Image } from '../../models/image.interface';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ConvertImageToFilePipe } from '../../pipes/convert-image-to-file.pipe';
+import { environment } from 'src/environments/environment.local';
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -34,23 +31,19 @@ import { ConvertImageToFilePipe } from '../../pipes/convert-image-to-file.pipe';
   providers: [ConvertImageToFilePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DragAndDropComponent implements OnChanges {
+export class DragAndDropComponent {
   @Input() imagePath!: string | undefined;
   @Output() fileSelected = new EventEmitter<Event | null>();
 
   imageSrc!: string | ArrayBuffer | null;
   fileName!: string;
+  readonly apiUrl = environment.apiUrl;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['imagePath'].currentValue) {
-      this.imageSrc = changes['imagePath'].currentValue;
-    }
-  }
-
   onFileSelected(event: any): void {
     if (event.target?.files && event.target.files[0]) {
+      this.imagePath = undefined;
       this.readURL(event.target.files[0]);
     }
     this.fileSelected.emit(event);
