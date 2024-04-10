@@ -127,11 +127,21 @@ export class ProfileResumeComponent implements OnChanges {
   }
 
   leaveBand(): void {
-    this.musicianService.leaveBand(this.band!.id).subscribe((result) => {
-      if (result) {
-        window.location.reload();
-      }
-    });
+    const confirmText = '¿Estás seguro que quieres dejar esta banda?';
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: confirmText,
+      })
+      .afterClosed()
+      .subscribe((confirm: Boolean) => {
+        if (confirm) {
+          this.bandService.leaveBand(this.band!.id).subscribe((result) => {
+            if (result) {
+              window.location.reload();
+            }
+          });
+        }
+      });
   }
 
   private getMusicianLeaders(currentProfileMusician: number): void {

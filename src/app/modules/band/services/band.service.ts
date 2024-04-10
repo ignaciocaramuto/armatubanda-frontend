@@ -47,6 +47,10 @@ export class BandService extends CrudService<Band> {
     );
   }
 
+  leaveBand(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/leave/${id}`);
+  }
+
   getComments(id: number): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${environment.apiUrl}/comment/band/${id}`);
   }

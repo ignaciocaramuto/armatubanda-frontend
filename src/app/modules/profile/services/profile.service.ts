@@ -49,10 +49,6 @@ export class ProfileService extends CrudService<Musician> {
     return this.http.put<Musician>(`${this.apiUrl}/edit`, data);
   }
 
-  leaveBand(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/leave?bandId=${id}`);
-  }
-
   getMoreInfo(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/more-info/${id}`);
   }
