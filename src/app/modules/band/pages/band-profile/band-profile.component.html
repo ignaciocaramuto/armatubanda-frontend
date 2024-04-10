@@ -11,8 +11,8 @@
   ></app-profile-feed>
   <app-profile-reviews
     [band]="band"
+    [userId]="bandId"
     [isMusicianProfile]="false"
-    [comments]="comments"
     (onPostChange)="getPosts()"
   ></app-profile-reviews>
 </ng-container>

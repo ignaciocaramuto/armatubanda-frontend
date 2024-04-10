@@ -1,4 +1,11 @@
-import { Component, Input, inject, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  inject,
+  Output,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { AddPostDialogComponent } from './add-post-dialog/add-post-dialog.component';
@@ -8,7 +15,9 @@ import { ReviewComponent } from './review/review.component';
 import { ButtonComponent } from '../../../../core/components/button/button.component';
 import { NgIf, NgFor } from '@angular/common';
 import { AddAdvertisementDialogComponent } from './add-advertisement-dialog/add-advertisement-dialog.component';
-import { Band } from 'src/app/modules/band/models/band.interface.js';
+import { Band } from 'src/app/modules/band/models/band.interface';
+import { ProfileService } from '../../services/profile.service';
+import { BandService } from 'src/app/modules/band/services/band.service';
 
 @Component({
   selector: 'app-profile-reviews',
@@ -17,9 +26,8 @@ import { Band } from 'src/app/modules/band/models/band.interface.js';
   standalone: true,
   imports: [NgIf, ButtonComponent, NgFor, ReviewComponent],
 })
-export class ProfileReviewsComponent {
+export class ProfileReviewsComponent implements OnInit {
   @Input() userId!: number;
-  @Input() comments: Comment[] = [];
   @Input() band!: Band;
   @Input() isMusicianProfile: boolean = true;
 
@@ -27,7 +35,23 @@ export class ProfileReviewsComponent {
 
   private authService = inject(AuthService);
   private dialog = inject(MatDialog);
+  private musicianProfileService = inject(ProfileService);
+  private bandProfileService = inject(BandService);
+
   user = this.authService.currentUser();
+  comments: Comment[] = [];
+
+  ngOnInit(): void {
+    if (this.isMusicianProfile) {
+      this.musicianProfileService
+        .getComments(this.userId)
+        .subscribe((result) => (this.comments = result));
+    } else {
+      this.bandProfileService
+        .getComments(this.userId)
+        .subscribe((result) => (this.comments = result));
+    }
+  }
 
   openAddPostDialog(): void {
     const dialogRef = this.dialog.open(AddPostDialogComponent, {

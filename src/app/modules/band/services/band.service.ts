@@ -15,9 +15,9 @@ export class BandService extends CrudService<Band> {
     super(http, `${environment.apiUrl}/band`);
   }
 
-  postReview(comment: any): Observable<Comment[]> {
+  leaveComment(id: number, comment: any): Observable<Comment[]> {
     return this.http
-      .put<Comment[]>(`${this.apiUrl}/upload-review`, comment)
+      .post<Comment[]>(`${environment.apiUrl}/comment/band/${id}`, { comment })
       .pipe(
         tap(() =>
           this._logMessageService.logConfirm('¡Tu comentario ha sido añadido!')
@@ -45,5 +45,9 @@ export class BandService extends CrudService<Band> {
         )
       )
     );
+  }
+
+  getComments(id: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(`${environment.apiUrl}/comment/band/${id}`);
   }
 }

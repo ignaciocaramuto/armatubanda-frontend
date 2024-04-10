@@ -28,7 +28,6 @@ export class BandProfileComponent implements OnInit {
   bandId!: number;
   band!: Band;
   posts: Post[] = [];
-  comments: Comment[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +46,6 @@ export class BandProfileComponent implements OnInit {
   getById(): void {
     this.bandService.getById(this.bandId).subscribe((res) => {
       this.band = res;
-      this.comments = this.band.comments ?? [];
     });
   }
 

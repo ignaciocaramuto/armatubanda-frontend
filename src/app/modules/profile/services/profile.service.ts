@@ -56,4 +56,10 @@ export class ProfileService extends CrudService<Musician> {
   getMoreInfo(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/more-info/${id}`);
   }
+
+  getComments(id: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(
+      `${environment.apiUrl}/comment/musician/${id}`
+    );
+  }
 }

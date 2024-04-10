@@ -42,18 +42,14 @@ export class AddReviewDialogComponent {
 
   postReview(): void {
     if (this.formReview.valid && this.formReview.value) {
+      const comment = this.formReview.value;
       if (this.dialogData.bandId) {
-        const comment = {
-          comment: this.formReview.value,
-          author: this.user()!.id,
-          band: this.dialogData.bandId,
-        };
-
-        this.bandService.postReview(comment).subscribe((comments) => {
-          this.dialogRef.close(comments);
-        });
+        this.bandService
+          .leaveComment(this.dialogData.bandId, comment)
+          .subscribe((comments) => {
+            this.dialogRef.close(comments);
+          });
       } else {
-        const comment = this.formReview.value;
         this.profileService
           .leaveComment(this.dialogData.userId, comment)
           .subscribe((comments) => {
