@@ -101,8 +101,8 @@ bootstrapApplication(AppComponent, {
           import(
             `./app/modules/advertisements/pages/advertisements-page/advertisements-page.component`
           ).then((c) => c.AdvertisementsPageComponent),
-        canActivate: [canActivateGuard],
-        canMatch: [canMatchGuard],
+        canActivate: [canActivateGuard, canActivateGuardProfile],
+        canMatch: [canMatchGuard, canMatchGuardProfile],
       },
       {
         path: 'admin',
