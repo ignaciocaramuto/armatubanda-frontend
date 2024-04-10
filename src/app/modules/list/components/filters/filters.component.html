@@ -19,6 +19,7 @@
     <div class="divider"></div>
     <form [formGroup]="formGroup">
       <app-input-text
+        *ngIf="title !== 'Avisos'"
         formControlName="firstName"
         type="text"
         placeholder="Nombre"
