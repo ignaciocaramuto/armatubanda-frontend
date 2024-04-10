@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileImageComponent } from '../profile-image/profile-image.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { MusicianBands } from '../../models/musicianBands.interface';
 import { ProfileService } from 'src/app/modules/profile/services/profile.service';
 import { InvitationService } from 'src/app/modules/profile/services/invitation.service';
 import { forkJoin } from 'rxjs';
@@ -20,7 +19,6 @@ import { Invitation } from 'src/app/modules/profile/models/invitation.interface'
 import { MatBadgeModule } from '@angular/material/badge';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { InvitationStatusDto } from 'src/app/modules/profile/models/InvitationStatusDto.interface';
 import { Role } from '../../enums/role.enum';
 import { Band } from 'src/app/modules/band/models/band.interface.js';
 
