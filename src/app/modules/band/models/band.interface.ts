@@ -21,4 +21,5 @@ export interface Band {
   comments?: Comment[];
   posts: Post[];
   advertisements: Advertisement[];
+  lookingMusicians: boolean;
 }
