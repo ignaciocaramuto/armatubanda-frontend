@@ -138,10 +138,12 @@ export class CreateBandProfileComponent implements OnInit {
         this.bandInfoFormGroup.get('socialMedia')?.value
       );
       form.append('genres', this.bandInfoFormGroup.get('genres')?.value);
-      // form.append(
-      //   'lookingMusicians',
-      //   this.bandInfoFormGroup.get('lookingMusicians')?.value
-      // );
+      form.append(
+        'lookingMusicians',
+        this.bandInfoFormGroup.get('lookingMusicians')?.value === 'Sí'
+          ? 'true'
+          : 'false'
+      );
 
       if (this.profileImageformGroup.get('bandProfileImage')?.value) {
         form.append(
@@ -175,7 +177,12 @@ export class CreateBandProfileComponent implements OnInit {
     this.bandInfoFormGroup.get('phoneNumber')?.setValue(band.phoneNumber);
     this.bandInfoFormGroup.get('webSite')?.setValue(band.webSite);
     this.bandInfoFormGroup.get('socialMedia')?.setValue(band.socialMedia);
-    this.bandInfoFormGroup.get('genres')?.setValue(band.genres);
+    this.bandInfoFormGroup
+      .get('genres')
+      ?.setValue(band.genres.map(({ name }) => name));
+    this.bandInfoFormGroup
+      .get('lookingMusicians')
+      ?.setValue(band.lookingMusicians ? 'Sí' : 'No');
 
     this.profileImageformGroup
       .get('bandProfileImage')
