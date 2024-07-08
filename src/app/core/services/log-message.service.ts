@@ -18,6 +18,11 @@ export class LogMessageService {
   }
 
   logServerError(message: string): void {
+    if (!message) {
+      message =
+        'El servidor no se encuentra disponible. Por favor contacte con el administrador.';
+    }
+
     this._snackBar.openFromComponent(SnackbarComponent, {
       ...snackbarConfig,
       data: { message },
